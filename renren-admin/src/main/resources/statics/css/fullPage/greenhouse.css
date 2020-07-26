@@ -1,0 +1,136 @@
+
+
+
+section{
+	height: calc(100% - 70px);
+	display: flex;
+}
+.left , .right{
+	flex: 4;
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+}
+.left .chart{
+	height: 100%;
+	/*height: calc(100% - 200px);*/
+	/*flex: 1;*/
+}
+.left>div:nth-child(1){
+	height: 200px;
+	background: url(img/allNum.png);
+	background-size: 100% 100%;
+	/*font-size: 14px;*/
+	padding: 50px 40px;
+	text-align: center;
+	/*display: flex;*/
+
+}
+.left>div:nth-child(1) img{
+	width: 60px;
+	margin: 4px 10px;
+	vertical-align: bottom;
+}
+.left>div:nth-child(1) .temperature{
+	display: inline-block;
+	font-size: 36px;
+	line-height: 38px;
+	color: rgb(195, 236, 247);
+	margin-right: 6px;
+}
+.left>div:nth-child(1) .weather{
+	display: inline-block;
+	font-size: 15px;
+	line-height: 38px;
+	color: rgb(195, 236, 247);
+}
+.left>div:nth-child(1) .kongqi .weather{
+	line-height: 40px;
+	padding-left: 15px;
+}
+.chartDiv{
+	overflow-y: auto;
+}
+table{
+	width: 100%;
+	border: 0;
+	font-size: 14px;
+	margin-top: 16px;
+}
+table tr th{
+	color: #289eff;
+	text-align: left;
+
+	line-height: 30px;
+}
+table tr td{
+	color: rgba(255,255,255,.9);
+	padding: 2px 4px;
+	height: 50px;
+	/*border-bottom: 1px solid #0b244c;*/
+}
+.chartDiv .el-tag , .chartDiv .el-tag.el-tag--danger{
+	background: transparent;
+	border: 0;
+}
+.right .chart{
+	flex: 1;
+	margin-bottom: 10px;
+	/*background: url(../img/chartBg.png);*/
+	background-size: 100% 100%;
+	padding: 10px;
+}
+.chart .title{
+	display: inline-block;
+	/*margin: 10px;*/
+	font-size: 20px;
+	padding: 8px;
+	background: linear-gradient(to right, rgba(92,137,240,.6), transparent);
+	border-left: 4px solid #f3bc40;
+}
+
+
+.sunDivItem{
+	flex: 1;
+	/*margin-top: 10px;*/
+	text-align: center;
+	padding-top: calc(18% - 46px);
+	background: url(img/10.png);
+	background-size: 100% 100%;
+	border-radius: 5px;
+}
+.sunDivItem p{
+	color: rgba(171, 211, 247, 0.5);
+	font-size: 12px;
+}
+.sunDivItem span{
+	font-size: 18px;
+	letter-spacing: 1px;
+}
+
+.turDivItem{
+	flex: 1;
+	display: flex;
+	padding-top: 20px;
+}
+.turDivItem i{
+	padding-top: 6px;
+}
+.turDivItem i:before{
+	border: 2px solid;
+	border-radius: 8px;
+}
+.turDivItem>div{
+	width: 80px;
+	text-align: center;
+}
+.turDivItem>div span{
+	color: rgba(171, 211, 247, 0.5);
+	font-size: 12px;
+}
+.turDivItem>div p{
+	font-size: 18px;
+	letter-spacing: 1px;
+
+}
+

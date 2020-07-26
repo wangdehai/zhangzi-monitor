@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/element.min.css" />
+	<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/common.css" />
+	<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/cowshed.css" />
+	<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/font/iconfont.css"/>
+	<link rel="stylesheet" href="${request.contextPath}/statics/css/fullpage/zoom-marker.css">
+</head>
+
+<body>
+<div class="bgDiv"></div>
+<div id="box">
+	<header>
+		<img class="security1" width="60px" src="${request.contextPath}/statics/css/fullPage/img/titleI.png" />
+		<span class="time">{{data}}<br />{{time}}</span>
+		<span class="titleHeader">
+					<!--<img class="security1" width="40px" src="img/titleI.png"/>-->
+					牧场大数据分析
+				</span>
+		<div class="rightHeader">
+			<div class="">
+
+
+			</div>
+		</div>
+	</header>
+	<section>
+		<div class="left">
+			<div>
+				<img :src="'${request.contextPath}/statics/css/fullPage/img/weater'+weater.wid+'.png'" />
+				<span class="temperature">{{weater.temperature}}°</span>
+				<span class="weather">{{weater.info}}</span>
+				&nbsp;&nbsp;
+				<span class="weather">{{weater.humidity}} RH</span>
+
+				<div class="kongqi">
+					<span class="weather">{{weater.power}}</span>
+					<span class="weather">{{weater.direct}}</span> &nbsp;
+					<span class="weather">空气指数：{{weater.aqi}}</span>
+				</div>
+
+			</div>
+			<div class="chart">
+				<span class="title">设备监控列表</span>
+				<div class="chartDiv" style="height: calc(100% - 34px);">
+					<table style="width: 100%">
+						<tr>
+							<th>所属区域</th>
+							<th>设备名称</th>
+							<th>mac地址</th>
+							<th>设备状态</th>
+						</tr>
+						<tr v-for="item in tableData">
+							<td>{{item.regionId}}</td>
+							<td>{{item.deviceName}}</td>
+							<td>{{item.ip}}</td>
+							<td>
+								<span v-if="item.deviceStatus == 1" style="color: #409EFF;font-size: 12px;">在线</span>
+								<span v-if="item.deviceStatus == 0" style="color: #f56c6c;font-size: 12px;">离线</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="middle">
+			<div class="statis">
+				<div>
+					<div class="">
+						<span class="num" style="color: #ea6666;">21.7</span> ℃<br />
+						<span class="dec">温度</span>
+					</div>
+					<span class="lineSpan"></span>
+					<div class="">
+						<span class="num" style="color: #ec914f;">33.7%</span> RH<br />
+						<span class="dec">湿度</span>
+					</div>
+					<span class="lineSpan"></span>
+					<div class="">
+						<span class="num" style="color: #f5dd64;">1.2</span> kPa<br />
+						<span class="dec">大气压力</span>
+					</div>
+				</div>
+				<div>
+					<div class="">
+						<span class="num" style="color: #f5dd64;">12.4</span> mm/min<br />
+						<span class="dec">雨量</span>
+					</div>
+					<span class="lineSpan"></span>
+					<div class="">
+						<span class="num" style="color: #a4f16b;">0.0</span> m/s<br />
+						<span class="dec">风速</span>
+					</div>
+					<span class="lineSpan"></span>
+					<div class="">
+						<span class="num" style="color: #74ecf9;">东南</span> <br />
+						<span class="dec">风向</span>
+					</div>
+				</div>
+				<img class="leftBottom" src="${request.contextPath}/statics/css/fullPage/img/statLeft.png" />
+				<img class="rightTop" src="${request.contextPath}/statics/css/fullPage/img/statRight.png" />
+			</div>
+			<div class="bottom">
+				<div style="position:absolute;top: 36px;left: 10px;z-index: 999;">
+					<a href="index.html">
+						<i class="el-icon-back" style="font-size: 20px"></i>
+					</a>
+				</div>
+				<img class="leftTop" src="${request.contextPath}/statics/css/fullPage/img/leftTop.png" />
+				<img class="leftBottom" src="${request.contextPath}/statics/css/fullPage/img/leftBottom.png" />
+				<img class="rightTop" src="${request.contextPath}/statics/css/fullPage/img/rightTop.png" />
+				<img class="rightBottom" src="${request.contextPath}/statics/css/fullPage/img/rightBottom.png" />
+				<!--<img class="imgBg" src="img/imgBg.jpg" />-->
+				<div id="zoom-marker-div" class="zoom-marker-div">
+					<img class="zoom-marker-img" id="zoom-marker-img-alt" alt="zoom-marker-img-alt" name="zoom-marker-img-alt" draggable="false" />
+				</div>
+				<!--<div style="height: 100%;">-->
+				<!--<el-carousel>
+                    <el-carousel-item>
+                        <div class="lunboImg">
+                            <div class="img1">
+                                <img style="opacity: .7;" src="img/下雨.gif" />
+                            </div>
+                        </div>
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <div class="lunboImg">
+                            <div class="img1">
+                                <img src="img/下雪.gif" />
+                            </div>
+                        </div>
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <div class="lunboImg">
+                            <div class="img1">
+                                <img src="img/刮风.gif" />
+                            </div>
+                        </div>
+                    </el-carousel-item>
+                </el-carousel>-->
+				<!--</div>-->
+
+			</div>
+		</div>
+		<div class="right">
+			<div class="chart">
+				<span class="title">阳光辐射分析</span>
+				<div style="height: calc(100% - 34px);display: flex;flex-direction: column;">
+					<div style="flex: 1;display: flex;">
+						<div class="sunDivItem">
+							<i class="iconfont icon-IOTtubiao_huabanfuben"></i>
+							<p>温度</p>
+							<span>123 ℃</span>
+						</div>
+						<div class="sunDivItem">
+							<i class="iconfont icon-IOTtubiao_huabanfuben1"></i>
+							<p>湿度</p>
+							<span>123 RH</span>
+						</div>
+					</div>
+					<div style="flex: 1;display: flex;">
+						<div class="sunDivItem">
+							<i class="iconfont icon-taiyang"></i>
+							<p>光照度</p>
+							<span>124 /kg</span>
+						</div>
+						<div class="sunDivItem">
+							<i class="iconfont icon-fuyanglizi"></i>
+							<p>噪声</p>
+							<span>123 dB</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="chart" style="margin: 0;">
+				<span class="title">空气含量统计</span>
+				<div id="siwang" style="height: calc(100% - 34px);"></div>
+			</div>
+		</div>
+	</section>
+	<!--点击标记点弹框-->
+	<el-dialog
+			title=""
+			:visible.sync="markVisible"
+			width="1000px">
+		<div style="color: #000;">
+			<!--{{mapDevId}}-->
+			<div style="border:1px dashed #808080;width: 960px;height: 540px;margin-top: 5px;">
+				<object type='application/x-vlc-plugin' classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" id='vlc' events='True' width="960" height="540">
+					<param name='mrl' value='rtsp://admin:12345678@192.168.1.120/stream2' />
+					<param name='volume' value='50'/>
+					<param name='autoplay' value='true' />
+					<param name='loop' value='false' />
+					<param name='fullscreen' value='false' />
+				</object>
+			</div>
+		</div>
+		<span slot="footer" class="dialog-footer" style="color: #606266;">
+		            <el-button @click="markVisible = false" type="primary">关 闭</el-button>
+		        </span>
+	</el-dialog>
+</div>
+<script src="${request.contextPath}/statics/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/statics/js/jquery.mousewheel.min.js"></script>
+<script src="${request.contextPath}/statics/js/hammer.min.js"></script>
+<script src="${request.contextPath}/statics/js/fullpage/zoom-marker.min.js"></script>
+<script src="${request.contextPath}/statics/libs/vue.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/statics/js/element.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="${request.contextPath}/statics/js/fullPage/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="js/timepeople.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="${request.contextPath}/statics/js/fullPage/chart.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="${request.contextPath}/statics/js/fullPage/cowshed.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

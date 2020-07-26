@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>区域管理</title>
+    <#include "/header.html">
+        <link rel="stylesheet" href="${request.contextPath}/statics/css/element.min.css" media="all">
+        <script type="text/javascript" src="${request.contextPath}/statics/js/element.min.js"></script>
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div style="padding: 10px">
+        <div style="display: flex;margin-bottom: 10px;">
+            <div>
+                <el-cascader
+                        v-model="projectId"
+                        placeholder="请选择项目"
+                        :options="options"
+                        :show-all-levels="false"
+                        @change="changePro"
+                        :props="{ checkStrictly: true,value:'projectId',label:'projectName' }"
+                        clearable></el-cascader>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <el-select v-model="regionId" placeholder="请选择区域">
+                    <el-option
+                            v-for="item in regionList"
+                            :key="item.regionId"
+                            :label="item.regionName"
+                            :value="item.regionId">
+                    </el-option>
+                </el-select>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <el-button type="primary" @click="getList">查询</el-button>
+        </div>
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+            <el-table-column
+                    prop="devId"
+                    label="设备ID"
+                    width="">
+            </el-table-column>
+            <el-table-column
+                    prop="deviceName"
+                    label="设备名称"
+                    width="">
+            </el-table-column>
+            <el-table-column
+                    prop="deviceStatus"
+                    label="设备状态"
+                    width="">
+            </el-table-column>
+            <el-table-column
+                    prop="ip"
+                    label="IP"
+                    width="">
+            </el-table-column>
+        </el-table>
+        <el-pagination
+                background
+                @current-change="currentChange"
+                layout="prev, pager, next"
+                :total="total">
+        </el-pagination>
+    </div>
+</div>
+<script src="${request.contextPath}/statics/js/modules/list/device.js?_${.now?long}"></script>
+</body>
+</html>

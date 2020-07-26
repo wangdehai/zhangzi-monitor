@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>区域管理</title>
+    <#include "/header.html">
+        <link rel="stylesheet" href="${request.contextPath}/statics/css/element.min.css" media="all">
+        <script type="text/javascript" src="${request.contextPath}/statics/js/element.min.js"></script>
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div style="padding: 10px">
+        <div style="display: flex;margin-bottom: 10px;">
+            <div>
+                <el-cascader
+                    v-model="projectId"
+                    placeholder="请选择项目"
+                    :options="options"
+                    :show-all-levels="false"
+                    :props="{ checkStrictly: true,value:'projectId',label:'projectName' }"
+                    @change="changePro"
+                    clearable></el-cascader>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <el-button type="primary" @click="changePro">查询</el-button>
+        </div>
+        <el-table
+            :data="tableData"
+            style="width: 100%">
+                <el-table-column
+                    prop="regionId"
+                    label="区域Id"
+                    width="">
+                </el-table-column>
+                <el-table-column
+                    prop="regionName"
+                    label="区域名称"
+                    width="">
+                </el-table-column>
+        </el-table>
+    </div>
+</div>
+<script src="${request.contextPath}/statics/js/modules/list/region.js?_${.now?long}"></script>
+</body>
+</html>

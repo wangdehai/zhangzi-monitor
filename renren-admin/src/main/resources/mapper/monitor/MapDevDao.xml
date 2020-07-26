@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.monitor.dao.MapDevDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.monitor.entity.MapDevEntity" id="mapDevMap">
+        <result property="mapDevId" column="map_dev_id"/>
+        <result property="mapId" column="map_id"/>
+        <result property="devId" column="dev_id"/>
+        <result property="deviceName" column="device_name"/>
+        <result property="x" column="x"/>
+        <result property="y" column="y"/>
+    </resultMap>
+
+
+</mapper>

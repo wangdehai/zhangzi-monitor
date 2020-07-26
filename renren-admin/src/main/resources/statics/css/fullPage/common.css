@@ -1,0 +1,290 @@
+[v-cloak] {display: none;!important}
+body,html{
+    height: 100%;
+}
+@font-face{
+    font-family: 'DIN1';
+    src : url('./font/DIN-MEDIUM.OTF');
+}
+*{
+    margin: 0;
+    padding: 0;
+    color: rgba(255, 255, 255,1);
+    font-family: 'DIN1',"微软雅黑";
+    box-sizing: border-box;
+}
+
+body{
+    background: url(img/bg1.png);
+    background-size: 100% 100%;
+}
+.bgDiv{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background: url(../img/bg.gif);*/
+    background-size: 100% 100%;
+    opacity: .2;
+    z-index: -1;
+}
+#box{
+    height: 100%;
+    /*background: ;*/
+}
+.el-carousel--horizontal{
+    height: 100%;
+}
+.el-carousel--horizontal .el-carousel__container{
+    height: 100%;
+}
+header{
+    position: relative;
+    height: 70px;
+    overflow: hidden;
+    background: rgba(255,255,255,.05);
+}
+header .time{
+    display: inline-block;
+    font-size: 20px;
+    line-height: 30px;
+    height: 70px;
+    color: rgba(195, 236, 247,.8);
+    margin-left: 10px;
+    padding-top: 5px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+header .titleHeader{
+    width: 1040px;
+    position: absolute;
+    left: 50%;
+    margin-left: -520px;
+    display: inline-block;
+    padding: 0 30px;
+    line-height: 70px;
+    font-size: 34px;
+    letter-spacing: 4px;
+    background: url(img/title.png);
+    text-align: center;
+}
+header .rightHeader{
+    float: right;
+    margin-right: 10px;
+    line-height: 70px;
+}
+header .rightHeader a i , header .rightHeader a{
+    color: rgba(195, 236, 247,.8);
+    text-decoration: none;
+}
+
+.middle{
+    flex: 8;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+.middle .statis{
+    height: 240px;
+    position: relative;
+    margin: 10px 0;
+    /*background: radial-gradient(transparent, transparent, transparent, transparent, rgba(92,137,240,.4));*/
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    font-size: 12px;
+}
+.middle .statis>div{
+    flex: 1;
+    display: flex;
+}
+.middle .statis>div>div{
+    flex: 1;
+    text-align: center;
+    /*border-right: 1px solid rgba(92,137,240,.2);*/
+    padding-top: 10px;
+}
+.lineSpan{
+    width: 2px;
+    background: linear-gradient(transparent, transparent, rgba(92,137,240,.6), transparent, transparent);
+}
+.middle .statis>div>div:last-child{
+    /*border: #0A2043;*/
+}
+.middle .statis>div>div .num{
+    font-size: 26px;
+    line-height: 60px;
+}
+.middle .statis>div>div .dec{
+    font-size: 15px;
+
+}
+.middle .bottom{
+    flex: 1;
+    position: relative;
+}
+.middle .bottom>img{
+    position: absolute;
+    width: 50px;
+}
+.middle .statis>img{
+    position: absolute;
+
+}
+.middle .leftTop{
+    top: 0;
+    left: 0;
+}
+.middle .leftBottom{
+    bottom: 0;
+    left: 0;
+}
+.middle .rightTop{
+    top: 0;
+    right: 0;
+}
+.middle .rightBottom{
+    bottom: 0;
+    right: 0;
+}
+.middle .imgBg{
+    width: calc(100% - 16px)!important;
+    height: calc(100% - 65px);
+    margin: 30px 8px;
+}
+.middle .lunboImg{
+    height: 100%;
+    padding: 30px 8px;
+}
+.middle .lunboImg>div{
+    height: 100%;
+}
+.middle .lunboImg>div img{
+    width:100%;
+    height:100%;
+}
+/*.middle .lunboImg .img{
+	height: 100%;
+	background: url(../img/imgBg.jpg);
+	background-size: cover;
+}*/
+/*.img1{
+	background: url(../img/下雨.gif);
+	background-size: 100% 100%;
+	z-index: 1;
+}*/
+
+li.legendLi{
+    list-style: none;
+    color: #2aa7d3;
+    font-size: 13px;
+    overflow: hidden;
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 8px;
+}
+li.legendLi span:nth-child(1){
+    float: left;
+}
+li.legendLi span:nth-child(2){
+    float: right;
+}
+li.legendLi:before{
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    background: #ff525d;
+    border-radius: 1px;
+}
+li.legendLi:nth-child(2):before{
+    background: #ef974f;
+}
+li.legendLi:nth-child(3):before{
+    background: #FBCD13;
+}
+li.legendLi:nth-child(4):before{
+    background: #00d05d;
+}
+li.legendLi:nth-child(5):before{
+    background: #289EFF;
+}
+
+li.legendLi1:before{
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    background: #ef974f;
+    border-radius: 1px;
+}
+li.legendLi1:nth-child(2):before{
+    background: #FBCD13;
+}
+li.legendLi1:nth-child(3):before{
+    background: #00d05d;
+}
+li.legendLi1:nth-child(4):before{
+    background: #00fff9;
+}
+li.legendLi1:nth-child(5):before{
+    background: #289EFF;
+}
+
+
+
+.security1 {
+    margin-top: 4px;
+    margin-left: 20px;
+    vertical-align: top;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+    -webkit-animation: rotate 3s linear infinite;
+    -moz-animation: rotate 3s linear infinite;
+    -o-animation: rotate 3s linear infinite;
+    animation: rotate 3s linear infinite;  /*动画：名称、时间、动画将如何完成一个周期：动画从头到尾的速度是相同的、定义动画播放的次数：指定动画应该播放无限次（永远）*/
+}
+
+/*安全性外围圆环旋转*/
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@-moz-keyframes rotate {
+    from {
+        -moz-transform: rotate(0deg)
+    }
+    to {
+        -moz-transform: rotate(359deg)
+    }
+}
+
+@-o-keyframes rotate {
+    from {
+        -o-transform: rotate(0deg)
+    }
+    to {
+        -o-transform: rotate(359deg)
+    }
+}
+
+@keyframes rotate {  /*使用@keyframes规则，你可以创建动画*//*创建动画是通过逐步改变从一个CSS样式设定到另一个*/
+    from {
+        transform: rotate(0deg)  /*定义 2D 旋转，在参数中规定角度*/
+    }
+    to {
+        transform: rotate(359deg)
+    }
+}

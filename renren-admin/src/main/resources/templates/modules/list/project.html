@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>菜单管理</title>
+    <#include "/header.html">
+        <link rel="stylesheet" href="${request.contextPath}/statics/css/element.min.css" media="all">
+        <script type="text/javascript" src="${request.contextPath}/statics/js/element.min.js"></script>
+        <!--<link rel="stylesheet" href="${request.contextPath}/statics/css/bootstrap-table.min.css">-->
+        <!--<link rel="stylesheet" href="${request.contextPath}/statics/plugins/treegrid/jquery.treegrid.css">-->
+        <!--<script src="${request.contextPath}/statics/libs/bootstrap-table.min.js"></script>-->
+        <!--<script src="${request.contextPath}/statics/plugins/treegrid/jquery.treegrid.min.js"></script>-->
+        <!--<script src="${request.contextPath}/statics/plugins/treegrid/jquery.treegrid.bootstrap3.js"></script>-->
+        <!--<script src="${request.contextPath}/statics/plugins/treegrid/jquery.treegrid.extension.js"></script>-->
+        <!--<script src="${request.contextPath}/statics/plugins/treegrid/tree.table.js"></script>-->
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div style="padding: 10px">
+        <el-table
+                :data="tableData"
+                style="width: 100%;margin-bottom: 20px;"
+                row-key="projectId"
+                :tree-props="{children: 'children', hasChildren: 'hasChildren1'}">
+            <!--<el-table-column-->
+                    <!--prop="projectId"-->
+                    <!--label="项目ID">-->
+            <!--</el-table-column>-->
+            <el-table-column
+                    prop="projectName"
+                    label="项目名称">
+            </el-table-column>
+        </el-table>
+        <!--<table id="projectTable" data-mobile-responsive="true" data-click-to-select="true">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th data-field="selectItem" data-checkbox="true"></th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+        <!--</table>-->
+    </div>
+</div>
+
+<!--<script src="${request.contextPath}/statics/js/modules/sys/menu.js?_${.now?long}"></script>-->
+<script src="${request.contextPath}/statics/js/modules/list/project.js?_${.now?long}"></script>
+</body>
+</html>

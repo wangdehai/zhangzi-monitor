@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>区域管理</title>
+    <#include "/header.html">
+        <link rel="stylesheet" href="${request.contextPath}/statics/css/element.min.css" media="all">
+        <script type="text/javascript" src="${request.contextPath}/statics/js/element.min.js"></script>
+        <link rel="stylesheet" href="${request.contextPath}/statics/css/zoom-marker.css" media="all">
+        <script type="text/javascript" src="${request.contextPath}/statics/js/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/statics/js/hammer.min.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/statics/js/zoom-marker.min.js"></script>
+        <style>
+            .details .el-cascader , .details .el-select{
+                width: 100%;
+            }
+
+        </style>
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div style="padding: 10px">
+        <div style="position: relative;">
+            <div id="zoom-marker-div" class="zoom-marker-div">
+                <img class="zoom-marker-img" id="zoom-marker-img-alt" alt="zoom-marker-img-alt" name="zoom-marker-img-alt" draggable="false" />
+            </div>
+        </div>
+
+    </div>
+    <!--点击标记点弹框-->
+    <el-dialog
+            title="标记点信息"
+            :visible.sync="markVisible"
+            width="400px">
+        <div class="details">
+            <!--<div style="margin-bottom: 10px">-->
+                <!--<el-button type="danger" @click="delMark">删除标记点</el-button>-->
+                <!--<el-button v-if="!linkDevIdI" type="primary" @click="saveDev">保存</el-button>-->
+            <!--</div>-->
+            <div style="margin-bottom: 10px">
+                <el-input
+                        placeholder="请输入标记点名称"
+                        v-model="markObj.signName"
+                        clearable>
+                </el-input>
+            </div>
+            <div>
+                <el-select v-model="markObj.mapId" placeholder="请选择关联图片" @change="getUrl">
+                    <el-option
+                            v-for="item in mapList"
+                            :key="item.mapId"
+                            :label="item.mapName"
+                            :value="item.mapId">
+                    </el-option>
+                </el-select>
+            </div>
+
+        </div>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="markVisible = false">取 消</el-button>
+            <el-button type="danger" @click="delMark">删除标记点</el-button>
+            <el-button v-if="!linkDevIdI" type="primary" @click="saveDev">保存</el-button>
+            <!--<el-button type="primary" @click="imgVisible = true;regionVisible = false">确 定</el-button>-->
+        </span>
+    </el-dialog>
+</div>
+<script src="${request.contextPath}/statics/js/modules/list/homePageMap.js?_${.now?long}"></script>
+</body>
+</html>

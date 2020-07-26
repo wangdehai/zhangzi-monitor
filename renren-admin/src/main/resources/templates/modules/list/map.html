@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>区域管理</title>
+    <#include "/header.html">
+        <link rel="stylesheet" href="${request.contextPath}/statics/css/element.min.css" media="all">
+        <script type="text/javascript" src="${request.contextPath}/statics/js/element.min.js"></script>
+        <link rel="stylesheet" href="${request.contextPath}/statics/css/zoom-marker.css" media="all">
+        <script type="text/javascript" src="${request.contextPath}/statics/js/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/statics/js/hammer.min.js"></script>
+        <script type="text/javascript" src="${request.contextPath}/statics/js/zoom-marker.min.js"></script>
+        </head>
+<body>
+<div id="rrapp" v-cloak>
+    <div style="padding: 10px">
+        <div style="display: flex;margin-bottom: 10px;">
+            <div>
+                <el-cascader
+                        v-model="projectId"
+                        placeholder="请选择项目"
+                        :options="options"
+                        :show-all-levels="false"
+                        :props="{ checkStrictly: true,value:'projectId',label:'projectName' }"
+                        clearable></el-cascader>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <el-select v-model="regionId" placeholder="请选择区域" @focus="getRegionList" clearable @change='mapId = ""'>
+                    <el-option
+                            v-for="item in regionList"
+                            :key="item.regionId"
+                            :label="item.regionName"
+                            :value="item.regionId">
+                    </el-option>
+                </el-select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <el-select v-model="mapId" placeholder="请选择图片" @focus="getMapList" @change="getUrl">
+                    <el-option
+                            v-for="item in mapList"
+                            :key="item.mapId"
+                            :label="item.mapName"
+                            :value="item.mapUrl">
+                    </el-option>
+                </el-select>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <el-button type="primary" icon="el-icon-plus" @click="regionVisible = true;projectIdS = [];regionIdS = ''">添加图片</el-button>
+        </div>
+        <div v-show="imgRegion" style="position: relative;">
+            <div style="position: absolute;top: 6px;left: 6px;z-index: 999;"><el-button type="danger" icon="el-icon-plus" @click="delImg">删除图片</el-button></div>
+
+            <div id="zoom-marker-div" class="zoom-marker-div">
+                <!--<img class="zoom-marker-img" id="zoom-marker-img" alt="zoom-marker-img" name="zoom-marker-img" draggable="false" />-->
+                <img class="zoom-marker-img" id="zoom-marker-img-alt" alt="zoom-marker-img-alt" name="zoom-marker-img-alt" draggable="false" />
+            </div>
+        </div>
+
+    </div>
+    <!--选择上传区域弹框-->
+    <el-dialog
+            title="选择上传区域"
+            :visible.sync="regionVisible"
+            width="240px">
+        <div>
+            <el-cascader
+                    v-model="projectIdS"
+                    placeholder="请选择项目"
+                    :options="options"
+                    :show-all-levels="false"
+                    :props="{ checkStrictly: true,value:'projectId',label:'projectName' }"
+                    clearable></el-cascader>
+            <br>
+            <br>
+            <el-select v-model="regionIdS" placeholder="请选择区域" @focus="getRegionList">
+                <el-option
+                        v-for="item in regionList"
+                        :key="item.regionId"
+                        :label="item.regionName"
+                        :value="item.regionId">
+                </el-option>
+            </el-select>
+        </div>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="regionVisible = false">取 消</el-button>
+            <el-button type="primary" @click="checkMap">确 定</el-button>
+        </span>
+    </el-dialog>
+    <!--上传图片弹框-->
+    <el-dialog
+            title="提示"
+            :visible.sync="imgVisible"
+            width="30%">
+        <div>
+            <el-upload
+                    class="upload-demo"
+                    drag
+                    ref="upload"
+                    action="../../monitor/map/uploadMap"
+                    :data="{'projectId':projectIdS,'regionId':regionIdS}"
+                    list-type="picture"
+                    :file-list="fileList"
+                    :on-success="upOk"
+                    :auto-upload="false"
+                    :multiple="false">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+        </div>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="imgVisible = false;regionVisible = true">取 消</el-button>
+            <el-button type="primary" @click="upImg">确 定</el-button>
+        </span>
+    </el-dialog>
+    <!--点击标记点弹框-->
+    <el-dialog
+            title="标记点信息"
+            :visible.sync="markVisible"
+            width="240px">
+        <div>
+            <div style="margin-bottom: 10px">
+                <el-button type="danger" @click="delMark">删除标记点</el-button>
+                <el-button v-if="!linkDevIdI" type="primary" @click="saveDev">保存</el-button>
+            </div>
+            <el-select v-if="!linkDevIdI" v-model="linkDevId" placeholder="请选择关联设备" @change="devIdChange">
+                <el-option
+                        v-for="item in devNoList"
+                        :key="item.devId"
+                        :label="item.deviceName"
+                        :value="item.devId">
+                </el-option>
+            </el-select>
+            <span v-else>关联设备：{{linkDevName}}</span>
+        </div>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="markVisible = false">关 闭</el-button>
+            <!--<el-button type="primary" @click="imgVisible = true;regionVisible = false">确 定</el-button>-->
+        </span>
+    </el-dialog>
+</div>
+<script src="${request.contextPath}/statics/js/modules/list/map.js?_${.now?long}"></script>
+</body>
+</html>

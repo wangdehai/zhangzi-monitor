@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.monitor.dao.WeatherDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="io.renren.modules.monitor.entity.WeatherEntity" id="weatherMap">
+        <result property="weatherId" column="weather_id"/>
+        <result property="temperature" column="temperature"/>
+        <result property="humidity" column="humidity"/>
+        <result property="info" column="info"/>
+        <result property="wid" column="wid"/>
+        <result property="direct" column="direct"/>
+        <result property="power" column="power"/>
+        <result property="aqi" column="aqi"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

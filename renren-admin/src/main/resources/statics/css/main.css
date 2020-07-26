@@ -1,0 +1,169 @@
+html { overflow-x:hidden; }
+html.erji_html{
+	height: 100%;
+}
+body.erji_body{
+	height: 100%;
+	overflow: hidden;
+}
+.content-header {
+	position: relative;
+	padding: 10px 8px 3px 8px
+}
+
+.content-header>.breadcrumb {
+    position: relative;
+    top: 0;
+    right: 0;
+    float: none;
+    margin-top: 0px;
+    padding-left: 10px;
+    /*background: #ecf0f5;*/
+}
+
+/*三级菜单*/
+.content-menu{
+	margin: 10px 0 20px 0;
+	/*padding: 10px;*/
+	/*background: #fff;*/
+	/*border-radius: 3px;*/
+	box-shadow: 0 0 10px #eee;
+	height: 44px;
+}
+.content-menu ul{
+	padding: 0 10px;
+	margin: 4px 0;
+	height: 36px;
+	background: #fff;
+	/*overflow: hidden;*/
+}
+.content-menu ul li{
+	list-style: none;
+	float: left;
+	padding: 8px 20px;
+	margin: -4px 10px 0 10px;
+	color: #999;
+	cursor: pointer;
+	height: 44px;
+	line-height: 28px;
+}
+.content-menu ul li a{
+	color: #999;
+}
+.content-menu ul li.action a{
+	color:#fff;
+}
+.content-menu ul li.action{
+	background: #3498db;
+	border-radius: 1px;
+	color:#fff;
+	box-shadow: 0 0 10px #bdb4b4;
+}
+/*三级菜单对应内容*/
+.iframe_div .item{
+	display: none;
+	height: 100%;
+	width: 100%;
+}
+.iframe_div .item.action{
+	display: block;
+}
+
+.main-footer {
+    padding: 7px;
+    color: #444;
+    border-top: 1px solid #eee;
+}
+
+[v-cloak] {
+  display: none;
+}
+/*按钮组*/
+.grid-btn{
+	margin-bottom:12px;
+}
+.grid-btn .btn{
+	margin-right:10px;
+}
+
+.pointer{cursor: pointer;}
+
+.ml-10 { margin-left:0 !important; }
+@media (min-width: 768px) {
+	.ml-10 { margin-left:10px !important; }
+	.col-sm-10 {width: 70%;padding-left: 0px;}
+	.col-sm-2 {width: 24%;}
+}
+
+/*表格样式*/
+tbody > tr > th {font-weight: normal; }
+.ui-jqgrid-labels th{
+	/*background: #f2f2f2;*/
+}
+#jqGrid tr:nth-child(even){
+	background: #eaf1f5;
+}
+#jqGrid tr td>input.checkbox{
+	margin-top: 4px;
+}
+
+.panel .table { margin:0 0; }
+.panel .pagination { margin:0; }
+.panel-default>.panel-heading {background-color: #f5f5f5;}
+.row{
+	border-top: 1px solid #ddd;
+	margin:0;
+	padding:20px 2px 0px 2px;
+}
+.col-xs-6{padding-left: 0px;padding-right: 0px;}
+.form-horizontal .form-group {margin-left:0px;margin-right:0px;}
+.form-horizontal{
+	width:550px;padding-top:20px;padding-bottom: 1px;
+}
+
+
+/*user*/
+.iframe_div{
+	background: #fff;
+	padding: 15px;
+	margin: 15px;
+	box-shadow: 0 0 10px #eee;
+	border-radius: 5px;
+	height: calc(100% - 80px);
+	overflow-x: hidden;
+}
+
+/*按钮样式*/
+.user_gridbtn{
+	overflow: hidden;
+}
+.user_gridbtn .btn{
+	padding: 6px 22px;
+	border-radius: 6px;
+	color: #fff;
+}
+/*新增按钮*/
+.user_gridbtn .user-add{
+	background: #3498db;
+	border-color: #3498db;
+}
+/*删除按钮*/
+.user_gridbtn .user-del{
+	background: #e7733c;
+	border-color: #e7733c;
+}
+/*搜索框*/
+.user_gridbtn .user-sel{
+	float: right;
+	margin-right: 40px;
+	border: 0;
+	padding: 7px 0;
+	color: #999;
+	font-size: 17px;
+}
+.user_gridbtn .form-group{
+	float: right;
+}
+.user_gridbtn .form-group .form-control{
+	border-radius: 17px;
+}

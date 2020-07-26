@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+			<#if shiro.hasPermission("monitor:region:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("monitor:region:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("monitor:region:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+														                    <div class="form-group">
+                        <div class="col-sm-2 control-label">区域名称</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.regionName" placeholder="区域名称"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">项目层级内顺序</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.order" placeholder="项目层级内顺序"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">区域层级</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.regionLevel" placeholder="区域层级"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">区域类型</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.sysType" placeholder="区域类型"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">父区域id</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.parentId" placeholder="父区域id"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">区域所属项目id</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.projectId" placeholder="区域所属项目id"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">是否还有子区域，0为无，1为有</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.hasChildren" placeholder="是否还有子区域，0为无，1为有"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">流媒体服务器id</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.mediaServerId" placeholder="流媒体服务器id"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">流媒体服务器名称</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.mediaServerName" placeholder="流媒体服务器名称"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">流媒体服务器Ip地址</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="region.mediaServerIpAddr" placeholder="流媒体服务器Ip地址"/>
+                        </div>
+                    </div>
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/monitor/region.js?_${.now?long}"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+html,body{
+    width: 100%;
+    height: 100%;
+}
+*{
+    font-family: '微软雅黑';
+}
+
+.main_chart{
+    /*width: 100%;*/
+    height: 100%;
+    padding: 6px 0;
+    margin: 0 15px;
+
+}
+.main_chart .title_chart{
+    padding-bottom: 14px;
+    padding-left: 10px;
+    overflow: hidden;
+}
+.main_chart .title_chart li{
+    float: left;
+    padding: 0 20px;
+    margin-left: 10px;
+}
+.main_chart .title_chart li span{
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 18px;
+}
+.main_chart .title_chart li:nth-child(1){
+    border-left: 3px solid #02e7e8;
+}
+.main_chart .title_chart li:nth-child(2){
+    border-left: 3px solid #e88302;
+}
+.main_chart .title_chart li:nth-child(3){
+    border-left: 3px solid #0287e8;
+}
+.main_chart .chart_chart{
+    width: 100%;
+    height: calc(100% - 50px);
+}
+.chart_chart>div{
+    height: 50%;
+    display: flex;
+}
+.chart_chart>div>div{
+    margin: 4px;
+    box-shadow: 0 0 6px #ddf0f9;
+    border-radius: 3px;
+    padding: 10px;
+    position: relative;
+}
+.chart_chart>div>div span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color:#666;
+    font-size: 50px;
+    margin-left: -50px;
+    margin-top: -35.5px;
+}
+.chart_top .chartTop_left{
+    flex: 5;
+    overflow: hidden;
+}
+.chart_top .chartTop_right{
+    flex: 2;
+    overflow: hidden;
+}
+.chart_bottom .chartBottom_left{
+    flex: 3;
+    overflow: hidden;
+}
+.chart_bottom .chartBottom_middle{
+    flex: 2;
+    overflow: hidden;
+}
+.chart_bottom .chartBottom_right{
+    flex: 2;
+    overflow: hidden;
+}
+
+
+.main_chart>div{
+    display: flex;
+}
+.main_chart>div.top .top_left{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.main_chart>div.top .top_left>div{
+    flex: 1;
+    min-height: 300px;
+    margin: 5px;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 5px;
+}
+.main_chart>div.top .top_right{
+    display: flex;
+    flex-direction: column;
+}
+.main_chart>div.top .top_right>div{
+    width: 550px;
+    min-height: 300px;
+    flex: 1;
+    margin: 5px;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 5px;
+}
+.main_chart>div.top .top_right>div.topRight_bottom{
+    /*flex: 1;*/
+}
