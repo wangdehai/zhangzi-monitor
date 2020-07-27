@@ -358,17 +358,17 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 iotList.add(monitorIotDevice6);
                 //土壤磷
                 String sl = new BigDecimal(Integer.valueOf(params.substring(80,88),16)) + "mg/kg";
-                System.out.println("氨气:" + sl);
+                System.out.println("土壤磷:" + sl);
                 MonitorIotDeviceEntity monitorIotDevice7 = monitorIotDeviceService.selectOne(
                         new EntityWrapper<MonitorIotDeviceEntity>()
                                 .eq("dev_num",devNum)
-                                .eq("dev_key","氨气")
+                                .eq("dev_key","土壤磷")
                 );
                 if(monitorIotDevice7 == null){
                     monitorIotDevice7 = new MonitorIotDeviceEntity();
                 }
                 monitorIotDevice7.setDevNum(devNum);
-                monitorIotDevice7.setDevKey("氨气");
+                monitorIotDevice7.setDevKey("土壤磷");
                 monitorIotDevice7.setValue(sl);
                 monitorIotDevice7.setRegionId("3");
                 iotList.add(monitorIotDevice7);
