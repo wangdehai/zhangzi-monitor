@@ -64,12 +64,12 @@ public class DeviceController {
                         .eq("device_status",0)
         );
         int iotDeviceCount = iotService.selectCount(null);
-        map.put("projectCount",projectCount);
-        map.put("regionCount",regionCount);
-        map.put("cameraCount",cameraCount);
-        map.put("onlineCameraCount",onlineCameraCount);
-        map.put("offOnlineCameraCount",offOnlineCameraCount);
-        map.put("iotDeviceCount",iotDeviceCount);
+        map.put("projectCount",projectCount);//项目数量
+        map.put("regionCount",regionCount);//区域数量
+        map.put("cameraCount",cameraCount);//摄像头数量
+        map.put("onlineCameraCount",onlineCameraCount);//在线摄像头数量
+        map.put("offOnlineCameraCount",offOnlineCameraCount);//离线摄像头数量
+        map.put("iotDeviceCount",iotDeviceCount);//物联网设备数据点
         return R.ok().put("data", map);
     }
 
