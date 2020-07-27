@@ -16,29 +16,13 @@ function tran(str) {
 //tran('123456789')
 
 $(function(){
-//	$('#zoom-marker-img-alt').zoomMarker({
-//      src: "img/1594812489444.jpg",
-//      rate: 0.2,
-//      width: 715,
-//      max: 3000,
-//      markers: [{
-//      	"src":"img/marker.svg",
-//      	"draggable":false,
-//      	"mapDevId":75,"mapId":5,"devId":"1","deviceName":"TP-LINK IPC","x":"1876.2057692307694","y":"1143.180023331448"
-//      	}],
-////              enable_drag:false
-//  });
-//	$('.timer').each(count);
-//	mingandu(vm.minganduData);
-//	qushi(vm.qushiData);
-    siwang(vm.siwangData);
-//	xiaoshou(vm.xiaoshouData);
-//	paihang(vm.paihangData);
+    // siwang(vm.siwangData);
     setInterval(function(){
         vm.getWeater();
         vm.getTable();
         vm.init();
-
+        vm.getDevInfo();
+        vm.getDevInfo1();
     },900000);
 })
 
@@ -47,11 +31,6 @@ var vm = new Vue({
     data:{
         data:'',
         time:'',
-        zrcl:123456,
-        bycl:123556,
-        byclz:12345678,
-        ljcl:123456,
-        ljclz:123456789,
         tableData:[],
         siwangData:[{
                 type:'二氧化碳',
@@ -75,7 +54,9 @@ var vm = new Vue({
         weater:{},
         weaterL:[],
         weaterH:[],
-        weaterT:[]
+        weaterT:[],
+        info:{},
+        info1:{}
     },
     methods:{
         getDate:function(){
@@ -227,6 +208,68 @@ var vm = new Vue({
 
             });
         },
+        // 获取设备信息
+        getDevInfo:function () {
+            $.ajax({
+                url: '../../monitor/monitoriotdevice/showList',
+                type: 'get',
+                data: {
+                    regionId:1
+                },
+                contentType: "application/json",
+                // dataType: 'json',
+                success:function (r) {
+                    if(r.code === 0){
+                        console.log(r);
+                        r.iotList.forEach(function (item) {
+                            vm.info[item.devKey] = item.value
+                        })
+                    }else {
+                        layer.alert(r.msg);
+                    }
+                },
+                error:function () {
+                    layer.msg("网络故障");
+                }
+
+            })
+        },
+        // 获取设备信息
+        getDevInfo1:function () {
+            $.ajax({
+                url: '../../monitor/monitoriotdevice/showList',
+                type: 'get',
+                data: {
+                    regionId:this.reId
+                },
+                contentType: "application/json",
+                // dataType: 'json',
+                success:function (r) {
+                    if(r.code === 0){
+                        console.log(r);
+                        vm.siwangData = [];
+                        r.iotList.forEach(function (item) {
+                            if(item.devKey == '二氧化碳' || item.devKey == '硫化氢' || item.devKey == '氨气'){
+                                vm.siwangData.push({
+                                    type:item.devKey,
+                                    num:parseInt(item.value)
+                                })
+                            }else {
+                                vm.info1[item.devKey] = item.value
+                            }
+
+                        })
+                        siwang(vm.siwangData);
+                    }else {
+                        layer.alert(r.msg);
+                    }
+                },
+                error:function () {
+                    layer.msg("网络故障");
+                }
+
+            })
+        }
     },
     created:function(){
         var url = decodeURI(window.location.href);
@@ -240,6 +283,8 @@ var vm = new Vue({
         this.getTime();
         this.getWeater();
         this.getTable();
+        this.getDevInfo();
+        this.getDevInfo1();
         var that = this;
         setInterval(function(){
             that.getTime()
@@ -248,5 +293,6 @@ var vm = new Vue({
     },
     mounted:function(){
         this.init();
+
     }
 })

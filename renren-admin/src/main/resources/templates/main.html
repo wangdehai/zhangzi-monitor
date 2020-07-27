@@ -7,9 +7,125 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="${request.contextPath}/statics/css/bootstrap.min.css">
     <!--<link rel="stylesheet" href="${request.contextPath}/statics/css/main_chart.css">-->
+    <style>
+        [v-cloak] {display: none;}
+        .headerDiv{
+            display: flex;
+        }
+        .headerDiv>div{
+            flex: 1;
+            margin: 16px;
+            background: #fff;
+            padding: 16px;
+        }
+        .headerDiv>div p{
+            margin: 0 0 10px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        .headerDiv>div span{
+            margin: 0 0 16px 0;
+            font-size: 26px;
+        }
+        .headerDiv>div span.span0{
+            color: #08f;
+        }
+        .headerDiv>div span.span1{
+            color: #f70;
+        }
+        .headerDiv>div span.span2{
+            color: #05dbdc;
+        }
+        .headerDiv>div span.span3{
+            color: #f75757;
+        }
+        .chart{
+            margin: 16px;
+            padding: 16px;
+            background: #fff;
+        }
+        .chart span{
+            display: inline-block;
+            border-left: 4px solid #f3bc40;
+            font-size: 16px;
+            color: #666;
+            padding-left: 6px;
+        }
+    </style>
 </head>
 <body id="chart">
+    <div id="app" v-cloak>
+        <div class="headerDiv">
+            <div v-for="(item,index) in headerCount">
+                <p>{{item.name}}</p>
+                <span :class="'span'+index">{{item.value}}</span>
+            </div>
+        </div>
+        <div class="chart">
+            <span>摄像头在线情况统计</span>
+            <div id="siwang" style="height: 320px;"></div>
+        </div>
+    </div>
     <script src="${request.contextPath}/statics/libs/jquery.min.js"></script>
     <script src="${request.contextPath}/statics/libs/vue.min.js"></script>
+    <script src="${request.contextPath}/statics/js/fullPage/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${request.contextPath}/statics/js/chart.js"></script>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                headerCount:[],
+                dataB:[]
+            },
+            methods:{
+                getCount:function () {
+                    $.ajax({
+                        url: 'monitor/device/count',
+                        type: 'get',
+                        data: '',
+//                        contentType: "application/json",
+                         dataType: 'json',
+                        success:function (r) {
+                            if(r.code === 0){
+                                console.log(r);
+                                vm.headerCount = [
+                                    {
+                                        name:'项目数量',
+                                        value:r.data.projectCount
+                                    },{
+                                        name:'区域数量',
+                                        value:r.data.regionCount
+                                    },{
+                                        name:'摄像头数量',
+                                        value:r.data.cameraCount
+                                    },{
+                                        name:'物联网设备数据点',
+                                        value:r.data.iotDeviceCount
+                                    }
+                                ];
+                                vm.dataB = [{
+                                    type:'在线摄像头数量',
+                                    num:r.data.onlineCameraCount
+                                },{
+                                    type:'离线摄像头数量',
+                                    num:r.data.offOnlineCameraCount
+                                }];
+                                siwang(vm.dataB);
+                            }else {
+                                layer.alert(r.msg);
+                            }
+                        },
+                        error:function () {
+                            layer.msg("网络故障");
+                        }
+
+                    })
+                }
+            },
+            created:function () {
+                this.getCount();
+            }
+        })
+    </script>
 </body>
 </html>

@@ -7,7 +7,6 @@ function siwang(d) {
 	var ydata = [];
 	var color = ["#289eff", '#00fff9', "#fbcd13", "#00d05d", "#ef974f", "#28ffca","#6528ff"]
 	var xdata = [];
-	console.log(d);
 	d.forEach(function(item) {
 		ydata.push({
 			name: item.type,
@@ -38,8 +37,8 @@ function siwang(d) {
 		},
 		series: [{
 			type: 'pie',
-			radius: ["30%", "80%"],
-			center: ["55%", "50%"],
+			radius: ["40%", "75%"],
+			center: ["52%", "55%"],
 			roseType: 'radius',
 			avoidLabelOverlap: false,
 			label: {

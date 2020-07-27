@@ -14,7 +14,7 @@
 
 <body>
 <div class="bgDiv"></div>
-<div id="box">
+<div id="box" v-cloak>
 	<header>
 		<img class="security1" width="60px" src="${request.contextPath}/statics/css/fullPage/img/titleI.png" />
 		<span class="time">{{data}}<br />{{time}}</span>
@@ -72,33 +72,33 @@
 			<div class="statis">
 				<div>
 					<div class="">
-						<span class="num" style="color: #ea6666;">21.7</span> ℃<br />
+						<span class="num" style="color: #ea6666;">{{info['温度']}}</span><br />
 						<span class="dec">温度</span>
 					</div>
 					<span class="lineSpan"></span>
 					<div class="">
-						<span class="num" style="color: #ec914f;">33.7%</span> RH<br />
+						<span class="num" style="color: #ec914f;">{{info['湿度']}}</span><br />
 						<span class="dec">湿度</span>
 					</div>
 					<span class="lineSpan"></span>
 					<div class="">
-						<span class="num" style="color: #f5dd64;">1.2</span> kPa<br />
+						<span class="num" style="color: #f5dd64;">{{info['大气压']}}</span><br />
 						<span class="dec">大气压力</span>
 					</div>
 				</div>
 				<div>
 					<div class="">
-						<span class="num" style="color: #f5dd64;">12.4</span> mm/min<br />
+						<span class="num" style="color: #f5dd64;">{{info['雨量']}}</span><br />
 						<span class="dec">雨量</span>
 					</div>
 					<span class="lineSpan"></span>
 					<div class="">
-						<span class="num" style="color: #a4f16b;">0.0</span> m/s<br />
+						<span class="num" style="color: #a4f16b;">{{info['风速']}}</span><br />
 						<span class="dec">风速</span>
 					</div>
 					<span class="lineSpan"></span>
 					<div class="">
-						<span class="num" style="color: #74ecf9;">东南</span> <br />
+						<span class="num" style="color: #74ecf9;">{{info['风向']}}</span> <br />
 						<span class="dec">风向</span>
 					</div>
 				</div>
@@ -155,24 +155,24 @@
 						<div class="sunDivItem">
 							<i class="iconfont icon-IOTtubiao_huabanfuben"></i>
 							<p>温度</p>
-							<span>123 ℃</span>
+							<span>{{info1['温度']}}</span>
 						</div>
 						<div class="sunDivItem">
 							<i class="iconfont icon-IOTtubiao_huabanfuben1"></i>
 							<p>湿度</p>
-							<span>123 RH</span>
+							<span>{{info1['湿度']}}</span>
 						</div>
 					</div>
 					<div style="flex: 1;display: flex;">
 						<div class="sunDivItem">
 							<i class="iconfont icon-taiyang"></i>
 							<p>光照度</p>
-							<span>124 /kg</span>
+							<span>{{info1['光照度']}}</span>
 						</div>
 						<div class="sunDivItem">
 							<i class="iconfont icon-fuyanglizi"></i>
 							<p>噪声</p>
-							<span>123 dB</span>
+							<span>{{info1['噪声']}}</span>
 						</div>
 					</div>
 				</div>

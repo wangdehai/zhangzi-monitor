@@ -19,7 +19,8 @@ $(function(){
     setInterval(function(){
         vm.getWeater();
         vm.getTable();
-    },15000);
+        this.getDevInfo();
+    },900000);
 })
 
 var vm = new Vue({
@@ -27,11 +28,6 @@ var vm = new Vue({
 	data:{
 		data:'',
 		time:'',
-		zrcl:123456,
-		bycl:123556,
-		byclz:12345678,
-		ljcl:123456,
-		ljclz:123456789,
 		tableData:[],
 	    siwangData:[
 			{
@@ -66,7 +62,8 @@ var vm = new Vue({
 		weater:{},
 		weaterL:[],
 		weaterH:[],
-        weaterT:[]
+        weaterT:[],
+		info:{}
 	},
 	methods:{
 		getDate:function(){
@@ -272,12 +269,39 @@ var vm = new Vue({
                 
             });
         },
+		// 获取设备信息
+		getDevInfo:function () {
+            $.ajax({
+                url: '../../monitor/monitoriotdevice/showList',
+                type: 'get',
+                data: {
+                    regionId:1
+				},
+                contentType: "application/json",
+                // dataType: 'json',
+                success:function (r) {
+                    if(r.code === 0){
+                        console.log(r);
+						r.iotList.forEach(function (item) {
+							vm.info[item.devKey] = item.value
+                        })
+                    }else {
+                        layer.alert(r.msg);
+                    }
+                },
+                error:function () {
+                    layer.msg("网络故障");
+                }
+
+            })
+        }
 	},
 	created:function(){
 		this.getDate();
 		this.getTime();
 		this.getWeater();
 		this.getTable();
+		this.getDevInfo();
 		var that = this;
 		setInterval(function(){
 			that.getTime()
