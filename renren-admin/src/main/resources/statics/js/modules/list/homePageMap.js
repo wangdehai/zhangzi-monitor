@@ -37,7 +37,8 @@ var vm = new Vue({
             signName:'',
             mapId:'',
             mapName:''
-        }
+        },
+        imgCNum:0
     },
     methods: {
         getProList:function () {
@@ -144,6 +145,10 @@ var vm = new Vue({
         },
         // 获取主图的标记点
         getMarksList:function () {
+            $('#zoom-marker-div').empty();
+            this.imgCNum++;
+            var $img = $('<img class="zoom-marker-img" id="zoom-marker-img-alt'+this.imgCNum+'" alt="zoom-marker-img-alt" name="zoom-marker-img-alt" draggable="false" />');
+            $('#zoom-marker-div').append($img);
             $.ajax({
                 url: '../../monitor/mapdev/mainList',
                 type: 'get',
@@ -169,7 +174,7 @@ var vm = new Vue({
                                 }
                             };
                         })
-                        vm.init($('#zoom-marker-img-alt'));
+                        vm.init($('#zoom-marker-img-alt'+vm.imgCNum));
                         vm.initImg(r.list);
                     } else {
                         layer.alert(r.msg);
@@ -235,7 +240,7 @@ var vm = new Vue({
                         layer.close(index);
                         if (r.code === 0) {
                             console.log(r);
-                            $('#zoom-marker-img-alt').zoomMarker_RemoveMarker(vm.nowMarkId);
+                            $('#zoom-marker-img-alt'+vm.imgCNum).zoomMarker_RemoveMarker(vm.nowMarkId);
                             vm.markVisible = false;
                             // vm.getDeviceList();
 
@@ -364,7 +369,7 @@ var vm = new Vue({
             });
         },
         initImg:function (markers) {
-            $('#zoom-marker-img-alt').zoomMarker({
+            $('#zoom-marker-img-alt'+vm.imgCNum).zoomMarker({
                 src: "../../statics/img/1595301032060.jpg",
                 rate: 0.1,
                 width: 1300,
