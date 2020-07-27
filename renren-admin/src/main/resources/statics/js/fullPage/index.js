@@ -235,15 +235,16 @@ var vm = new Vue({
 
             item.on("zoom_marker_click", function(event, marker) {
                 console.log(JSON.stringify(marker));
-                if(marker.param.signName == '牛棚'){
+                if(marker.param.regionId == '2'){
                     window.location.href = 'cowshed.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
-				}else if(marker.param.signName == '大棚1'){
+				}else if(marker.param.regionId == '3'){
                     window.location.href = 'greenhouse.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
-				}else if(marker.param.signName == '大棚2'){
-                    window.location.href = 'greenhouse1.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
-                }else if(marker.param.signName == '大棚3'){
-                    window.location.href = 'greenhouse2.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
-                }
+				}
+                // else if(marker.param.signName == '大棚2'){
+                //     window.location.href = 'greenhouse1.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
+                // }else if(marker.param.signName == '大棚3'){
+                //     window.location.href = 'greenhouse2.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
+                // }
 
                 // vm.mapDevId = marker.param.mapDevId;
                 // vm.markVisible = true;

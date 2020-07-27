@@ -172,6 +172,7 @@ var vm = new Vue({
         checkMap:function () {
             // imgVisible = true;regionVisible = false
             var index = layer.load(2);
+            var that = this;
             $.ajax({
                 url: '../../monitor/map/checkMap',
                 type: 'get',
@@ -185,12 +186,13 @@ var vm = new Vue({
                     layer.close(index);
                     if (r.code === 0) {
                         console.log(r);
-                        // vm.imgRegion = false;
-                        // vm.mapId = '';
-                        // vm.showimg();
-                        // $('#zoom-marker-img-alt'+vm.imgurl.split('.')[0]+'-'+vm.imgCNum).zoomMarker_RemoveMarker(vm.nowMarkId);
+                        vm.imgVisible = true;
+                        vm.regionVisible = false
                     } else {
-                        layer.alert(r.msg);
+                        that.$message({
+                            message: r.msg,
+                            type: 'warning'
+                        });
                     }
                 },
                 error: function () {

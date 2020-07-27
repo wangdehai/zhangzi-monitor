@@ -63,9 +63,9 @@ public class MapController {
     public R checkMap(Long regionId){
         List<MapEntity> mapList = mapService.selectList(new EntityWrapper<MapEntity>().eq("region_id",regionId));
         if(mapList != null && mapList.size() > 0){
-            return R.ok();
+            return R.error("该区域已存在图片");
         }
-        return R.error("该区域已存在图片");
+        return R.ok();
     }
 
     /**

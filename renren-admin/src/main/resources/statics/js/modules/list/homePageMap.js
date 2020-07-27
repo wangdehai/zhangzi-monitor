@@ -329,7 +329,7 @@ var vm = new Vue({
                     src: "../../statics/img/marker.svg",
                     x: position.x,
                     y: position.y,
-                    size: 30,
+                    size: 40,
                     mapId:vm.nowMapId
                 });
                 // 手动配置dialog
