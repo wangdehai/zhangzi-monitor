@@ -257,7 +257,7 @@ var vm = new Vue({
         },
         initImg:function (markers) {
         		var width = $('#zoom-marker-div').width();
-        		console.log($('#zoom-marker-img-alt'));
+        		console.log($('#zoom-marker-div').width());
             $('#zoom-marker-img-alt').zoomMarker({
                 src: "../../statics/img/1595301032060.jpg",
                 rate: 0.2,
@@ -268,6 +268,16 @@ var vm = new Vue({
                 enable_drag:false,
                 
             });
+            // console.log($('#zoom-marker-img-alt').width())
+            console.log($('#zoom-marker-div').height())
+            $('#imgBg').css('display','inline-block')
+            $('#imgBg').css('width',width+'px')
+            console.log($('#imgBg').height())
+            $('#imgBg').css('top',($('#zoom-marker-div').height()-$('#imgBg').height())/2 + 'px')
+			$('.gif').css({
+				'height':$('#imgBg').height()+'px',
+				'top':($('#zoom-marker-div').height()-$('#imgBg').height())/2 + 'px'
+			})
         },
 		// 获取设备信息
 		getDevInfo:function () {

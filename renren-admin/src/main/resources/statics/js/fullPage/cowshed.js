@@ -207,6 +207,14 @@ var vm = new Vue({
                 enable_drag:false,
 
             });
+            $('#imgBg').css('display','inline-block')
+            $('#imgBg').css('width',width+'px')
+            console.log($('#imgBg').height())
+            $('#imgBg').css('top',($('#zoom-marker-div').height()-$('#imgBg').height())/2 + 'px')
+            $('.gif').css({
+                'height':$('#imgBg').height()+'px',
+                'top':($('#zoom-marker-div').height()-$('#imgBg').height())/2 + 'px'
+            })
         },
         // 获取设备信息
         getDevInfo:function () {

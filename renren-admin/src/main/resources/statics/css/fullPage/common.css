@@ -153,16 +153,39 @@ header .rightHeader a i , header .rightHeader a{
     height: calc(100% - 65px);
     margin: 30px 8px;
 }
-.middle .lunboImg{
-    height: 100%;
-    padding: 30px 8px;
-}
-.middle .lunboImg>div{
-    height: 100%;
-}
-.middle .lunboImg>div img{
+.middle .gif img{
+    position: absolute;
+    top:0;
+    left:0;
     width:100%;
     height:100%;
+}
+#zoom-marker-img-alt{
+    opacity: 0;
+}
+#imgBg{
+    position: absolute;
+    box-shadow: 5px 5px 5px #66666688;
+    display: none;
+}
+.gif{
+    position: absolute;
+    top: 0;
+    left:0;
+    width: calc(100% - 16px);
+    margin: auto auto auto auto;
+    margin: 30px 8px;
+    overflow: hidden;
+}
+.gif.hightWeater{
+    border: 4px solid rgba(245, 108, 108,1);
+    animation:myfirst 2s linear infinite;
+}
+@keyframes myfirst
+{
+    0% {border: 4px solid rgba(245, 108, 108,1);}
+    50% {border: 4px solid rgba(245, 108, 108,0);}
+    100% {border: 4px solid rgba(245, 108, 108,1);}
 }
 /*.middle .lunboImg .img{
 	height: 100%;
