@@ -1,12 +1,15 @@
 package io.renren.modules.monitor.controller;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.monitor.entity.RegionEntity;
+import io.renren.modules.monitor.service.MonitorIotDeviceService;
+import io.renren.modules.monitor.service.ProjectService;
 import io.renren.modules.monitor.service.RegionService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -38,6 +41,37 @@ public class DeviceController {
     private DeviceService deviceService;
     @Autowired
     private RegionService regionService;
+    @Autowired
+    private MonitorIotDeviceService iotService;
+    @Autowired
+    private ProjectService projectService;
+
+    /**
+     * 列表
+     */
+    @RequestMapping("/count")
+    public R count(){
+        Map<String,Object> map = new HashMap<>(6);
+        int projectCount = projectService.selectCount(null);
+        int regionCount = regionService.selectCount(null);
+        int cameraCount = deviceService.selectCount(null);
+        int onlineCameraCount = deviceService.selectCount(
+                new EntityWrapper<DeviceEntity>()
+                        .eq("device_status",1)
+        );
+        int offOnlineCameraCount = deviceService.selectCount(
+                new EntityWrapper<DeviceEntity>()
+                        .eq("device_status",0)
+        );
+        int iotDeviceCount = iotService.selectCount(null);
+        map.put("projectCount",projectCount);
+        map.put("regionCount",regionCount);
+        map.put("cameraCount",cameraCount);
+        map.put("onlineCameraCount",onlineCameraCount);
+        map.put("offOnlineCameraCount",offOnlineCameraCount);
+        map.put("iotDeviceCount",iotDeviceCount);
+        return R.ok().put("data", map);
+    }
 
     /**
      * 列表
