@@ -31,5 +31,7 @@ import java.util.Map;
 public interface SysDictService extends IService<SysDictEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    void updateTem(String tem);
 }
 

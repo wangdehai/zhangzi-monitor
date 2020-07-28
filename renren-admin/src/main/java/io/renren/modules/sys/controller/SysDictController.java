@@ -16,6 +16,7 @@
 
 package io.renren.modules.sys.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 import io.renren.common.validator.ValidatorUtils;
@@ -39,6 +40,28 @@ import java.util.Map;
 public class SysDictController {
     @Autowired
     private SysDictService sysDictService;
+
+
+    /**
+     * 查询报警温度
+     */
+    @RequestMapping("/selectTem")
+    public R selectTem(){
+        String tem = sysDictService.selectOne(
+                new EntityWrapper<SysDictEntity>()
+                        .eq("code","tem")
+        ).getValue();
+        return R.ok().put("tem",tem);
+    }
+
+    /**
+     * 修改报警温度
+     */
+    @RequestMapping("/updateTem")
+    public R updateTem(String tem){
+        sysDictService.updateTem(tem);
+        return R.ok();
+    }
 
     /**
      * 列表

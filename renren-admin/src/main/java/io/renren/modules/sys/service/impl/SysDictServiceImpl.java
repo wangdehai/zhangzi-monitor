@@ -46,4 +46,9 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
         return new PageUtils(page);
     }
 
+    @Override
+    public void updateTem(String tem) {
+        this.baseMapper.updateTem(tem);
+    }
+
 }
