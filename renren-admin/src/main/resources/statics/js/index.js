@@ -68,9 +68,68 @@ var vm = new Vue({
         newPassword:'',
         navTitle:"控制台",
         informNum:15,
-        erroMsg4:''
+        erroMsg4:'',
+        hightTem:''
     },
     methods: {
+        // 参数设置
+        setCanshu:function () {
+            $.ajax({
+                url: 'sys/dict/selectTem',
+                type: 'get',
+                data: '',
+                // contentType: "application/json",
+                dataType: 'json',
+                success:function (r) {
+                    if(r.code === 0){
+                        console.log(r);
+                        vm.hightTem = r.tem;
+                        layer.open({
+                            type: 1,
+                            skin: 'openClass',
+                            title: false,
+                            area: ['360px', '200px'],
+                            shadeClose: true,
+                            content: $("#setParameter"),
+                            btn: ['确定','取消'],
+                            btn1: function (index) {
+                                $.ajax({
+                                    url: 'sys/dict/updateTem',
+                                    type: 'get',
+                                    data: {
+                                        tem:parseInt(vm.hightTem)
+                                    },
+                                    // contentType: "application/json",
+                                    dataType: 'json',
+                                    success:function (r) {
+                                        if(r.code === 0){
+                                            console.log(r);
+                                            layer.msg("操作成功");
+                                            layer.close(index);
+
+                                        }else {
+                                            layer.alert(r.msg);
+                                        }
+                                    },
+                                    error:function () {
+                                        layer.msg("网络故障");
+                                    }
+
+                                })
+                            }
+                        });
+
+                    }else {
+                        layer.alert(r.msg);
+                    }
+                },
+                error:function () {
+                    layer.msg("网络故障");
+                }
+
+            })
+
+        },
         getMenuList: function (event) {
             $.getJSON("sys/menu/nav?_"+$.now(), function(r){
                 vm.menuList = r.menuList;

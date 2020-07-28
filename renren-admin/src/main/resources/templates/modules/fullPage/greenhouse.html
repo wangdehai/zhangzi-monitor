@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title></title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<link rel="stylesheet" href="${request.contextPath}/statics/css/layer.css">
 	<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/element.min.css" />
 	<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/common.css" />
 	<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/greenhouse.css" />
@@ -121,10 +122,10 @@
 					<img id="imgBg" :src="'${request.contextPath}/statics/img/'+mapName+'.jpg'" />
 					<img class="zoom-marker-img" id="zoom-marker-img-alt" alt="zoom-marker-img-alt" name="zoom-marker-img-alt" draggable="false" />
 				</div>
-				<div :class="weater.temperature>30 ? 'hightWeater gif' : 'gif'">
+				<div :class="weater.temperature>hightTem ? 'hightWeater gif' : 'gif'">
 					<img v-if="weater.wid==03||weater.wid==04||weater.wid==05||weater.wid==06||weater.wid==07||weater.wid==08||weater.wid==09||weater.wid==10||weater.wid==11||weater.wid==12||weater.wid==21||weater.wid==22||weater.wid==23||weater.wid==24||weater.wid==25" style="opacity: .7;" src="${request.contextPath}/statics/css/fullPage/img/下雨.gif" />
 					<img v-if="weater.wid==13||weater.wid==14||weater.wid==15||weater.wid==16||weater.wid==17||weater.wid==06||weater.wid==26||weater.wid==27||weater.wid==28" src="${request.contextPath}/statics/css/fullPage/img/下雪.gif" />
-					<img v-if="weater.wid==29||weater.wid==30" src="${request.contextPath}/statics/css/fullPage/img/刮风.gif" />
+					<!--<img v-if="weater.wid==29||weater.wid==30" src="${request.contextPath}/statics/css/fullPage/img/刮风.gif" />-->
 				</div>
 
 			</div>
@@ -226,6 +227,7 @@
 <script src="${request.contextPath}/statics/js/jquery.mousewheel.min.js"></script>
 <script src="${request.contextPath}/statics/js/hammer.min.js"></script>
 <script src="${request.contextPath}/statics/js/fullPage/zoom-marker.min.js"></script>
+<script src="${request.contextPath}/statics/plugins/layer/layer.js"></script>
 <script src="${request.contextPath}/statics/libs/vue.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${request.contextPath}/statics/js/element.min.js" type="text/javascript" charset="utf-8"></script>
 
