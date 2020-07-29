@@ -51,15 +51,19 @@ public class SysDictController {
                 new EntityWrapper<SysDictEntity>()
                         .eq("code","tem")
         ).getValue();
-        return R.ok().put("tem",tem);
+        String lowTem = sysDictService.selectOne(
+                new EntityWrapper<SysDictEntity>()
+                        .eq("code","lowTem")
+        ).getValue();
+        return R.ok().put("tem",tem).put("lowTem",lowTem);
     }
 
     /**
      * 修改报警温度
      */
     @RequestMapping("/updateTem")
-    public R updateTem(String tem){
-        sysDictService.updateTem(tem);
+    public R updateTem(String tem, String lowTem){
+        sysDictService.updateTem(tem,lowTem);
         return R.ok();
     }
 

@@ -30,4 +30,7 @@ public interface SysDictDao extends BaseMapper<SysDictEntity> {
 
     @Update({ "update sys_dict set value = #{tem} where code = 'tem'" })
     public void updateTem(String tem);
+
+    @Update({ "update sys_dict set value = #{lowTem} where code = 'lowTem'" })
+    public void updateLowTem(String lowTem);
 }
