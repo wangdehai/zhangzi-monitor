@@ -69,7 +69,8 @@ var vm = new Vue({
         navTitle:"控制台",
         informNum:15,
         erroMsg4:'',
-        hightTem:''
+        hightTem:'',
+        lowTem:''
     },
     methods: {
         // 参数设置
@@ -84,6 +85,8 @@ var vm = new Vue({
                     if(r.code === 0){
                         console.log(r);
                         vm.hightTem = r.tem;
+                        vm.lowTem = r.lowTem;
+                        parseInt()
                         layer.open({
                             type: 1,
                             skin: 'openClass',
@@ -97,7 +100,8 @@ var vm = new Vue({
                                     url: 'sys/dict/updateTem',
                                     type: 'get',
                                     data: {
-                                        tem:parseInt(vm.hightTem)
+                                        tem:parseInt(vm.hightTem),
+                                        lowTem:parseInt(vm.lowTem)
                                     },
                                     // contentType: "application/json",
                                     dataType: 'json',

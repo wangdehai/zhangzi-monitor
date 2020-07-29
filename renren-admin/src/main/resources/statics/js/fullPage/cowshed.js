@@ -57,7 +57,8 @@ var vm = new Vue({
         weaterT:[],
         info:{},
         info1:{},
-        hightTem:''
+        hightTem:'',
+        lowTem:''
     },
     methods:{
         getDate:function(){
@@ -290,6 +291,7 @@ var vm = new Vue({
                     if(r.code === 0){
                         console.log(r);
                         vm.hightTem = r.tem;
+                        vm.lowTem = r.lowTem;
 
                     }else {
                         layer.alert(r.msg);
@@ -325,6 +327,8 @@ var vm = new Vue({
     },
     mounted:function(){
         this.init();
-
+        if(this.weater.wid==13||this.weater.wid==14||this.weater.wid==15||this.weater.wid==16||this.weater.wid==17||this.weater.wid==06||this.weater.wid==26||this.weater.wid==27||this.weater.wid==28){
+            this.xue();
+        }
     }
 })

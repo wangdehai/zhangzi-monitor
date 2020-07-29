@@ -64,7 +64,8 @@ var vm = new Vue({
 		weaterH:[],
         weaterT:[],
 		info:{},
-        hightTem:''
+        hightTem:'',
+        lowTem:30
 	},
 	methods:{
 		getDate:function(){
@@ -172,9 +173,9 @@ var vm = new Vue({
                     if (r.code === 0) {
                         console.log(r);
                         r.list.forEach(function (item) {
-                            item.src = "../../statics/css/fullPage/img/marker.svg";
+                            item.src = "../../statics/css/fullPage/img/marker.gif";
 //                          item.src = "img/marker.svg";
-                            item.size = 40;
+                            item.size = 60;
                             item.draggable = false;
                             // var name = JSON.stringify(item.signName) != 'null' ? item.signName : '暂无名称';
                             item.dialog = {
@@ -317,6 +318,7 @@ var vm = new Vue({
                     if(r.code === 0){
                     	console.log(r);
                         vm.hightTem = r.tem;
+                        vm.lowTem = r.lowTem;
 
                     }else {
                         layer.alert(r.msg);
@@ -327,6 +329,10 @@ var vm = new Vue({
                 }
 
             })
+        },
+		// 下雪
+		xue:function () {
+            $(".snow-canvas").snow();
         }
 	},
 	created:function(){
@@ -344,5 +350,9 @@ var vm = new Vue({
 	},
 	mounted:function(){
 		this.init();
+		if(this.weater.wid==13||this.weater.wid==14||this.weater.wid==15||this.weater.wid==16||this.weater.wid==17||this.weater.wid==06||this.weater.wid==26||this.weater.wid==27||this.weater.wid==28){
+			this.xue();
+		}
+        // this.xue();
 	}
 })

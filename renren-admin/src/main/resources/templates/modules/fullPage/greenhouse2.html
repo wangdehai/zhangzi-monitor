@@ -121,10 +121,21 @@
 					<img id="imgBg" :src="'${request.contextPath}/statics/img/'+mapName+'.jpg'" />
 					<img class="zoom-marker-img" id="zoom-marker-img-alt" alt="zoom-marker-img-alt" name="zoom-marker-img-alt" draggable="false" />
 				</div>
-				<div :class="weater.temperature>hightTem ? 'hightWeater gif' : 'gif'">
+				<div :class="weater.temperature>hightTem ? 'hightWeater gif' : weater.temperature<lowTem ? 'lowWeater gif' : 'gif'">
+					<!--<img style="opacity: .7;" src="${request.contextPath}/statics/css/fullPage/img/下雨.gif" />-->
 					<img v-if="weater.wid==03||weater.wid==04||weater.wid==05||weater.wid==06||weater.wid==07||weater.wid==08||weater.wid==09||weater.wid==10||weater.wid==11||weater.wid==12||weater.wid==21||weater.wid==22||weater.wid==23||weater.wid==24||weater.wid==25" style="opacity: .7;" src="${request.contextPath}/statics/css/fullPage/img/下雨.gif" />
-					<img v-if="weater.wid==13||weater.wid==14||weater.wid==15||weater.wid==16||weater.wid==17||weater.wid==06||weater.wid==26||weater.wid==27||weater.wid==28" src="${request.contextPath}/statics/css/fullPage/img/下雪.gif" />
+					<!--<img v-if="weater.wid==13||weater.wid==14||weater.wid==15||weater.wid==16||weater.wid==17||weater.wid==06||weater.wid==26||weater.wid==27||weater.wid==28" src="${request.contextPath}/statics/css/fullPage/img/下雪.gif" />-->
 					<!--<img v-if="weater.wid==29||weater.wid==30" src="${request.contextPath}/statics/css/fullPage/img/刮风.gif" />-->
+					<!--<div>-->
+					<div v-if="weater.wid==13||weater.wid==14||weater.wid==15||weater.wid==16||weater.wid==17||weater.wid==06||weater.wid==26||weater.wid==27||weater.wid==28">
+						<canvas class="snow-canvas" speed="1" interaction="false" size="2" count="80" opacity="0.00001" start-color="rgba(253,252,251,1)" end-color="rgba(251,252,253,0.3)" wind-power="0" image="false" width="1366" height="667"></canvas>
+						<canvas class="snow-canvas" speed="3" interaction="true" size="6" count="30" start-color="rgba(253,252,251,1)" end-color="rgba(251,252,253,0.3)" opacity="0.00001" wind-power="2" image="false" width="1366" height="667"></canvas>
+						<canvas class="snow-canvas" speed="9" interaction="true" size="26" count="40" wind-power="-5" image="${request.contextPath}/statics/css/fullPage/img/snow.png" width="1366" height="667"></canvas>
+					</div>
+					<div>
+
+					</div>
+
 				</div>
 
 			</div>
@@ -233,6 +244,7 @@
 <script src="${request.contextPath}/statics/js/fullPage/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 <!--<script src="js/timepeople.js" type="text/javascript" charset="utf-8"></script>-->
 <script src="${request.contextPath}/statics/js/fullPage/chart.js" type="text/javascript" charset="utf-8"></script>
+<script src="${request.contextPath}/statics/js/fullPage/snow-plugin.js" type="text/javascript" charset="utf-8"></script>
 
 <script src="${request.contextPath}/statics/js/fullPage/greenhouse2.js" type="text/javascript" charset="utf-8"></script>
 </body>
