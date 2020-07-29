@@ -49,7 +49,7 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictDao, SysDictEntity> i
     @Override
     public void updateTem(String tem, String lowTem) {
         this.baseMapper.updateTem(tem);
-        this.baseMapper.updateTem(lowTem);
+        this.baseMapper.updateLowTem(lowTem);
     }
 
 }
