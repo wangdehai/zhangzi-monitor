@@ -84,15 +84,15 @@
                 <!--<i class="layui-icon layui-icon-note"></i>-->
                 <!--</a>-->
                 <!--</li>-->
-                <!--<li class="layui-nav-item layui-hide-xs" lay-unselect>-->
-                    <!--<a href="javascript:;" layadmin-event="fullscreen">-->
-                        <!--<i class="layui-icon layui-icon-screen-full"></i>-->
-                    <!--</a>-->
-                <!--</li>-->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" @click="setCanshu">
+                        参数设置
+                    </a>
+                </li>
                     <li class="layui-nav-item layui-hide-xs" lay-unselect>
                         <a href="modules/fullPage/index.html" target="_blank">
                         <!--<a href="${request.contextPath}/templates/modules/fullPage/index.html" target="_blank">-->
-                            大屏展示
+                            大数据展示
                         </a>
                         <!--<button class="layui-btn layui-btn-normal layui-btn-radius" @click="synchronize">同步信息</button class="layui-btn layui-btn-normal">-->
                     </li>
@@ -551,6 +551,23 @@
             <br>
             <span style="color: rgb(254, 128, 96); font-size: 13px; height: 20px; margin-top: 4px;">{{erroMsg4}}</span>
         </p>
+    </div>
+    <div id="setParameter" class="tankuang" style="display: none">
+        <h3>设置参数</h3>
+        <p>
+            <label for="">高温预警：</label>
+            <input type="text" v-model="hightTem" placeholder="高温设置">
+        </p>
+        <!--<p>-->
+            <!--<label for="">原密码：</label>-->
+            <!--<input type="password" v-model="password" placeholder="原密码">-->
+        <!--</p>-->
+        <!--<p>-->
+            <!--<label for="">新密码：</label>-->
+            <!--<input type="password" v-model="newPassword" placeholder="新密码" @keyup="chanPassword">-->
+            <!--<br>-->
+            <!--<span style="color: rgb(254, 128, 96); font-size: 13px; height: 20px; margin-top: 4px;">{{erroMsg4}}</span>-->
+        <!--</p>-->
     </div>
 </div>
 

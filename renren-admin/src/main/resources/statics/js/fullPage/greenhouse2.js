@@ -44,7 +44,8 @@ var vm = new Vue({
         weaterH:[],
         weaterT:[],
         info:{},
-        info1:{}
+        info1:{},
+        hightTem:''
     },
     methods:{
         getDate:function(){
@@ -258,6 +259,28 @@ var vm = new Vue({
                 }
 
             })
+        },
+        getHightTem:function () {
+            $.ajax({
+                url: '../../sys/dict/selectTem',
+                type: 'get',
+                data: '',
+                // contentType: "application/json",
+                dataType: 'json',
+                success:function (r) {
+                    if(r.code === 0){
+                        console.log(r);
+                        vm.hightTem = r.tem;
+
+                    }else {
+                        layer.alert(r.msg);
+                    }
+                },
+                error:function () {
+                    layer.msg("网络故障");
+                }
+
+            })
         }
     },
     created:function(){
@@ -274,6 +297,7 @@ var vm = new Vue({
         this.getTable();
         this.getDevInfo();
         this.getDevInfo1();
+        this.getHightTem();
         var that = this;
         setInterval(function(){
             that.getTime()
