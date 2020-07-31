@@ -238,7 +238,11 @@ var vm = new Vue({
                     window.location.href = 'cowshed.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
 				}else if(marker.param.regionId == '3'){
                     window.location.href = 'greenhouse.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
-				}
+				}else if(marker.param.regionId == '4'){
+                    window.location.href = 'greenhouse1.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
+                }else if(marker.param.regionId == '5'){
+                    window.location.href = 'greenhouse2.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
+                }
                 // else if(marker.param.signName == '大棚2'){
                 //     window.location.href = 'greenhouse1.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
                 // }else if(marker.param.signName == '大棚3'){

@@ -162,7 +162,7 @@ var vm = new Vue({
                             item.src = "../../statics/css/fullPage/img/marker.svg";
 //                          item.src = "img/marker.svg";
                             item.size = 40;
-                            item.draggable = false;
+                            // item.draggable = false;
                             var name = JSON.stringify(item.signName) != 'null' ? item.signName : '暂无名称';
                             item.dialog = {
                                 value: "<h4>"+name+"</h4>",
@@ -262,7 +262,7 @@ var vm = new Vue({
         upMark:function (position) {
             var index = layer.load(2);
             $.ajax({
-                url: '../../monitor/mapdev/save',
+                url: '../../monitor/mapdev/saveMain',
                 type: 'post',
                 data: JSON.stringify({
                     mapDevId:position.id,

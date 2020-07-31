@@ -21,9 +21,12 @@ $(function(){
         vm.getTable();
         vm.init();
         vm.getDevInfo();
-        vm.getDevInfo1();
+        // vm.getDevInfo1();
     },900000);
 })
+window.onload = function () {
+    vm.init();
+}
 
 var vm = new Vue({
     el:'#box',
@@ -250,7 +253,7 @@ var vm = new Vue({
                             vm.info1[item.devKey] = item.value
 
                         })
-                        siwang(vm.siwangData);
+                        // siwang(vm.siwangData);
                     }else {
                         layer.alert(r.msg);
                     }
@@ -298,7 +301,7 @@ var vm = new Vue({
         this.getWeater();
         this.getTable();
         this.getDevInfo();
-        this.getDevInfo1();
+        // this.getDevInfo1();
         this.getHightTem();
         var that = this;
         setInterval(function(){
@@ -307,7 +310,7 @@ var vm = new Vue({
 
     },
     mounted:function(){
-        this.init();
+        // this.init();
         if(this.weater.wid==13||this.weater.wid==14||this.weater.wid==15||this.weater.wid==16||this.weater.wid==17||this.weater.wid==06||this.weater.wid==26||this.weater.wid==27||this.weater.wid==28){
             this.xue();
         }
