@@ -12,7 +12,7 @@ public class InfoJson {
     public static String username =  "admin";
     public static String password =  "12345678";
     public static String userAgent =  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
-    public static String Referer =  "https://192.168.1.25:8888/";
+    public static String Referer =  "https://118.75.171.176:8888/";
 
 
     public static String getCookieByLogin(String path){
