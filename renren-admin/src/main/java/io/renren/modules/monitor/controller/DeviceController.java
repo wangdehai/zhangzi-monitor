@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import io.renren.common.utils.Constant;
+import io.renren.common.utils.InfoJson;
 import io.renren.common.validator.ValidatorUtils;
 import io.renren.modules.monitor.entity.RegionEntity;
 import io.renren.modules.monitor.service.MonitorIotDeviceService;
 import io.renren.modules.monitor.service.ProjectService;
 import io.renren.modules.monitor.service.RegionService;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,7 +129,31 @@ public class DeviceController {
      * 获取监控url
      */
     @RequestMapping("/getPreviewUrl")
-    public R getPreviewUrl(){
-        return R.ok();
+    public R getPreviewUrl(String devId){
+        String cookie = InfoJson.getCookieByLogin(Constant.loginUrl);
+        Map addPreviewChnParams = new HashMap();
+        addPreviewChnParams.put("id", devId);
+        addPreviewChnParams.put("streamType",1);
+        JSONObject rs1 = InfoJson.doPost(Constant.addPreviewChn,addPreviewChnParams,cookie);
+        if("0".equals(rs1.getString("error_code"))){
+            JSONObject result1 = rs1.getJSONObject("result");
+            String sessionId = result1.getString("sessionId");
+            System.out.println("sessionId:" + sessionId);
+            if(StringUtils.isNotBlank(sessionId)){
+                Map previewUrlParams = new HashMap();
+                previewUrlParams.put("id", devId);
+                previewUrlParams.put("sessionId",sessionId);
+                JSONObject rs2 = InfoJson.doPost(Constant.getPreviewUrl,previewUrlParams,cookie);
+                if("0".equals(rs2.getString("error_code"))){
+                    JSONObject result2 = rs2.getJSONObject("result");
+                    String url = result2.getString("url");
+                    String backupUrl = result2.getString("backupUrl");
+                    System.out.println("url:" + url);
+                    System.out.println("backupUrl:" + backupUrl);
+                    return R.ok().put("url",backupUrl);
+                }
+            }
+        }
+        return R.error();
     }
 }
