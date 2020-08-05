@@ -61,7 +61,8 @@ var vm = new Vue({
         info:{},
         info1:{},
         hightTem:'',
-        lowTem:''
+        lowTem:'',
+        videoUrl:''
     },
     methods:{
         getDate:function(){
@@ -188,7 +189,30 @@ var vm = new Vue({
                 console.log(JSON.stringify(marker));
                 // window.location.href = 'greenhouse.html'
                 vm.mapDevId = marker.param.mapDevId;
-                vm.markVisible = true;
+                var index = layer.load(2);
+                $.ajax({
+                    url: '../../monitor/device/getPreviewUrl',
+                    type: 'get',
+                    data: {
+                        devId:marker.param.mapDevId
+                    },
+                    contentType: "application/json",
+                    // dataType: 'json',
+                    success: function (r) {
+                        layer.close(index);
+                        if (r.code === 0) {
+                            vm.videoUrl = r.url;
+                            vm.markVisible = true;
+                        } else {
+                            layer.alert(r.msg);
+                        }
+
+                    },
+                    error: function () {
+                        layer.close(index);
+                        layer.msg("网络故障");
+                    }
+                });
                 // $('#zoom-marker-img-alt'+vm.imgurl.split('.')[0]+'-'+vm.imgCNum).zoomMarker_RemoveMarker(marker.id);
             });
             item.on("zoom_marker_move_end", function (event, marker) {
