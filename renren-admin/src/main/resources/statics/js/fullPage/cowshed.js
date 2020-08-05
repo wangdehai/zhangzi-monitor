@@ -194,7 +194,7 @@ var vm = new Vue({
                     url: '../../monitor/device/getPreviewUrl',
                     type: 'get',
                     data: {
-                        devId:marker.param.mapDevId
+                        devId:marker.param.devId
                     },
                     contentType: "application/json",
                     // dataType: 'json',
