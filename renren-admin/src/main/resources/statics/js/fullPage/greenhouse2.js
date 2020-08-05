@@ -265,7 +265,7 @@ var vm = new Vue({
                 url: '../../monitor/monitoriotdevice/showList',
                 type: 'get',
                 data: {
-                    regionId:this.reId
+                    regionId:'3'
                 },
                 contentType: "application/json",
                 // dataType: 'json',
@@ -325,7 +325,7 @@ var vm = new Vue({
         this.getWeater();
         this.getTable();
         this.getDevInfo();
-        // this.getDevInfo1();
+        this.getDevInfo1();
         this.getHightTem();
         var that = this;
         setInterval(function(){
