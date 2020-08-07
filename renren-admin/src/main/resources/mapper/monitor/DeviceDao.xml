@@ -3,13 +3,36 @@
 
 <mapper namespace="io.renren.modules.monitor.dao.DeviceDao">
 
+
+
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="io.renren.modules.monitor.entity.DeviceEntity" id="deviceMap">
         <result property="devId" column="dev_id"/>
         <result property="ip" column="ip"/>
         <result property="deviceName" column="device_name"/>
         <result property="deviceStatus" column="device_status"/>
+        <result property="regionName" column="region_name"/>
+        <result property="deviceStatus" column="device_status"/>
     </resultMap>
 
-
+    <select id="selectShowDevList" resultMap="deviceMap">
+		SELECT
+            b.region_name,
+            a.ip,
+            a.device_name,
+            a.device_status
+        FROM
+            monitor_device a
+        LEFT JOIN monitor_region b ON a.region_id = b.region_id
+        <where>
+            <if test="params.projectId != null and params.projectId != ''">
+                AND a.project_id = #{params.projectId}
+            </if>
+            <if test="params.regionId != null and params.regionId != ''">
+                AND a.region_id = #{params.regionId}
+            </if>
+        </where>
+        ORDER BY
+            a.region_id
+	</select>
 </mapper>

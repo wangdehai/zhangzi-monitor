@@ -106,7 +106,7 @@ public class DeviceController {
      */
     @RequestMapping("/showDevList")
     public R showDevList(@RequestParam Map<String, Object> params){
-        String projectId = (String) params.get("projectId");
+        /*String projectId = (String) params.get("projectId");
         String regionId = (String) params.get("regionId");
         List<DeviceEntity> list = deviceService.selectList(
                 new EntityWrapper<DeviceEntity>()
@@ -121,7 +121,8 @@ public class DeviceController {
                 }
             }
 
-        }
+        }*/
+        List<DeviceEntity> list = deviceService.selectShowDevList(params);
         return R.ok().put("devList", list);
     }
 

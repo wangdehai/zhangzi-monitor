@@ -5,6 +5,7 @@ import io.renren.common.utils.PageUtils;
 import io.renren.modules.monitor.entity.DeviceEntity;
 import io.renren.modules.monitor.entity.RegionEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,5 +20,7 @@ public interface DeviceService extends IService<DeviceEntity> {
     PageUtils queryPage(Map<String, Object> params);
 
     void synchronize(DeviceEntity devEntity);
+
+    List<DeviceEntity> selectShowDevList(Map<String, Object> params);
 }
 

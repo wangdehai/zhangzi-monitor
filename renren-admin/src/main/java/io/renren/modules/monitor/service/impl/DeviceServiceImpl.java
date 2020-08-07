@@ -3,6 +3,8 @@ package io.renren.modules.monitor.service.impl;
 import io.renren.modules.monitor.entity.RegionEntity;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -41,5 +43,10 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceDao, DeviceEntity> impl
             devEntity.setIsRelation(0);
             this.insert(devEntity);
         }
+    }
+
+    @Override
+    public List<DeviceEntity> selectShowDevList(Map<String, Object> params) {
+        return this.baseMapper.selectShowDevList(params);
     }
 }
