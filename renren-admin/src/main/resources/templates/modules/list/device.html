@@ -47,9 +47,28 @@
                     width="">
             </el-table-column>
             <el-table-column
+                    prop="deviceType"
+                    label="设备类型"
+                    width="">
+            </el-table-column>
+            <el-table-column
+                    prop="deviceModel"
+                    label="设备型号"
+                    width="">
+            </el-table-column>
+            <el-table-column
+                    prop="ethernet"
+                    label="MAC地址"
+                    width="">
+            </el-table-column>
+            <el-table-column
                     prop="deviceStatus"
                     label="设备状态"
                     width="">
+                <template slot-scope="scope">
+                    <el-tag v-if="scope.row.deviceStatus == '1'">在线</el-tag>
+                    <el-tag v-if="scope.row.deviceStatus == '0'" type="danger">离线</el-tag>
+                </template>
             </el-table-column>
             <el-table-column
                     prop="ip"
