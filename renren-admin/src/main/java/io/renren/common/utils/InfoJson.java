@@ -9,16 +9,13 @@ import java.util.Map;
 
 public class InfoJson {
 
-    public static String username =  "admin";
-    public static String password =  "12345678";
-    public static String userAgent =  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
-    public static String Referer =  "https://118.75.171.176:8888/";
+
 
 
     public static String getCookieByLogin(String path){
         Map loginParmas = new HashMap();
-        loginParmas.put("username", username);
-        loginParmas.put("password",password);
+        loginParmas.put("username", Constant.username);
+        loginParmas.put("password",Constant.password);
         String payload = JSONObject.fromObject(loginParmas).toString();
         System.out.println("url:" + path);
         System.out.println("params:" + payload);
@@ -34,10 +31,10 @@ public class InfoJson {
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setConnectTimeout(5000);//连接超时 单位毫秒
-            connection.setRequestProperty("User-Agent", userAgent);
+            connection.setRequestProperty("User-Agent", Constant.userAgent);
             connection.setRequestProperty("Charsert", "UTF-8");
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");//设置参数类型是json格式
-            connection.setRequestProperty("Referer",Referer);
+            connection.setRequestProperty("Referer",Constant.Referer);
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             writer.write(payload);
             writer.close();
@@ -71,10 +68,10 @@ public class InfoJson {
             connection.setDoOutput(true);
             connection.setRequestMethod("POST");
             connection.setConnectTimeout(5000);//连接超时 单位毫秒
-            connection.setRequestProperty("User-Agent", userAgent);
+            connection.setRequestProperty("User-Agent", Constant.userAgent);
             connection.setRequestProperty("Charsert", "UTF-8");
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");//设置参数类型是json格式
-            connection.setRequestProperty("Referer",Referer);
+            connection.setRequestProperty("Referer",Constant.Referer);
             connection.setRequestProperty("Cookie",cookie);
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
             writer.write(payload);

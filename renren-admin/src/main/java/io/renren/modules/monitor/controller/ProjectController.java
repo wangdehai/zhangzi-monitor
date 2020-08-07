@@ -132,13 +132,13 @@ public class ProjectController {
                             }
                         }
                     }
-                    //同步设备
+                    //同步设备 1:项目下的设备 2：区域下的设备
                     Map deviceParams = new HashMap();
                     deviceParams.put("start", 1);
                     deviceParams.put("limit",100);
                     Map filterAnd = new HashMap();
                     filterAnd.put("deviceCatagory","video");
-                    filterAnd.put("projectId","1");
+                    filterAnd.put("projectId",project.getProjectId());
                     deviceParams.put("filterAnd",filterAnd);
                     JSONObject rs3 = InfoJson.doPost(Constant.getDeviceList,deviceParams,cookie);
                     if("0".equals(rs3.getString("error_code"))){
@@ -157,6 +157,37 @@ public class ProjectController {
                             }
                         }
                     }
+                    List<RegionEntity> regionList = regionService.selectList(null);
+                    if(regionList != null && regionList.size() > 0){
+                        for(RegionEntity regionEntity : regionList){
+                            Map deviceParams1 = new HashMap();
+                            deviceParams1.put("start", 1);
+                            deviceParams1.put("limit",100);
+                            Map filterAnd1 = new HashMap();
+                            filterAnd1.put("deviceCatagory","videoPoint");
+                            filterAnd1.put("projectId",regionEntity.getParentId());
+                            filterAnd1.put("regionId",regionEntity.getRegionId());
+                            deviceParams1.put("filterAnd",filterAnd1);
+                            JSONObject rs5 = InfoJson.doPost(Constant.getDeviceList,deviceParams1,cookie);
+                            if("0".equals(rs5.getString("error_code"))){
+                                JSONArray devList = rs5.getJSONObject("result").getJSONArray("list");
+                                if(devList != null && devList.size() > 0){
+                                    for(Object o : devList){
+                                        DeviceEntity deviceEntity = JSON.parseObject(JSON.toJSONString(o),DeviceEntity.class);
+                                        Map deviceInfo = new HashMap();
+                                        deviceInfo.put("devId", deviceEntity.getDevId());
+                                        JSONObject rs6 = InfoJson.doPost(Constant.getDeviceInfo,deviceInfo,cookie);
+                                        if("0".equals(rs6.getString("error_code"))){
+                                            JSONObject dev = rs6.getJSONObject("result");
+                                            deviceEntity = JSON.parseObject(JSON.toJSONString(dev),DeviceEntity.class);
+                                            deviceService.synchronize(deviceEntity);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
 
             }

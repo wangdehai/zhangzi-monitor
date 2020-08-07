@@ -28,24 +28,29 @@ public class Constant {
     /** 数据权限过滤 */
 	public static final String SQL_FILTER = "sql_filter";
 
+
+    public static final String username =  "admin";
+    public static final String password =  "zhny123";
+    public static final String userAgent =  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
+    public static final String Referer =  "https://zzzhny.tpddns.cn:8888/";
     /** 登录 */
-    public static final String loginUrl = "https://118.75.171.176:8888/tums/account/v1/login";
+    public static final String loginUrl = "https://zzzhny.tpddns.cn:8888/tums/account/v1/login";
     /** 获取用户根项目 */
-    public static final String getRootProjects = "https://118.75.171.176:8888/tums/resource/v1/getRootProjects";
+    public static final String getRootProjects = "https://zzzhny.tpddns.cn:8888/tums/resource/v1/getRootProjects";
     /** 获取子项目 */
-    public static final String getProjectChildren = "https://118.75.171.176:8888/tums/resource/v1/getProjectChildren";
+    public static final String getProjectChildren = "https://zzzhny.tpddns.cn:8888/tums/resource/v1/getProjectChildren";
     /** 获取用户根区域 */
-    public static final String getRootRegion = "https://118.75.171.176:8888/tums/resource/v1/getRootRegions";
+    public static final String getRootRegion = "https://zzzhny.tpddns.cn:8888/tums/resource/v1/getRootRegions";
     /** 获取子区域 */
-    public static final String getRegionChildren = "https://118.75.171.176:8888/tums/resource/v1/getRegionChildren";
+    public static final String getRegionChildren = "https://zzzhny.tpddns.cn:8888/tums/resource/v1/getRegionChildren";
     /** 获取设备列表 */
-    public static final String getDeviceList = "https://118.75.171.176:8888/tums/deviceManager/v1/getDeviceList";
+    public static final String getDeviceList = "https://zzzhny.tpddns.cn:8888/tums/deviceManager/v1/getDeviceList";
     /** 获取设备详情 */
-    public static final String getDeviceInfo = "https://118.75.171.176:8888/tums/deviceManager/v1/getDeviceDetails";
+    public static final String getDeviceInfo = "https://zzzhny.tpddns.cn:8888/tums/deviceManager/v1/getDeviceDetails";
     /** 添加预览通道 */
-    public static final String addPreviewChn = "https://118.75.171.176:8888/tums/preview/v1/addPreviewChn";
+    public static final String addPreviewChn = "https://zzzhny.tpddns.cn:8888/tums/preview/v1/addPreviewChn";
     /** 获取监控url */
-    public static final String getPreviewUrl = "https://118.75.171.176:8888/tums/preview/v1/getPreviewUrl";
+    public static final String getPreviewUrl = "https://zzzhny.tpddns.cn:8888/tums/preview/v1/getPreviewUrl";
 
 	/**
 	 * 菜单类型

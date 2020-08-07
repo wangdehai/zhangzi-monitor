@@ -150,7 +150,7 @@ public class DeviceController {
                     String backupUrl = result2.getString("backupUrl");
                     System.out.println("url:" + url);
                     System.out.println("backupUrl:" + backupUrl);
-                    return R.ok().put("url",backupUrl);
+                    return R.ok().put("url",url);
                 }
             }
         }
