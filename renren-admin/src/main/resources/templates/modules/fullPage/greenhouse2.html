@@ -17,18 +17,13 @@
 <div class="bgDiv"></div>
 <div id="box" v-cloak>
 	<header>
-		<img class="security1" width="60px" src="${request.contextPath}/statics/css/fullPage/img/titleI.png" />
-		<span class="time">{{data}}<br />{{time}}</span>
+		<img width="" src="${request.contextPath}/statics/css/fullPage/img/logo.png" />
 		<span class="titleHeader">
 					长子县智慧农业监控数据中心
 				</span>
 		<div class="rightHeader">
-			<div class="">
-				<!--<a href="index.html">-->
-					<!--<i class="el-icon-back"></i>-->
-					<!--返回-->
-				<!--</a>-->
-			</div>
+			<img class="security1" width="60px" src="${request.contextPath}/statics/css/fullPage/img/titleI.png" />
+			<span class="time">{{data}}<br />{{time}}</span>
 		</div>
 	</header>
 	<section>
@@ -142,71 +137,97 @@
 		</div>
 		<div class="right">
 
-			<div class="chart">
-				<span class="title">土壤情况分析</span>
-				<div style="height: calc(100% - 34px);display: flex;flex-direction: column;">
-					<div style="flex: 1;display: flex;">
-						<div class="sunDivItem">
-							<i class="iconfont icon-IOTtubiao_huabanfuben"></i>
-							<p>温度</p>
-							<span>{{info1['温度']}}</span>
-						</div>
-						<div class="sunDivItem">
-							<i class="iconfont icon-IOTtubiao_huabanfuben1"></i>
-							<p>湿度</p>
-							<span>{{info1['湿度']}}</span>
-						</div>
-					</div>
-					<div style="flex: 1;display: flex;">
-						<div class="sunDivItem">
-							<i class="iconfont icon-taiyang"></i>
-							<p>光照度</p>
-							<span>{{info1['光照度']}}</span>
-						</div>
-						<div class="sunDivItem">
-							<i class="iconfont icon-EC"></i>
-							<p>土壤电导率</p>
-							<span>{{info1['土壤电导率']}}</span>
-						</div>
-					</div>
-					<div style="flex: 1;display: flex;">
-						<div class="sunDivItem">
-							<i class="iconfont icon-turangwendu"></i>
-							<p>土壤温度</p>
-							<span>{{info1['土壤温度']}}</span>
-						</div>
-						<div class="sunDivItem">
-							<i class="iconfont icon-turangshidu"></i>
-							<p>土壤湿度</p>
-							<span>{{info1['土壤湿度']}}</span>
-						</div>
-					</div>
-					<div style="flex: 1;display: flex;">
-						<div class="sunDivItem">
-							<i class="iconfont icon-turangPH"></i>
-							<p>土壤PH</p>
-							<span>{{info1['土壤电ph']}}</span>
-						</div>
-						<div class="sunDivItem">
-							<i class="iconfont icon-turangdanhanliang"></i>
-							<p>土壤氮含量</p>
-							<span>{{info1['土壤氮']}}</span>
-						</div>
-					</div>
-					<div style="flex: 1;display: flex;">
-						<div class="sunDivItem">
-							<i class="iconfont icon-turanglinhanliang"></i>
-							<p>土壤磷含量</p>
-							<span>{{info1['土壤磷']}}</span>
-						</div>
-						<div class="sunDivItem">
-							<i class="iconfont icon-turangjiahanliang"></i>
-							<p>土壤钾含量</p>
-							<span>{{info1['土壤钾']}}</span>
-						</div>
-					</div>
+			<!--<div class="chart">-->
+				<!--<span class="title">土壤情况分析</span>-->
+				<!--<div style="height: calc(100% - 34px);display: flex;flex-direction: column;">-->
+					<!--<div style="flex: 1;display: flex;">-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-IOTtubiao_huabanfuben"></i>-->
+							<!--<p>温度</p>-->
+							<!--<span>{{info1['温度']}}</span>-->
+						<!--</div>-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-IOTtubiao_huabanfuben1"></i>-->
+							<!--<p>湿度</p>-->
+							<!--<span>{{info1['湿度']}}</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div style="flex: 1;display: flex;">-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-taiyang"></i>-->
+							<!--<p>光照度</p>-->
+							<!--<span>{{info1['光照度']}}</span>-->
+						<!--</div>-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-EC"></i>-->
+							<!--<p>土壤电导率</p>-->
+							<!--<span>{{info1['土壤电导率']}}</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div style="flex: 1;display: flex;">-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-turangwendu"></i>-->
+							<!--<p>土壤温度</p>-->
+							<!--<span>{{info1['土壤温度']}}</span>-->
+						<!--</div>-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-turangshidu"></i>-->
+							<!--<p>土壤湿度</p>-->
+							<!--<span>{{info1['土壤湿度']}}</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div style="flex: 1;display: flex;">-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-turangPH"></i>-->
+							<!--<p>土壤PH</p>-->
+							<!--<span>{{info1['土壤电ph']}}</span>-->
+						<!--</div>-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-turangdanhanliang"></i>-->
+							<!--<p>土壤氮含量</p>-->
+							<!--<span>{{info1['土壤氮']}}</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div style="flex: 1;display: flex;">-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-turanglinhanliang"></i>-->
+							<!--<p>土壤磷含量</p>-->
+							<!--<span>{{info1['土壤磷']}}</span>-->
+						<!--</div>-->
+						<!--<div class="sunDivItem">-->
+							<!--<i class="iconfont icon-turangjiahanliang"></i>-->
+							<!--<p>土壤钾含量</p>-->
+							<!--<span>{{info1['土壤钾']}}</span>-->
+						<!--</div>-->
+					<!--</div>-->
 
+				<!--</div>-->
+			<!--</div>-->
+			<div class="chart">
+				<span class="title">近几天天气情况</span>
+				<div style="height: calc(100% - 34px);display: flex;flex-direction: column;">
+					<template v-for="item in weater.weatherItemList">
+						<div class="weater" style="height: 70px">
+							<div class="time">{{item.date.split('-')[1]}}-{{item.date.split('-')[2]}}</div>
+							<div class="latelyWeather">
+								<div>
+									<img :src="'${request.contextPath}/statics/css/fullPage/img/weater'+item.day+'.png'" />
+									<img v-if="item.night != item.day" :src="'${request.contextPath}/statics/css/fullPage/img/weater'+item.night+'.png'" />
+								</div>
+								<div style="padding-top: 15px;">
+									<span class="temperature">{{item.temperature}}</span>
+									<span class="weather">{{item.weather}}</span>
+								</div>
+
+							</div>
+						</div>
+						<div style="flex: 1"></div>
+					</template>
 				</div>
+			</div>
+			<div class="chart">
+				<span class="title">近几天温度变化</span>
+				<div style="height: calc(100% - 34px);" id="wendu"></div>
 			</div>
 
 		</div>

@@ -17,6 +17,7 @@ function tran(str) {
 
 $(function(){
     setInterval(function(){
+        $.ajaxSetup({cache:false});
         vm.getWeater();
         vm.getTable();
         vm.init();
@@ -118,6 +119,21 @@ var vm = new Vue({
                     if(r.code === 0){
                         console.log(r);
                         vm.weater = r.weather;
+                        vm.weaterH = [];
+                        vm.weaterL = [];
+                        vm.weaterT = [];
+                        r.weather.weatherItemList.forEach(function (item) {
+                            var arr = item.temperature.split('/');
+                            vm.weaterH.push(arr[1].split("℃")[0]);
+                            vm.weaterL.push(arr[0]);
+                            vm.weaterT.push(item.date);
+
+                        })
+                        var obj = {
+                            xData:vm.weaterT,
+                            data:[vm.weaterH,vm.weaterL]
+                        }
+                        wendu(obj);
 
                     }else {
                         layer.alert(r.msg);

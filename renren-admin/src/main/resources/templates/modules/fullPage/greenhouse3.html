@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<link rel="stylesheet" href="${request.contextPath}/statics/css/layer.css">
+
+		<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/element.min.css" />
+		<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/common.css" />
+		<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/index.css" />
+		<link rel="stylesheet" type="text/css" href="${request.contextPath}/statics/css/fullPage/font/iconfont.css"/>
+		<link rel="stylesheet" href="${request.contextPath}/statics/css/fullPage/zoom-marker.css">
+
+
+		<style>
+
+		</style>
+	</head>
+
+	<body>
+		<div class="bgDiv"></div>
+		<div id="box" v-cloak>
+			<header>
+				<img width="" src="${request.contextPath}/statics/css/fullPage/img/logo.png" />
+				<span class="titleHeader">
+					长子县智慧农业监控数据中心
+				</span>
+				<div class="rightHeader">
+					<img class="security1" width="60px" src="${request.contextPath}/statics/css/fullPage/img/titleI.png" />
+					<span class="time">{{data}}<br />{{time}}</span>
+				</div>
+			</header>
+			<section>
+				<div class="left">
+					<div>
+						<img :src="'${request.contextPath}/statics/css/fullPage/img/weater'+weater.wid+'.png'" />
+						<span class="temperature">{{weater.temperature}}°</span>
+						<span class="weather">{{weater.info}}</span>
+						&nbsp;&nbsp;
+						<span class="weather">{{weater.humidity}} RH</span>
+
+						<div class="kongqi">
+							<span class="weather">{{weater.power}}</span>
+							<span class="weather">{{weater.direct}}</span> &nbsp;
+							<span class="weather">空气指数：{{weater.aqi}}</span>
+						</div>
+
+					</div>
+					<div class="chart">
+						<span class="title">设备监控列表</span>
+						<div class="chartDiv" id="tableDiv" style="height: calc(100% - 50px);">
+							<table style="width: 100%">
+								<tr>
+									<th>所属区域</th>
+									<th>设备名称</th>
+									<th>IP地址</th>
+									<th>设备状态</th>
+								</tr>
+								<tr v-for="item in tableData">
+									<td>{{item.regionName}}</td>
+									<td>{{item.deviceName}}</td>
+									<td>{{item.ip}}</td>
+									<td>
+										<span v-if="item.deviceStatus == 1" style="color: #409EFF;font-size: 12px;">在线</span>
+										<span v-if="item.deviceStatus == 0" style="color: #f56c6c;font-size: 12px;">离线</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="middle">
+					<div class="statis">
+						<div>
+							<div class="">
+								<span class="num" style="color: #ea6666;">{{info['温度']}}</span><br />
+								<span class="dec">温度</span>
+							</div>
+							<span class="lineSpan"></span>
+							<div class="">
+								<span class="num" style="color: #ec914f;">{{info['湿度']}}</span><br />
+								<span class="dec">湿度</span>
+							</div>
+							<span class="lineSpan"></span>
+							<div class="">
+								<span class="num" style="color: #f5dd64;">{{info['大气压']}}</span><br />
+								<span class="dec">大气压力</span>
+							</div>
+						</div>
+						<div>
+							<div class="">
+								<span class="num" style="color: #f5dd64;">{{info['雨量']}}</span><br />
+								<span class="dec">雨量</span>
+							</div>
+							<span class="lineSpan"></span>
+							<div class="">
+								<span class="num" style="color: #a4f16b;">{{info['风速']}}</span><br />
+								<span class="dec">风速</span>
+							</div>
+							<span class="lineSpan"></span>
+							<div class="">
+								<span class="num" style="color: #74ecf9;">{{info['风向']}}</span> <br />
+								<span class="dec">风向</span>
+							</div>
+						</div>
+						<img class="leftBottom" src="${request.contextPath}/statics/css/fullPage/img/statLeft.png" />
+						<img class="rightTop" src="${request.contextPath}/statics/css/fullPage/img/statRight.png" />
+					</div>
+					<div class="bottom">
+						<div style="position:absolute;top: 36px;left: 10px;z-index: 999;">
+							<a href="index.html">
+								<i class="el-icon-back" style="font-size: 20px"></i>
+							</a>
+						</div>
+						<img class="leftTop" src="${request.contextPath}/statics/css/fullPage/img/leftTop.png" />
+						<img class="leftBottom" src="${request.contextPath}/statics/css/fullPage/img/leftBottom.png" />
+						<img class="rightTop" src="${request.contextPath}/statics/css/fullPage/img/rightTop.png" />
+						<img class="rightBottom" src="${request.contextPath}/statics/css/fullPage/img/rightBottom.png" />
+						<!--<img id="imgBg" src="${request.contextPath}/statics/img/1595301032060.jpg" />-->
+						<div id="zoom-marker-div" class="zoom-marker-div">
+							<img id="imgBg" :src="'${request.contextPath}/statics/img/'+mapName+'.jpg'" />
+							<img class="zoom-marker-img" id="zoom-marker-img-alt" alt="zoom-marker-img-alt" name="zoom-marker-img-alt" draggable="false" />
+						</div>
+						<div :class="weater.temperature>hightTem ? 'hightWeater gif' : weater.temperature<lowTem ? 'lowWeater gif' : 'gif'">
+							<!--<img style="opacity: .7;" src="${request.contextPath}/statics/css/fullPage/img/下雨.gif" />-->
+							<img v-if="weater.wid==03||weater.wid==04||weater.wid==05||weater.wid==06||weater.wid==07||weater.wid==08||weater.wid==09||weater.wid==10||weater.wid==11||weater.wid==12||weater.wid==21||weater.wid==22||weater.wid==23||weater.wid==24||weater.wid==25" style="opacity: .7;" src="${request.contextPath}/statics/css/fullPage/img/下雨.gif" />
+							<!--<img v-if="weater.wid==13||weater.wid==14||weater.wid==15||weater.wid==16||weater.wid==17||weater.wid==06||weater.wid==26||weater.wid==27||weater.wid==28" src="${request.contextPath}/statics/css/fullPage/img/下雪.gif" />-->
+							<!--<img v-if="weater.wid==29||weater.wid==30" src="${request.contextPath}/statics/css/fullPage/img/刮风.gif" />-->
+							<!--<div>-->
+							<div v-if="weater.wid==13||weater.wid==14||weater.wid==15||weater.wid==16||weater.wid==17||weater.wid==06||weater.wid==26||weater.wid==27||weater.wid==28">
+								<canvas class="snow-canvas" speed="1" interaction="false" size="2" count="80" opacity="0.00001" start-color="rgba(253,252,251,1)" end-color="rgba(251,252,253,0.3)" wind-power="0" image="false" width="1366" height="667"></canvas>
+								<canvas class="snow-canvas" speed="3" interaction="true" size="6" count="30" start-color="rgba(253,252,251,1)" end-color="rgba(251,252,253,0.3)" opacity="0.00001" wind-power="2" image="false" width="1366" height="667"></canvas>
+								<canvas class="snow-canvas" speed="9" interaction="true" size="26" count="40" wind-power="-5" image="${request.contextPath}/statics/css/fullPage/img/snow.png" width="1366" height="667"></canvas>
+							</div>
+							<div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				<div class="right">
+					<div class="chart">
+						<span class="title">近几天天气情况</span>
+						<div style="height: calc(100% - 34px);display: flex;flex-direction: column;">
+							<template v-for="item in weater.weatherItemList">
+								<div class="weater" style="height: 70px">
+									<div class="time">{{item.date.split('-')[1]}}-{{item.date.split('-')[2]}}</div>
+									<div class="latelyWeather">
+										<div>
+											<img :src="'${request.contextPath}/statics/css/fullPage/img/weater'+item.day+'.png'" />
+											<img v-if="item.night != item.day" :src="'${request.contextPath}/statics/css/fullPage/img/weater'+item.night+'.png'" />
+										</div>
+										<div style="padding-top: 15px;">
+											<span class="temperature">{{item.temperature}}</span>
+											<span class="weather">{{item.weather}}</span>
+										</div>
+
+									</div>
+								</div>
+								<div style="flex: 1"></div>
+							</template>
+
+
+
+						</div>
+					</div>
+					<div class="chart">
+						<span class="title">近几天温度变化</span>
+						<div style="height: calc(100% - 34px);" id="wendu"></div>
+					</div>
+				</div>
+			</section>
+			<!--点击标记点弹框-->
+			<el-dialog
+					title=""
+					:visible.sync="markVisible"
+					width="1000px">
+				<div style="color: #000;">
+					<!--{{mapDevId}}-->
+					<div style="border:1px dashed #808080;width: 960px;height: 540px;margin-top: 5px;">
+						<object type='application/x-vlc-plugin' classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" id='vlc' events='True' width="960" height="540">
+							<param name='mrl' :value='videoUrl' />
+							<param name='volume' value='50'/>
+							<param name='autoplay' value='true' />
+							<param name='loop' value='false' />
+							<param name='fullscreen' value='false' />
+						</object>
+					</div>
+				</div>
+				<span slot="footer" class="dialog-footer" style="color: #606266;">
+		            <el-button @click="markVisible = false" type="primary">关 闭</el-button>
+		        </span>
+			</el-dialog>
+		</div>
+		<script src="${request.contextPath}/statics/js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${request.contextPath}/statics/js/jquery.mousewheel.min.js"></script>
+		<script src="${request.contextPath}/statics/js/hammer.min.js"></script>
+		<script src="${request.contextPath}/statics/js/fullPage/zoom-marker.min.js"></script>
+		<script src="${request.contextPath}/statics/plugins/layer/layer.js"></script>
+		<script src="${request.contextPath}/statics/libs/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${request.contextPath}/statics/js/element.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="${request.contextPath}/statics/js/fullPage/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/timepeople.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="${request.contextPath}/statics/js/fullPage/chart.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${request.contextPath}/statics/js/fullPage/snow-plugin.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="${request.contextPath}/statics/js/fullPage/greenhouse3.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

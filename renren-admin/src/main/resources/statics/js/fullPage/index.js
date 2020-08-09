@@ -17,6 +17,7 @@ function tran(str) {
 
 $(function(){
     setInterval(function(){
+        $.ajaxSetup({cache:false});
         vm.getWeater();
         vm.getTable();
         this.getDevInfo();
@@ -236,12 +237,16 @@ var vm = new Vue({
                 console.log(JSON.stringify(marker));
                 if(marker.param.regionId == '6'){
                     window.location.href = 'cowshed.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
-				}else if(marker.param.regionId == '3'){
+				}else if(marker.param.regionId == '7'){
                     window.location.href = 'greenhouse.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
-				}else if(marker.param.regionId == '4'){
+				}else if(marker.param.regionId == '3'){
                     window.location.href = 'greenhouse1.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
                 }else if(marker.param.regionId == '5'){
                     window.location.href = 'greenhouse2.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
+                }else if(marker.param.regionId == '4'){
+                    window.location.href = 'greenhouse3.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
+                }else if(marker.param.regionId == '8'){
+                    window.location.href = 'greenhouse4.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
                 }
                 // else if(marker.param.signName == '大棚2'){
                 //     window.location.href = 'greenhouse1.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId

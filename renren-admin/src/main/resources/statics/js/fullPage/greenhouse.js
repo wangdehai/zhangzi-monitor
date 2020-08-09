@@ -17,6 +17,7 @@ function tran(str) {
 
 $(function(){
     setInterval(function(){
+        $.ajaxSetup({cache:false});
         vm.getWeater();
         vm.getTable();
         vm.init();

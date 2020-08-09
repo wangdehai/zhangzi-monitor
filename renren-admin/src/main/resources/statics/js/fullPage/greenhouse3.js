@@ -1,20 +1,22 @@
 function tran(str) {
-    var v, j, sj, rv = "";
-    v = str.replace(/,/g, "").split(".");
-    j = v[0].length % 3;
-    sj = v[0].substr(j).toString();
-    for(var i = 0; i < sj.length; i++) {
-        rv = (i % 3 == 0) ? rv + "," + sj.substr(i, 1) : rv + sj.substr(i, 1);
-    }
-    var rvalue = (v[1] == undefined) ? v[0].substr(0, j) + rv : v[0].substr(0, j) + rv + "." + v[1];
-    if(rvalue.charCodeAt(0) == 44) {
-        rvalue = rvalue.substr(1);
-    }
-    str = rvalue;
-    console.log(str);
+	var v, j, sj, rv = "";
+	v = str.replace(/,/g, "").split(".");
+	j = v[0].length % 3;
+	sj = v[0].substr(j).toString();
+	for(var i = 0; i < sj.length; i++) {
+		rv = (i % 3 == 0) ? rv + "," + sj.substr(i, 1) : rv + sj.substr(i, 1);
+	}
+	var rvalue = (v[1] == undefined) ? v[0].substr(0, j) + rv : v[0].substr(0, j) + rv + "." + v[1];
+	if(rvalue.charCodeAt(0) == 44) {
+		rvalue = rvalue.substr(1);
+	}
+	str = rvalue;
+	console.log(str);
 }
 //tran('123456789')
-
+window.onload = function () {
+    vm.init();
+}
 $(function(){
     setInterval(function(){
         $.ajaxSetup({cache:false});
@@ -22,70 +24,125 @@ $(function(){
         vm.getTable();
         vm.init();
         vm.getDevInfo();
-        // vm.getDevInfo1();
     },900000);
 })
-window.onload = function () {
-    vm.init();
-}
 
 var vm = new Vue({
-    el:'#box',
-    data:{
-        data:'',
-        time:'',
-        tableData:[],
-        mapId:5,
+	el:'#box',
+	data:{
+		data:'',
+		time:'',
+		tableData:[],
+	    siwangData:[
+			{
+	    			type:'臭氧',
+	    			num:50
+	    		},{
+	    			type:'氧气',
+	    			num:80
+	    		},{
+	    			type:'二氧化碳',
+	    			num:40
+	    		},{
+	    			type:'一氧化碳',
+	    			num:60
+	    		},{
+	    			type:'二氧化硫',
+	    			num:20
+	    		},{
+	    			type:'二氧化氮',
+	    			num:30
+	    		},{
+	    			type:'氮气',
+	    			num:10
+	    		}
+		],
+		mapId:5,
+		projectId:1,
+		regionId:2,
+		tagNumber:1,
+		mapDevId:'',
+		markVisible:false,
+		weater:{},
+		weaterL:[],
+		weaterH:[],
+        weaterT:[],
+		info:{},
+        hightTem:'',
+        lowTem:30,
         mapName:'',
         reId:'',
-        projectId:1,
-        regionId:2,
-        tagNumber:1,
-        mapDevId:'',
-        markVisible:false,
-        weater:{},
-        weaterL:[],
-        weaterH:[],
-        weaterT:[],
-        info:{},
-        info1:{},
-        hightTem:'',
-        lowTem:'',
         videoUrl:''
-    },
-    methods:{
-        getDate:function(){
-            var aa = new Date();
-            var a1 = aa.getFullYear();
-            var a2 = aa.getMonth() + 1;
-            if(a2 < 10){
-                a2 = '0' + a2;
-            }
-            var a3 = aa.getDate();
-            if(a3 < 10){
-                a3 = '0' + a3
-            }
-            this.data = a1 + '-' + a2 + '-' + a3;
-        },
-        getTime:function(){
-            var aa = new Date();
-            var h = aa.getHours();
-            var m = aa.getMinutes();
-            var s = aa.getSeconds();
-            if(h < 10){
-                h = '0' + h
-            }
-            if(m < 10){
-                m = '0' + m
-            }
-            if(s < 10){
-                s = '0' + s
-            }
+	},
+	methods:{
+		getDate:function(){
+			var aa = new Date();
+			var a1 = aa.getFullYear();
+			var a2 = aa.getMonth() + 1;
+			if(a2 < 10){
+				a2 = '0' + a2;
+			}
+			var a3 = aa.getDate();
+			if(a3 < 10){
+				a3 = '0' + a3
+			}
+			this.data = a1 + '-' + a2 + '-' + a3;
+		},
+		getTime:function(){
+			var aa = new Date();
+			var h = aa.getHours();
+			var m = aa.getMinutes();
+			var s = aa.getSeconds();
+			if(h < 10){
+				h = '0' + h
+			}
+			if(m < 10){
+				m = '0' + m
+			}
+			if(s < 10){
+				s = '0' + s
+			}
+			
+			this.time = h + ':' + m + ':' + s;
 
-            this.time = h + ':' + m + ':' + s;
+		},
+		getWeater:function () {
+            $.ajax({
+                url: '../../monitor/weather/getWeather',
+				 type: 'get',
+				 data: '',
+				 contentType: "application/json",
+				 // dataType: 'json',
+				  success:function (r) {
+						if(r.code === 0){
+							console.log(r);
+							vm.weater = r.weather;
+                            vm.weaterH = [];
+                            vm.weaterL = [];
+                            vm.weaterT = [];
+                            r.weather.weatherItemList.forEach(function (item) {
+                            	var arr = item.temperature.split('/');
+								vm.weaterH.push(arr[1].split("℃")[0]);
+								vm.weaterL.push(arr[0]);
+								vm.weaterT.push(item.date);
 
+                            })
+							var obj = {
+                                xData:vm.weaterT,
+								data:[vm.weaterH,vm.weaterL]
+							}
+                            wendu(obj);
+						}else {
+                            layer.alert(r.msg);
+						}
+				  },
+				  error:function () {
+                      layer.msg("网络故障");
+                  }
+
+			})
         },
-        getTable:function () {
+		getTable:function () {
             $.ajax({
                 url: '../../monitor/device/showDevList',
                 type: 'get',
@@ -108,43 +165,8 @@ var vm = new Vue({
 
             })
         },
-        getWeater:function () {
-            $.ajax({
-                url: '../../monitor/weather/getWeather',
-                type: 'get',
-                data: '',
-                contentType: "application/json",
-                // dataType: 'json',
-                success:function (r) {
-                    if(r.code === 0){
-                        console.log(r);
-                        // vm.weater = r.weather;
-                        vm.weater = r.weather;
-                        vm.weaterH = [];
-                        vm.weaterL = [];
-                        vm.weaterT = [];
-                        r.weather.weatherItemList.forEach(function (item) {
-                            var arr = item.temperature.split('/');
-                            vm.weaterH.push(arr[1].split("℃")[0]);
-                            vm.weaterL.push(arr[0]);
-                            vm.weaterT.push(item.date);
-
-                        })
-                        var obj = {
-                            xData:vm.weaterT,
-                            data:[vm.weaterH,vm.weaterL]
-                        }
-                        wendu(obj);
-
-                    }else {
-                        layer.alert(r.msg);
-                    }
-                },
-                error:function () {
-                    layer.msg("网络故障");
-                }
-
-            })
+		setTable:function () {
+			var _height = $('#tableDiv').height();
         },
         init:function(){
             $.ajax({
@@ -250,21 +272,21 @@ var vm = new Vue({
                 'top':($('#zoom-marker-div').height()-$('#imgBg').height())/2 + 'px'
             })
         },
-        // 获取设备信息
-        getDevInfo:function () {
+		// 获取设备信息
+		getDevInfo:function () {
             $.ajax({
                 url: '../../monitor/monitoriotdevice/showList',
                 type: 'get',
                 data: {
                     regionId:1
-                },
+				},
                 contentType: "application/json",
                 // dataType: 'json',
                 success:function (r) {
                     if(r.code === 0){
                         console.log(r);
-                        r.iotList.forEach(function (item) {
-                            vm.info[item.devKey] = item.value
+						r.iotList.forEach(function (item) {
+							vm.info[item.devKey] = item.value
                         })
                     }else {
                         layer.alert(r.msg);
@@ -276,36 +298,7 @@ var vm = new Vue({
 
             })
         },
-        // 获取设备信息
-        getDevInfo1:function () {
-            $.ajax({
-                url: '../../monitor/monitoriotdevice/showList',
-                type: 'get',
-                data: {
-                    regionId:'3'
-                },
-                contentType: "application/json",
-                // dataType: 'json',
-                success:function (r) {
-                    if(r.code === 0){
-                        console.log(r);
-                        vm.siwangData = [];
-                        r.iotList.forEach(function (item) {
-                            vm.info1[item.devKey] = item.value
-
-                        })
-                        // siwang(vm.siwangData);
-                    }else {
-                        layer.alert(r.msg);
-                    }
-                },
-                error:function () {
-                    layer.msg("网络故障");
-                }
-
-            })
-        },
-        getHightTem:function () {
+		getHightTem:function () {
             $.ajax({
                 url: '../../sys/dict/selectTem',
                 type: 'get',
@@ -314,7 +307,7 @@ var vm = new Vue({
                 dataType: 'json',
                 success:function (r) {
                     if(r.code === 0){
-                        console.log(r);
+                    	console.log(r);
                         vm.hightTem = r.tem;
                         vm.lowTem = r.lowTem;
 
@@ -327,9 +320,13 @@ var vm = new Vue({
                 }
 
             })
+        },
+		// 下雪
+		xue:function () {
+            $(".snow-canvas").snow();
         }
-    },
-    created:function(){
+	},
+	created:function(){
         var url = decodeURI(window.location.href);
         var argsIndex = url.split("?id=");
         var argsIndex1 = argsIndex[1].split("&map=");
@@ -337,23 +334,22 @@ var vm = new Vue({
         var argsIndex2 = argsIndex1[1].split("&reId=");
         this.mapName = argsIndex2[0];
         this.reId = argsIndex2[1];
-        this.getDate();
-        this.getTime();
-        this.getWeater();
-        this.getTable();
-        this.getDevInfo();
-        this.getDevInfo1();
-        this.getHightTem();
-        var that = this;
-        setInterval(function(){
-            that.getTime()
-        },900);
-
-    },
-    mounted:function(){
-        // this.init();
-        if(this.weater.wid==13||this.weater.wid==14||this.weater.wid==15||this.weater.wid==16||this.weater.wid==17||this.weater.wid==06||this.weater.wid==26||this.weater.wid==27||this.weater.wid==28){
-            this.xue();
-        }
-    }
+		this.getDate();
+		this.getTime();
+		this.getWeater();
+		this.getTable();
+		this.getDevInfo();
+		this.getHightTem();
+		var that = this;
+		setInterval(function(){
+			that.getTime()
+		},900);
+		
+	},
+	mounted:function(){
+		if(this.weater.wid==13||this.weater.wid==14||this.weater.wid==15||this.weater.wid==16||this.weater.wid==17||this.weater.wid==06||this.weater.wid==26||this.weater.wid==27||this.weater.wid==28){
+			this.xue();
+		}
+        // this.xue();
+	}
 })

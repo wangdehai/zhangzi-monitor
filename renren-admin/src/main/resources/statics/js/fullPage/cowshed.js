@@ -18,6 +18,7 @@ function tran(str) {
 $(function(){
     // siwang(vm.siwangData);
     setInterval(function(){
+        $.ajaxSetup({cache:false});
         vm.getWeater();
         vm.getTable();
         vm.init();
