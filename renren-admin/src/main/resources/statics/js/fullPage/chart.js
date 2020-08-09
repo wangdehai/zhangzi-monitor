@@ -1,3 +1,4 @@
+$.ajaxSetup({cache:false})
 function siwang(d) {
 	var dom = document.getElementById("siwang");;
 	var myChart = echarts.init(dom);
