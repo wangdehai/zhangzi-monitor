@@ -48,7 +48,7 @@ public class MapDevController {
     @RequestMapping("/list")
     public R list(Long mapId){
         List<MapDevEntity> list = montiorMapDevService.selectList(
-                new EntityWrapper<MapDevEntity>().eq("map_id",mapId)
+                new EntityWrapper<MapDevEntity>().eq("map_id",mapId).isNull("is_main")
         );
         return R.ok().put("list", list);
     }
@@ -59,7 +59,7 @@ public class MapDevController {
     @RequestMapping("/showList")
     public R showList(Long mapId){
         List<MapDevEntity> list = montiorMapDevService.selectList(
-                new EntityWrapper<MapDevEntity>().eq("map_id",mapId).isNotNull("dev_id")
+                new EntityWrapper<MapDevEntity>().eq("map_id",mapId).isNotNull("dev_id").isNull("is_main")
         );
         return R.ok().put("list", list);
     }
