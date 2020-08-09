@@ -10,10 +10,12 @@ function siwang(d) {
 	var xdata = [];
 	d.forEach(function(item) {
 		ydata.push({
-			name: item.type,
+			name: item.type+' '+item.num,
 			value: item.num
 		})
-		xdata.push(item.type)
+		xdata.push({
+            name:item.type+' '+item.num
+        })
 	})
 
 	option = {
