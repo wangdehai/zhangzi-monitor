@@ -89,6 +89,22 @@ table tr td{
 	border-left: 4px solid #f3bc40;
 }
 
+.right .chart1{
+	/*flex: 1;*/
+	margin-bottom: 10px;
+	/*background: url(../img/chartBg.png);*/
+	background-size: 100% 100%;
+	padding: 10px;
+}
+.chart1 .title{
+	display: inline-block;
+	/*margin: 10px;*/
+	font-size: 20px;
+	padding: 8px;
+	background: linear-gradient(to right, rgba(92,137,240,.6), transparent);
+	border-left: 4px solid #f3bc40;
+}
+
 
 .sunDivItem{
 	flex: 1;
