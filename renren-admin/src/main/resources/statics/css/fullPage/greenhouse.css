@@ -49,7 +49,7 @@ section{
 	padding-left: 15px;
 }
 .chartDiv{
-	overflow-y: auto;
+	/*overflow-y: auto;*/
 }
 table{
 	width: 100%;
@@ -134,3 +134,53 @@ table tr td{
 
 }
 
+/*天气*/
+.weater{
+	/*flex:1;*/
+	display: flex;
+	margin: 8px;
+	border: 1px solid #00a6fe;
+	/* padding: 6px; */
+	border-radius: 6px;
+	overflow: hidden;
+	position: relative;
+}
+.weater .time{
+	/*wid*/
+	font-size: 18px;
+	line-height: 68px;
+	margin-right: 10px;
+	background: #253a6f;
+	padding: 0 10px;
+	/*padding-top: 10%;*/
+	border-right: 2px solid #00a6fe;
+}
+.latelyWeather{
+	flex:1;
+	display: flex;
+	/* padding: 0 10px; */
+}
+
+.latelyWeather img{
+	width: 30px;
+	height: 30px;
+	margin: 20px 10px;
+	/*vertical-align: top;*/
+}
+.latelyWeather .temperature{
+	display: inline-block;
+	font-size: 26px;
+	line-height: 38px;
+	color: rgba(195, 236, 247,.8);
+	margin-right: 6px;
+}
+.latelyWeather .weather{
+	display: inline-block;
+	font-size: 13px;
+	line-height: 38px;
+	color: rgba(195, 236, 247,.8);
+}
+.latelyWeather .kongqi .weather{
+	line-height: 25px;
+	padding-left: 14px;
+}
