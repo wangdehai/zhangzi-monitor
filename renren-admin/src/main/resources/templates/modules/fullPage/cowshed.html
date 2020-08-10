@@ -180,13 +180,23 @@
 			width="1000px">
 		<div style="color: #000;">
 			<!--{{mapDevId}}-->
-			<div style="border:1px dashed #808080;width: 960px;height: 540px;margin-top: 5px;">
-				<object type='application/x-vlc-plugin' classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" codebase="http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab" id='vlc' events='True' width="960" height="540">
+			<!--<div style="border:1px dashed #808080;width: 720px;height: 540px;margin-top: 5px;">
+				<object type='application/x-vlc-plugin' classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" id='vlc' events='True' width="400" height="280">
+					<param name='mrl' value='rtsp://0vpreview:584546f3@118.75.35.131:10554/1:3:47:1.sdp' />
+					<param name='volume' value='50'/>
+					<param name='autoplay' value='true' />
+					<param name='loop' value='false' />
+					<param name='fullscreen' value='false' />
+				</object>
+			</div>-->
+			<div v-if="markVisible" id="vlcDivVido" style="border:1px dashed #808080;width: 960px;height: 540px;margin-top: 5px;">
+				<object type='application/x-vlc-plugin' classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921" id='vlc' events='True' width="960" height="540">
 					<param name='mrl' :value='videoUrl' />
 					<param name='volume' value='50'/>
 					<param name='autoplay' value='true' />
 					<param name='loop' value='false' />
 					<param name='fullscreen' value='false' />
+					<param name="invokeURLs" value="1">
 				</object>
 			</div>
 		</div>

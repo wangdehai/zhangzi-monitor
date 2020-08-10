@@ -63,7 +63,7 @@ var vm = new Vue({
         info1:{},
         hightTem:'',
         lowTem:'',
-        videoUrl:''
+        videoUrl:'rtsp://0vpreview:5e22cbdd@118.75.35.131:10554/1:3:45:1.sdp'
     },
     methods:{
         getDate:function(){
@@ -191,6 +191,7 @@ var vm = new Vue({
                 // window.location.href = 'greenhouse.html'
                 vm.mapDevId = marker.param.mapDevId;
                 var index = layer.load(2);
+                vm.markVisible = true;
                 $.ajax({
                     url: '../../monitor/device/getPreviewUrl',
                     type: 'get',
@@ -203,13 +204,25 @@ var vm = new Vue({
                         layer.close(index);
                         if (r.code === 0) {
                             vm.videoUrl = r.url;
-                            vm.markVisible = true;
+
+                            var vlc=document.getElementById('vlc');
+                            var options = new Array("rtsp-tcp");
+                            vlc.playlist.clear();
+                            vlc.playlist.add(r.url,'',options);
+                            vlc.playlist.play();
+                            // var html = $("<object type='application/x-vlc-plugin' classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' id='vlc' events='True' width='960' height='540'> <param name='mrl' value='"+r.url+"' /> <param name='volume' value='50'/> <param name='autoplay' value='true' /> <param name='loop' value='false' /> <param name='fullscreen' value='false' /> </object>")
+                            // $('#vlcDivVido').html('');
+                            // $('#vlcDivVido').append(html)
+                            // $('#vlc param[name="mrl"]').attr('value',r.url);
+                            // $('#vlc param[name="MRL"]').attr('value',r.url);
                         } else {
+                            vm.markVisible = false;
                             layer.alert(r.msg);
                         }
 
                     },
                     error: function () {
+                        vm.markVisible = false;
                         layer.close(index);
                         layer.msg("网络故障");
                     }

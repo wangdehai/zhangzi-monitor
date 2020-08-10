@@ -155,6 +155,6 @@ public class DeviceController {
                 }
             }
         }
-        return R.error();
+        return R.error("获取视频流出错，请重新获取");
     }
 }
