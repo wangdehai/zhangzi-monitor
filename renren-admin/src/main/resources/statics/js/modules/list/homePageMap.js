@@ -63,25 +63,27 @@ var vm = new Vue({
         },
         // 树型数据处理
         processingData:function(data){
-            let result = []
+            var result = []
             if(!Array.isArray(data)) {
                 return result
             }
-            data.forEach(item => {
+            data.forEach(function (item) {
                 delete item.children;
-        });
-            let map = {};
-            data.forEach(item => {
+            })
+
+            var map = {};
+            data.forEach(function (item) {
                 map[item.projectId] = item;
-        });
-            data.forEach(item => {
-                let parent = map[item.parentId];
-            if(parent) {
-                (parent.children || (parent.children = [])).push(item);
-            } else {
-                result.push(item);
-            }
-        });
+            })
+
+            data.forEach(function (item) {
+                var parent = map[item.parentId];
+                if(parent) {
+                    (parent.children || (parent.children = [])).push(item);
+                } else {
+                    result.push(item);
+                }
+            })
             return result;
         },
         getRegionList:function(){
