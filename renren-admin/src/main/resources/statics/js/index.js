@@ -244,17 +244,24 @@ var vm = new Vue({
         },
         // 同步
         synchronize:function () {
+            var index = layer.load(2);
             $.ajax({
                 type: "POST",
                 url: "monitor/project/synchronize",
                 data: '',
                 contentType: "application/json",
                 success: function(result){
+                    layer.close(index);
                     if(result.code == 0){
                         layer.alert('同步成功');
+
                     }else{
                         layer.alert(result.msg);
                     }
+                },
+                error:function () {
+                    layer.close(index);
+                    layer.msg("网络故障");
                 }
             });
         }
