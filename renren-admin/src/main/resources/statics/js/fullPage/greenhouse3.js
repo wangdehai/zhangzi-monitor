@@ -217,6 +217,7 @@ var vm = new Vue({
                 console.log(JSON.stringify(marker));
                 vm.mapDevId = marker.param.mapDevId;
                 var index = layer.load(2);
+                vm.markVisible = true;
                 $.ajax({
                     url: '../../monitor/device/getPreviewUrl',
                     type: 'get',
@@ -229,13 +230,20 @@ var vm = new Vue({
                         layer.close(index);
                         if (r.code === 0) {
                             vm.videoUrl = r.url;
-                            vm.markVisible = true;
+
+                            var vlc=document.getElementById('vlc');
+                            var options = new Array("rtsp-tcp");
+                            vlc.playlist.clear();
+                            vlc.playlist.add(r.url,'',options);
+                            vlc.playlist.play();
                         } else {
+                            vm.markVisible = false;
                             layer.alert(r.msg);
                         }
 
                     },
                     error: function () {
+                        vm.markVisible = false;
                         layer.close(index);
                         layer.msg("网络故障");
                     }

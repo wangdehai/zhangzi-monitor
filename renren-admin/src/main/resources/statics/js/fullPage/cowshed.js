@@ -210,11 +210,6 @@ var vm = new Vue({
                             vlc.playlist.clear();
                             vlc.playlist.add(r.url,'',options);
                             vlc.playlist.play();
-                            // var html = $("<object type='application/x-vlc-plugin' classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' id='vlc' events='True' width='960' height='540'> <param name='mrl' value='"+r.url+"' /> <param name='volume' value='50'/> <param name='autoplay' value='true' /> <param name='loop' value='false' /> <param name='fullscreen' value='false' /> </object>")
-                            // $('#vlcDivVido').html('');
-                            // $('#vlcDivVido').append(html)
-                            // $('#vlc param[name="mrl"]').attr('value',r.url);
-                            // $('#vlc param[name="MRL"]').attr('value',r.url);
                         } else {
                             vm.markVisible = false;
                             layer.alert(r.msg);
