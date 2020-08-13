@@ -131,29 +131,37 @@ public class DeviceController {
      */
     @RequestMapping("/getPreviewUrl")
     public R getPreviewUrl(String devId){
-        String cookie = InfoJson.getCookieByLogin(Constant.loginUrl);
-        Map addPreviewChnParams = new HashMap();
-        addPreviewChnParams.put("id", devId);
-        addPreviewChnParams.put("streamType",1);
-        JSONObject rs1 = InfoJson.doPost(Constant.addPreviewChn,addPreviewChnParams,cookie);
-        if("0".equals(rs1.getString("error_code"))){
-            JSONObject result1 = rs1.getJSONObject("result");
-            String sessionId = result1.getString("sessionId");
-            System.out.println("sessionId:" + sessionId);
-            if(StringUtils.isNotBlank(sessionId)){
-                Map previewUrlParams = new HashMap();
-                previewUrlParams.put("id", devId);
-                previewUrlParams.put("sessionId",sessionId);
-                JSONObject rs2 = InfoJson.doPost(Constant.getPreviewUrl,previewUrlParams,cookie);
-                if("0".equals(rs2.getString("error_code"))){
-                    JSONObject result2 = rs2.getJSONObject("result");
-                    String url = result2.getString("url");
-                    String backupUrl = result2.getString("backupUrl");
-                    System.out.println("url:" + url);
-                    System.out.println("backupUrl:" + backupUrl);
-                    return R.ok().put("url",url);
+        try{
+            String cookie = InfoJson.getCookieByLogin(Constant.loginUrl);
+            Map addPreviewChnParams = new HashMap();
+            addPreviewChnParams.put("id", devId);
+            addPreviewChnParams.put("streamType",1);
+            JSONObject rs1 = InfoJson.doPost(Constant.addPreviewChn,addPreviewChnParams,cookie);
+            if("0".equals(rs1.getString("error_code"))){
+                JSONObject result1 = rs1.getJSONObject("result");
+                String sessionId = result1.getString("sessionId");
+                System.out.println("sessionId:" + sessionId);
+                if(StringUtils.isNotBlank(sessionId)){
+                    Map previewUrlParams = new HashMap();
+                    previewUrlParams.put("id", devId);
+                    previewUrlParams.put("sessionId",sessionId);
+                    Thread.sleep(1000);
+                    JSONObject rs2 = InfoJson.doPost(Constant.getPreviewUrl,previewUrlParams,cookie);
+                    System.out.println("获取监控结果" + rs2);
+                    if("0".equals(rs2.getString("error_code"))){
+                        JSONObject result2 = rs2.getJSONObject("result");
+                        String url = result2.getString("url");
+                        String backupUrl = result2.getString("backupUrl");
+                        System.out.println("url:" + url);
+                        System.out.println("backupUrl:" + backupUrl);
+                        return R.ok().put("url",url);
+                    }else{
+                        return R.error("获取视频流出错，请重新获取");
+                    }
                 }
             }
+        }catch (Exception ex){
+            return R.error("获取视频流出错，请重新获取");
         }
         return R.error("获取视频流出错，请重新获取");
     }
