@@ -344,3 +344,6 @@ li.legendLi1:nth-child(5):before{
     position: absolute;
     pointer-events: none;
 }
+.layui-layer-dialog .layui-layer-content{
+    color: #666;
+}
