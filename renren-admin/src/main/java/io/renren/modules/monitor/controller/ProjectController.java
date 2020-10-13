@@ -13,6 +13,9 @@ import io.renren.modules.monitor.entity.DeviceEntity;
 import io.renren.modules.monitor.entity.RegionEntity;
 import io.renren.modules.monitor.service.DeviceService;
 import io.renren.modules.monitor.service.RegionService;
+import io.renren.modules.sys.controller.AbstractController;
+import io.renren.modules.sys.entity.SysParkEntity;
+import io.renren.modules.sys.service.SysParkService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +38,22 @@ import io.renren.common.utils.R;
  */
 @RestController
 @RequestMapping("monitor/project")
-public class ProjectController {
+public class ProjectController extends AbstractController {
     @Autowired
     private ProjectService projectService;
     @Autowired
     private RegionService regionService;
     @Autowired
     private DeviceService deviceService;
+    @Autowired
+    private SysParkService parkService;
 
     /**
      * 根列表
      */
     @RequestMapping("/list")
     public R list(){
-        List<ProjectEntity> list = projectService.selectList(null);
+        List<ProjectEntity> list = projectService.selectList(new EntityWrapper<ProjectEntity>().eq("park_id",getParkId()));
         return R.ok().put("list", list);
     }
 
@@ -60,6 +65,7 @@ public class ProjectController {
         List<ProjectEntity> list = projectService.selectList(
                 new EntityWrapper<ProjectEntity>()
                         .eq("project_id","0")
+                        .eq("park_id",getParkId())
         );
         return R.ok().put("projectList", list);
     }
@@ -71,12 +77,14 @@ public class ProjectController {
         List<ProjectEntity> list = projectService.selectList(
                 new EntityWrapper<ProjectEntity>()
                         .eq("parent_id",projectId)
+                        .eq("park_id",getParkId())
         );
         return R.ok().put("childList", list);
     }
 
     public String getCookie() {
-        return  InfoJson.getCookieByLogin(Constant.loginUrl);
+        SysParkEntity park = parkService.selectById(getParkId());
+        return  InfoJson.getCookieByLogin(park);
     }
 
     /**
@@ -85,21 +93,24 @@ public class ProjectController {
     @RequestMapping("/synchronize")
     public R synchronize(){
         String cookie = getCookie();
+        SysParkEntity park = parkService.selectById(getParkId());
         try{
             //同步项目
             Map rootProjectParams = new HashMap();
-            JSONObject rs1 = InfoJson.doPost(Constant.getRootProjects,rootProjectParams,cookie);
+            JSONObject rs1 = InfoJson.doPost(park.getWebsite() + Constant.getRootProjects,rootProjectParams,cookie,park);
             if("0".equals(rs1.getString("error_code"))){
                 JSONArray projectList = rs1.getJSONArray("result");
                 if(projectList != null && projectList.size() > 0){
                     for(Object o : projectList){
                         ProjectEntity projectEntity = JSON.parseObject(JSON.toJSONString(o),ProjectEntity.class);
+                        projectEntity.setParkId(park.getParkId());
                         projectService.synchronize(projectEntity);
                         if(projectEntity.getHasChildren() == 1){
                             List<ProjectEntity> childList = new ArrayList<>();
                             //同步子项目
-                            childList = getChildProduct(childList,projectEntity,cookie);
+                            childList = getChildProduct(childList,projectEntity,cookie,park);
                             for(ProjectEntity childProject : childList){
+                                childProject.setParkId(park.getParkId());
                                 projectService.synchronize(childProject);
                             }
                         }
@@ -114,18 +125,20 @@ public class ProjectController {
                     Map rootRegionParams = new HashMap();
                     rootRegionParams.put("projectId",project.getProjectId());
                     rootRegionParams.put("sysType",0);
-                    JSONObject rs2 = InfoJson.doPost(Constant.getRootRegion,rootRegionParams,cookie);
+                    JSONObject rs2 = InfoJson.doPost(park.getWebsite() + Constant.getRootRegion,rootRegionParams,cookie,park);
                     if("0".equals(rs2.getString("error_code"))){
                         JSONArray regionList = rs2.getJSONArray("result");
                         if(regionList != null && regionList.size() > 0){
                             for(Object o : regionList){
                                 RegionEntity regionEntity = JSON.parseObject(JSON.toJSONString(o),RegionEntity.class);
+                                regionEntity.setParkId(park.getParkId());
                                 regionService.synchronize(regionEntity);
                                 if(regionEntity.getHasChildren() == 1){
                                     List<RegionEntity> childList = new ArrayList<>();
                                     //同步子项目
-                                    childList = getChildRegion(childList,regionEntity,cookie);
+                                    childList = getChildRegion(childList,regionEntity,cookie,park);
                                     for(RegionEntity childRegion : childList){
+                                        childRegion.setParkId(park.getParkId());
                                         regionService.synchronize(childRegion);
                                     }
                                 }
@@ -140,7 +153,7 @@ public class ProjectController {
                     filterAnd.put("deviceCatagory","video");
                     filterAnd.put("projectId",project.getProjectId());
                     deviceParams.put("filterAnd",filterAnd);
-                    JSONObject rs3 = InfoJson.doPost(Constant.getDeviceList,deviceParams,cookie);
+                    JSONObject rs3 = InfoJson.doPost(park.getWebsite() + Constant.getDeviceList,deviceParams,cookie,park);
                     if("0".equals(rs3.getString("error_code"))){
                         JSONArray devList = rs3.getJSONObject("result").getJSONArray("list");
                         if(devList != null && devList.size() > 0){
@@ -148,10 +161,11 @@ public class ProjectController {
                                 DeviceEntity deviceEntity = JSON.parseObject(JSON.toJSONString(o),DeviceEntity.class);
                                 Map deviceInfo = new HashMap();
                                 deviceInfo.put("devId", deviceEntity.getDevId());
-                                JSONObject rs4 = InfoJson.doPost(Constant.getDeviceInfo,deviceInfo,cookie);
+                                JSONObject rs4 = InfoJson.doPost(park.getWebsite() + Constant.getDeviceInfo,deviceInfo,cookie,park);
                                 if("0".equals(rs4.getString("error_code"))){
                                     JSONObject dev = rs4.getJSONObject("result");
                                     deviceEntity = JSON.parseObject(JSON.toJSONString(dev),DeviceEntity.class);
+                                    deviceEntity.setParkId(park.getParkId());
                                     deviceService.synchronize(deviceEntity);
                                 }
                             }
@@ -168,7 +182,7 @@ public class ProjectController {
                             filterAnd1.put("projectId",regionEntity.getParentId());
                             filterAnd1.put("regionId",regionEntity.getRegionId());
                             deviceParams1.put("filterAnd",filterAnd1);
-                            JSONObject rs5 = InfoJson.doPost(Constant.getDeviceList,deviceParams1,cookie);
+                            JSONObject rs5 = InfoJson.doPost(park.getWebsite() + Constant.getDeviceList,deviceParams1,cookie,park);
                             if("0".equals(rs5.getString("error_code"))){
                                 JSONArray devList = rs5.getJSONObject("result").getJSONArray("list");
                                 if(devList != null && devList.size() > 0){
@@ -176,10 +190,11 @@ public class ProjectController {
                                         DeviceEntity deviceEntity = JSON.parseObject(JSON.toJSONString(o),DeviceEntity.class);
                                         Map deviceInfo = new HashMap();
                                         deviceInfo.put("devId", deviceEntity.getDevId());
-                                        JSONObject rs6 = InfoJson.doPost(Constant.getDeviceInfo,deviceInfo,cookie);
+                                        JSONObject rs6 = InfoJson.doPost(park.getWebsite() + Constant.getDeviceInfo,deviceInfo,cookie,park);
                                         if("0".equals(rs6.getString("error_code"))){
                                             JSONObject dev = rs6.getJSONObject("result");
                                             deviceEntity = JSON.parseObject(JSON.toJSONString(dev),DeviceEntity.class);
+                                            deviceEntity.setParkId(park.getParkId());
                                             deviceService.synchronize(deviceEntity);
                                         }
                                     }
@@ -203,11 +218,11 @@ public class ProjectController {
      * @param projectEntity
      * @return
      */
-    private List<ProjectEntity> getChildProduct(List<ProjectEntity> list, ProjectEntity projectEntity, String cookie){
+    private List<ProjectEntity> getChildProduct(List<ProjectEntity> list, ProjectEntity projectEntity, String cookie, SysParkEntity park){
         //同步子项目
         Map childProjectParams = new HashMap();
         childProjectParams.put("projectId", projectEntity.getProjectId());
-        JSONObject rs2 = InfoJson.doPost(Constant.getProjectChildren,childProjectParams,cookie);
+        JSONObject rs2 = InfoJson.doPost(park.getWebsite() + Constant.getProjectChildren,childProjectParams,cookie,park);
         if("0".equals(rs2.getString("error_code"))){
             JSONArray projectList = rs2.getJSONArray("result");
             if(projectList != null && projectList.size() > 0){
@@ -215,7 +230,7 @@ public class ProjectController {
                     ProjectEntity project = JSON.parseObject(JSON.toJSONString(o),ProjectEntity.class);
                     list.add(project);
                     if(project.getHasChildren() == 1){
-                        list = getChildProduct(list,project,cookie);
+                        list = getChildProduct(list,project,cookie,park);
                     }
                 }
             }
@@ -229,11 +244,11 @@ public class ProjectController {
      * @param regionEntity
      * @return
      */
-    private List<RegionEntity> getChildRegion(List<RegionEntity> list, RegionEntity regionEntity, String cookie){
+    private List<RegionEntity> getChildRegion(List<RegionEntity> list, RegionEntity regionEntity, String cookie, SysParkEntity park){
         //同步子项目
         Map childRegionParams = new HashMap();
         childRegionParams.put("regionId", regionEntity.getRegionId());
-        JSONObject rs2 = InfoJson.doPost(Constant.getRegionChildren,childRegionParams,cookie);
+        JSONObject rs2 = InfoJson.doPost(park.getWebsite() + Constant.getRegionChildren,childRegionParams,cookie,park);
         if("0".equals(rs2.getString("error_code"))){
             JSONArray regionList = rs2.getJSONArray("result");
             if(regionList != null && regionList.size() > 0){
@@ -241,7 +256,7 @@ public class ProjectController {
                     RegionEntity region = JSON.parseObject(JSON.toJSONString(o),RegionEntity.class);
                     list.add(region);
                     if(region.getHasChildren() == 1){
-                        list = getChildRegion(list,region,cookie);
+                        list = getChildRegion(list,region,cookie,park);
                     }
                 }
             }

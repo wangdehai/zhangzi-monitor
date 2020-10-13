@@ -335,7 +335,4 @@ public class DateUtils {
         return cal.toGregorianCalendar().getTime();
     }
 
-    public static void main(String[] args) {
-        System.out.println(getTheDateNowOneYearShort());
-    }
 }

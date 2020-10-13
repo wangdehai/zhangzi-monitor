@@ -29,6 +29,7 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceDao, DeviceEntity> impl
                 new EntityWrapper<DeviceEntity>()
                         .eq(StringUtils.isNotBlank(projectId),"project_id",projectId)
                         .eq(StringUtils.isNotBlank(regionId),"region_id",regionId)
+                        .eq("park_id",(String) params.get("park_id"))
         );
 
         return new PageUtils(page);
@@ -36,9 +37,9 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceDao, DeviceEntity> impl
 
     @Override
     public void synchronize(DeviceEntity devEntity) {
-        int count = this.selectCount(new EntityWrapper<DeviceEntity>().eq("dev_id",devEntity.getDevId()));
+        int count = this.selectCount(new EntityWrapper<DeviceEntity>().eq("dev_id",devEntity.getDevId()).eq("park_id",devEntity.getParkId()));
         if(count > 0){
-            this.update(devEntity,new EntityWrapper<DeviceEntity>().eq("dev_id",devEntity.getDevId()));
+            this.update(devEntity,new EntityWrapper<DeviceEntity>().eq("dev_id",devEntity.getDevId()).eq("park_id",devEntity.getParkId()));
         }else{
             devEntity.setIsRelation(0);
             this.insert(devEntity);

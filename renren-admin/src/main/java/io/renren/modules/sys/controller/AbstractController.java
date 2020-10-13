@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractController {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	protected SysUserEntity getUser() {
 		return (SysUserEntity) SecurityUtils.getSubject().getPrincipal();
 	}
@@ -42,4 +42,6 @@ public abstract class AbstractController {
 	protected Long getDeptId() {
 		return getUser().getDeptId();
 	}
+
+	protected Long getParkId() { return getUser().getParkId(); }
 }

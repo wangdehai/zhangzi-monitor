@@ -39,6 +39,8 @@ public class MapEntity implements Serializable {
 	 */
 	private String mapUrl;
 
+	private Long parkId;
+
 	/**
 	 * 设置：
 	 */
@@ -98,5 +100,13 @@ public class MapEntity implements Serializable {
 	 */
 	public String getMapUrl() {
 		return mapUrl;
+	}
+
+	public Long getParkId() {
+		return parkId;
+	}
+
+	public void setParkId(Long parkId) {
+		this.parkId = parkId;
 	}
 }

@@ -9,10 +9,15 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.InfoJson;
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.monitor.entity.MonitorIotDeviceEntity;
+import io.renren.modules.monitor.entity.ProjectEntity;
 import io.renren.modules.monitor.entity.RegionEntity;
 import io.renren.modules.monitor.service.MonitorIotDeviceService;
 import io.renren.modules.monitor.service.ProjectService;
 import io.renren.modules.monitor.service.RegionService;
+import io.renren.modules.sys.controller.AbstractController;
+import io.renren.modules.sys.entity.SysParkEntity;
+import io.renren.modules.sys.service.SysParkService;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -39,7 +44,7 @@ import io.renren.common.utils.R;
  */
 @RestController
 @RequestMapping("monitor/device")
-public class DeviceController {
+public class DeviceController extends AbstractController {
     @Autowired
     private DeviceService deviceService;
     @Autowired
@@ -48,6 +53,8 @@ public class DeviceController {
     private MonitorIotDeviceService iotService;
     @Autowired
     private ProjectService projectService;
+    @Autowired
+    private SysParkService parkService;
 
     /**
      * 列表
@@ -55,18 +62,20 @@ public class DeviceController {
     @RequestMapping("/count")
     public R count(){
         Map<String,Object> map = new HashMap<>(6);
-        int projectCount = projectService.selectCount(null);
-        int regionCount = regionService.selectCount(null);
-        int cameraCount = deviceService.selectCount(null);
+        int projectCount = projectService.selectCount(new EntityWrapper<ProjectEntity>().eq("park_id",getParkId()));
+        int regionCount = regionService.selectCount(new EntityWrapper<RegionEntity>().eq("park_id",getParkId()));
+        int cameraCount = deviceService.selectCount(new EntityWrapper<DeviceEntity>().eq("park_id",getParkId()));
         int onlineCameraCount = deviceService.selectCount(
                 new EntityWrapper<DeviceEntity>()
                         .eq("device_status",1)
+                        .eq("park_id",getParkId())
         );
         int offOnlineCameraCount = deviceService.selectCount(
                 new EntityWrapper<DeviceEntity>()
                         .eq("device_status",0)
+                        .eq("park_id",getParkId())
         );
-        int iotDeviceCount = iotService.selectCount(null);
+        int iotDeviceCount = iotService.selectCount(new EntityWrapper<MonitorIotDeviceEntity>().eq("park_id",getParkId()));
         map.put("projectCount",projectCount);//项目数量
         map.put("regionCount",regionCount);//区域数量
         map.put("cameraCount",cameraCount);//摄像头数量
@@ -81,6 +90,7 @@ public class DeviceController {
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
+        params.put("park_id",getParkId().toString());
         PageUtils page = deviceService.queryPage(params);
         return R.ok().put("page", page);
     }
@@ -97,6 +107,7 @@ public class DeviceController {
                         .eq("is_relation",0)
                         .eq(StringUtils.isNotBlank(projectId),"project_id",projectId)
                         .eq(StringUtils.isNotBlank(regionId),"region_id",regionId)
+                        .eq("park_id",getParkId())
         );
         return R.ok().put("devList", list);
     }
@@ -122,6 +133,7 @@ public class DeviceController {
             }
 
         }*/
+        params.put("parkId",getParkId());
         List<DeviceEntity> list = deviceService.selectShowDevList(params);
         return R.ok().put("devList", list);
     }
@@ -131,12 +143,13 @@ public class DeviceController {
      */
     @RequestMapping("/getPreviewUrl")
     public R getPreviewUrl(String devId){
+        SysParkEntity park = parkService.selectById(getParkId());
         try{
-            String cookie = InfoJson.getCookieByLogin(Constant.loginUrl);
+            String cookie = InfoJson.getCookieByLogin(park);
             Map addPreviewChnParams = new HashMap();
             addPreviewChnParams.put("id", devId);
             addPreviewChnParams.put("streamType",1);
-            JSONObject rs1 = InfoJson.doPost(Constant.addPreviewChn,addPreviewChnParams,cookie);
+            JSONObject rs1 = InfoJson.doPost(park.getWebsite() + Constant.addPreviewChn,addPreviewChnParams,cookie,park);
             if("0".equals(rs1.getString("error_code"))){
                 JSONObject result1 = rs1.getJSONObject("result");
                 String sessionId = result1.getString("sessionId");
@@ -146,7 +159,7 @@ public class DeviceController {
                     previewUrlParams.put("id", devId);
                     previewUrlParams.put("sessionId",sessionId);
                     Thread.sleep(1000);
-                    JSONObject rs2 = InfoJson.doPost(Constant.getPreviewUrl,previewUrlParams,cookie);
+                    JSONObject rs2 = InfoJson.doPost(park.getWebsite() + Constant.getPreviewUrl,previewUrlParams,cookie,park);
                     System.out.println("获取监控结果" + rs2);
                     if("0".equals(rs2.getString("error_code"))){
                         JSONObject result2 = rs2.getJSONObject("result");

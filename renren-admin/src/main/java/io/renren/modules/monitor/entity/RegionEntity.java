@@ -62,6 +62,8 @@ public class RegionEntity implements Serializable {
 	 */
 	private String mediaServerIpAddr;
 
+	private Long parkId;
+
 	/**
 	 * 设置：区域id
 	 */
@@ -193,5 +195,13 @@ public class RegionEntity implements Serializable {
 	 */
 	public String getMediaServerIpAddr() {
 		return mediaServerIpAddr;
+	}
+
+	public Long getParkId() {
+		return parkId;
+	}
+
+	public void setParkId(Long parkId) {
+		this.parkId = parkId;
 	}
 }

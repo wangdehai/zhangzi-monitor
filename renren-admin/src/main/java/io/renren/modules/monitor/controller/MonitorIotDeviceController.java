@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.sys.controller.AbstractController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ import io.renren.common.utils.R;
  */
 @RestController
 @RequestMapping("monitor/monitoriotdevice")
-public class MonitorIotDeviceController {
+public class MonitorIotDeviceController extends AbstractController {
     @Autowired
     private MonitorIotDeviceService monitorIotDeviceService;
 
@@ -42,6 +43,7 @@ public class MonitorIotDeviceController {
         List<MonitorIotDeviceEntity> iotList = monitorIotDeviceService.selectList(
                 new EntityWrapper<MonitorIotDeviceEntity>()
                         .eq("region_id",regionId)
+                        .eq("park_id",getParkId())
         );
         return R.ok().put("iotList", iotList);
     }
@@ -52,6 +54,7 @@ public class MonitorIotDeviceController {
     @RequestMapping("/list")
     @RequiresPermissions("monitor:monitoriotdevice:list")
     public R list(@RequestParam Map<String, Object> params){
+        params.put("park_id",getParkId());
         PageUtils page = monitorIotDeviceService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -75,6 +78,7 @@ public class MonitorIotDeviceController {
     @RequestMapping("/save")
     @RequiresPermissions("monitor:monitoriotdevice:save")
     public R save(@RequestBody MonitorIotDeviceEntity monitorIotDevice){
+        monitorIotDevice.setParkId(getParkId());
         monitorIotDeviceService.insert(monitorIotDevice);
 
         return R.ok();

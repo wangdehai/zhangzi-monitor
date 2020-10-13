@@ -62,6 +62,9 @@ public class MapDevEntity implements Serializable {
 	@TableField(exist = false)
 	private String regionId;
 
+	private Long parkId;
+
+	private Long linkParkId;
 	/**
 	 * 设置：
 	 */
@@ -165,5 +168,21 @@ public class MapDevEntity implements Serializable {
 
 	public void setRegionId(String regionId) {
 		this.regionId = regionId;
+	}
+
+	public Long getParkId() {
+		return parkId;
+	}
+
+	public void setParkId(Long parkId) {
+		this.parkId = parkId;
+	}
+
+	public Long getLinkParkId() {
+		return linkParkId;
+	}
+
+	public void setLinkParkId(Long linkParkId) {
+		this.linkParkId = linkParkId;
 	}
 }

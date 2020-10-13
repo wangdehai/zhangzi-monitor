@@ -12,6 +12,7 @@ import io.renren.modules.monitor.entity.DeviceEntity;
 import io.renren.modules.monitor.entity.MapDevEntity;
 import io.renren.modules.monitor.service.DeviceService;
 import io.renren.modules.monitor.service.MapDevService;
+import io.renren.modules.sys.controller.AbstractController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("monitor/map")
-public class MapController {
+public class MapController extends AbstractController {
     @Autowired
     private MapService mapService;
     @Autowired
@@ -52,6 +53,7 @@ public class MapController {
                 new EntityWrapper<MapEntity>()
                         .eq(StringUtils.isNotBlank(projectId),"project_id",projectId)
                         .eq(StringUtils.isNotBlank(regionId),"region_id",regionId)
+                        .eq("park_id",getParkId())
         );
         return R.ok().put("list", list);
     }
@@ -61,7 +63,7 @@ public class MapController {
      */
     @RequestMapping("/checkMap")
     public R checkMap(Long regionId){
-        List<MapEntity> mapList = mapService.selectList(new EntityWrapper<MapEntity>().eq("region_id",regionId));
+        List<MapEntity> mapList = mapService.selectList(new EntityWrapper<MapEntity>().eq("region_id",regionId).eq("park_id",getParkId()));
         if(mapList != null && mapList.size() > 0){
             return R.error("该区域已存在图片");
         }
@@ -115,6 +117,7 @@ public class MapController {
             mapEntity.setMapUrl(currentTime + suffixName);
             mapEntity.setProjectId(projectId);
             mapEntity.setRegionId(regionId);
+            mapEntity.setParkId(getParkId());
             mapService.insert(mapEntity);
             return R.ok("上传成功").put("src",currentTime + suffixName);
         } catch (IllegalStateException e) {

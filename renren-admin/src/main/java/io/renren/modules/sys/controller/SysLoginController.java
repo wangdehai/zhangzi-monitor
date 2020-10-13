@@ -17,9 +17,12 @@
 package io.renren.modules.sys.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import io.renren.common.utils.R;
+import io.renren.modules.sys.entity.SysUserEntity;
+import io.renren.modules.sys.service.SysUserService;
 import io.renren.modules.sys.shiro.ShiroUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -46,6 +49,8 @@ import java.io.IOException;
 public class SysLoginController extends AbstractController {
     @Autowired
     private Producer producer;
+    @Autowired
+    private SysUserService userService;
 
     @RequestMapping("captcha.jpg")
     public void captcha(HttpServletResponse response) throws IOException {
@@ -68,11 +73,22 @@ public class SysLoginController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-    public R login(String username, String password, String captcha) throws InterruptedException {
+    public R login(String username, String password, String captcha, String parkId) throws InterruptedException {
         /*String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return R.error("验证码不正确");
         }*/
+        if(!"1".equals(parkId)){
+            SysUserEntity user = userService.selectOne(new EntityWrapper<SysUserEntity>().eq("username",username).eq("park_id",parkId));
+            if(user == null){
+                return R.error("账号或密码不正确");
+            }
+        }else{
+            SysUserEntity user = userService.selectOne(new EntityWrapper<SysUserEntity>().eq("username",username).eq("is_main",1));
+            if(user == null){
+                return R.error("账号或密码不正确");
+            }
+        }
         try {
             Subject subject = ShiroUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -85,6 +101,9 @@ public class SysLoginController extends AbstractController {
             return R.error("账号已被锁定,请联系管理员");
         } catch (AuthenticationException e) {
             return R.error("账户验证失败");
+        }
+        if("1".equals(parkId)){
+            return R.ok().put("code",1);
         }
         return R.ok();
     }

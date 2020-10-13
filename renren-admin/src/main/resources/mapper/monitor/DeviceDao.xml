@@ -31,6 +31,9 @@
             <if test="params.regionId != null and params.regionId != ''">
                 AND a.region_id = #{params.regionId}
             </if>
+            <if test="params.parkId != null and params.parkId != ''">
+                AND a.park_id = #{params.parkId}
+            </if>
         </where>
         ORDER BY
             a.region_id

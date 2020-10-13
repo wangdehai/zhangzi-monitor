@@ -28,9 +28,9 @@ public class RegionServiceImpl extends ServiceImpl<RegionDao, RegionEntity> impl
 
     @Override
     public void synchronize(RegionEntity regionEntity) {
-        int count = this.selectCount(new EntityWrapper<RegionEntity>().eq("region_id",regionEntity.getRegionId()));
+        int count = this.selectCount(new EntityWrapper<RegionEntity>().eq("region_id",regionEntity.getRegionId()).eq("park_id",regionEntity.getParkId()));
         if(count > 0){
-            this.update(regionEntity,new EntityWrapper<RegionEntity>().eq("region_id",regionEntity.getRegionId()));
+            this.update(regionEntity,new EntityWrapper<RegionEntity>().eq("region_id",regionEntity.getRegionId()).eq("park_id",regionEntity.getParkId()));
         }else{
             this.insert(regionEntity);
         }

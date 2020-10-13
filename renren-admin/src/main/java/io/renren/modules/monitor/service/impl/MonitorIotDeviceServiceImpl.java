@@ -18,9 +18,11 @@ public class MonitorIotDeviceServiceImpl extends ServiceImpl<MonitorIotDeviceDao
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+
         Page<MonitorIotDeviceEntity> page = this.selectPage(
                 new Query<MonitorIotDeviceEntity>(params).getPage(),
                 new EntityWrapper<MonitorIotDeviceEntity>()
+                        .eq("park_id",params.get("park_id"))
         );
 
         return new PageUtils(page);

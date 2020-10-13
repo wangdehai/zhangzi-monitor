@@ -51,6 +51,8 @@ public class WeatherItemEntity implements Serializable {
 	 */
 	private String night;
 
+	private Long parkId;
+
 	/**
 	 * 设置：
 	 */
@@ -138,5 +140,13 @@ public class WeatherItemEntity implements Serializable {
 
 	public void setNight(String night) {
 		this.night = night;
+	}
+
+	public Long getParkId() {
+		return parkId;
+	}
+
+	public void setParkId(Long parkId) {
+		this.parkId = parkId;
 	}
 }

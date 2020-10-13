@@ -106,12 +106,15 @@ public class SysUserEntity implements Serializable {
     @NotNull(message = "公司不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private Long deptId;
 
+    private Long parkId;
+
     /**
      * 公司名称
      */
     @TableField(exist = false)
     private String deptName;
 
+    private int isMain;
 
     public Long getUserId() {
         return userId;
@@ -207,5 +210,21 @@ public class SysUserEntity implements Serializable {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public Long getParkId() {
+        return parkId;
+    }
+
+    public void setParkId(Long parkId) {
+        this.parkId = parkId;
+    }
+
+    public int getIsMain() {
+        return isMain;
+    }
+
+    public void setIsMain(int isMain) {
+        this.isMain = isMain;
     }
 }

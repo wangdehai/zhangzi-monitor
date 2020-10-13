@@ -41,6 +41,8 @@ public class MonitorIotDeviceEntity implements Serializable {
      */
     private Date updateTime;
 
+    private Long parkId;
+
     /**
      * 设置：
      */
@@ -111,5 +113,13 @@ public class MonitorIotDeviceEntity implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Long getParkId() {
+        return parkId;
+    }
+
+    public void setParkId(Long parkId) {
+        this.parkId = parkId;
     }
 }

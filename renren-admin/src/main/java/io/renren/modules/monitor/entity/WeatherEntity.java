@@ -57,6 +57,8 @@ public class WeatherEntity implements Serializable {
 	 */
 	private Date updateTime;
 
+	private Long parkId;
+
 	@TableField(exist = false)
 	private List<WeatherItemEntity> weatherItemList;
 
@@ -175,5 +177,13 @@ public class WeatherEntity implements Serializable {
 
 	public void setWeatherItemList(List<WeatherItemEntity> weatherItemList) {
 		this.weatherItemList = weatherItemList;
+	}
+
+	public Long getParkId() {
+		return parkId;
+	}
+
+	public void setParkId(Long parkId) {
+		this.parkId = parkId;
 	}
 }

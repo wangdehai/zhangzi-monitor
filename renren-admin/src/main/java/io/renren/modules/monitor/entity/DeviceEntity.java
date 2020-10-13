@@ -63,6 +63,7 @@ public class DeviceEntity implements Serializable {
 	 */
 	@TableField(exist = false)
 	private String regionName;
+	private Long parkId;
 	/**
 	 * 设置：设备id
 	 */
@@ -166,5 +167,13 @@ public class DeviceEntity implements Serializable {
 
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
+	}
+
+	public Long getParkId() {
+		return parkId;
+	}
+
+	public void setParkId(Long parkId) {
+		this.parkId = parkId;
 	}
 }
