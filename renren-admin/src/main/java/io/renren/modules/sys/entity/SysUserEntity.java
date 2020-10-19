@@ -114,7 +114,7 @@ public class SysUserEntity implements Serializable {
     @TableField(exist = false)
     private String deptName;
 
-    private int isMain;
+    private Integer isMain;
 
     public Long getUserId() {
         return userId;
@@ -220,11 +220,11 @@ public class SysUserEntity implements Serializable {
         this.parkId = parkId;
     }
 
-    public int getIsMain() {
+    public Integer getIsMain() {
         return isMain;
     }
 
-    public void setIsMain(int isMain) {
+    public void setIsMain(Integer isMain) {
         this.isMain = isMain;
     }
 }

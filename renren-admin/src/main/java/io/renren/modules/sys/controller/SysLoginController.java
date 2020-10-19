@@ -24,6 +24,7 @@ import io.renren.common.utils.R;
 import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.service.SysUserService;
 import io.renren.modules.sys.shiro.ShiroUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,9 @@ public class SysLoginController extends AbstractController {
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return R.error("验证码不正确");
         }*/
+        if(StringUtils.isEmpty(parkId)){
+            parkId = "1";
+        }
         if(!"1".equals(parkId)){
             SysUserEntity user = userService.selectOne(new EntityWrapper<SysUserEntity>().eq("username",username).eq("park_id",parkId));
             if(user == null){
