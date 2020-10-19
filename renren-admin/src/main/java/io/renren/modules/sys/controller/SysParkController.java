@@ -29,7 +29,7 @@ import io.renren.common.utils.R;
  */
 @RestController
 @RequestMapping("sys/syspark")
-public class SysParkController {
+public class SysParkController extends AbstractController{
     @Autowired
     private SysParkService sysParkService;
 
@@ -50,6 +50,12 @@ public class SysParkController {
     public List<SysParkEntity> getList(){
         List<SysParkEntity> parkList = sysParkService.selectList(null);
         return parkList;
+    }
+
+
+    @RequestMapping("/getParkId")
+    public Long getParkId(){
+        return getParkId();
     }
 
     /**
