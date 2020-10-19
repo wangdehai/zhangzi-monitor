@@ -38,7 +38,9 @@ var vm = new Vue({
             mapId:'',
             mapName:''
         },
-        imgCNum:0
+        imgCNum:0,
+        parkId:'',
+        homeImgUrl:''
     },
     methods: {
         getProList:function () {
@@ -372,7 +374,7 @@ var vm = new Vue({
         },
         initImg:function (markers) {
             $('#zoom-marker-img-alt'+vm.imgCNum).zoomMarker({
-                src: "../../statics/img/1595301032060.jpg",
+                src: "../../statics/img/"+homeImgUrl+'.jpg',
                 rate: 0.1,
                 width: 1300,
                 max: 3000,
@@ -387,10 +389,37 @@ var vm = new Vue({
                 }
             })
         },
+        // 获取parkId
+        getParkId:function () {
+            $.ajax({
+                url: '../../sys/syspark/getParkId',
+                type: 'get',
+                data: JSON.stringify(),
+                contentType: "application/json",
+                // dataType: 'json',
+                success: function (r) {
+                    if (r.code === 0) {
+                        console.log(r);
+                        vm.parkId = r.id;
+                        if(vm.parkId == 1){
+                            vm.homeImgUrl = '1595301032060'
+                        }else if(vm.parkId == 2){
+                            vm.homeImgUrl = 'bb'
+                        }
+                    } else {
+                        layer.alert(r.msg);
+                    }
+                },
+                error: function () {
+                    layer.msg("网络故障");
+                }
+            });
+        }
     },
     created:function () {
         this.getProList();
         this.getMapList();
+        this.getParkId();
         // this.getMarksList();
     },
     mounted:function () {

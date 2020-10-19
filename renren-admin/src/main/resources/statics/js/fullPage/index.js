@@ -66,9 +66,15 @@ var vm = new Vue({
         weaterT:[],
 		info:{},
         hightTem:'',
-        lowTem:30
+        lowTem:30,
+        isReturn:0
 	},
 	methods:{
+        toHome:function () {
+            if(vm.isReturn == 1){
+                window.location.href = './index.html'
+            }
+        },
 		getDate:function(){
 			var aa = new Date();
 			var a1 = aa.getFullYear();
@@ -355,6 +361,9 @@ var vm = new Vue({
 		setInterval(function(){
 			that.getTime()
 		},900);
+        var url = decodeURI(window.location.href);
+        var isReturn = url.split("?return=");
+        this.isReturn = isReturn;
 		
 	},
 	mounted:function(){

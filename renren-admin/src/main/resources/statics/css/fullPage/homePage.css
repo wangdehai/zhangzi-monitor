@@ -1,0 +1,32 @@
+section{
+    height: calc(100% - 70px);
+    display: flex;
+}
+.bottom{
+    padding-left: calc(50% - 420px);
+    padding-top: 100px;
+}
+.bottom>div{
+    display: inline-block;
+    width: 400px;
+    position: relative;
+    margin: 10px;
+    cursor: pointer;
+}
+.middle .bottom>div>img{
+    position: absolute;
+    width: 50px;
+}
+.middle .bottom>div>h3{
+    position: absolute;
+    top:30px;
+    left: 0;
+    background: rgba(255,255,255,.1);
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    display: none;
+}
+.middle .bottom>div:hover>h3{
+    display: inline-block;
+}

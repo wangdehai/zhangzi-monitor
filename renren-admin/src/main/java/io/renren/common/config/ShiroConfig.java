@@ -87,6 +87,7 @@ public class ShiroConfig {
         filterMap.put("/login.html", "anon");
         filterMap.put("/viplogin.html", "anon");
         filterMap.put("/sys/login", "anon");
+        filterMap.put("/sys/syspark/getList", "anon");
         filterMap.put("/sys/viplogin", "anon");
         filterMap.put("/test", "anon");
         filterMap.put("/sys/role/huifu", "anon");
