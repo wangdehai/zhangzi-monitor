@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import io.renren.common.validator.ValidatorUtils;
+import io.renren.modules.sys.entity.SysUserEntity;
+import io.renren.modules.sys.service.SysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +34,8 @@ import io.renren.common.utils.R;
 public class SysParkController extends AbstractController{
     @Autowired
     private SysParkService sysParkService;
+    @Autowired
+    private SysUserService userService;
 
     /**
      * 列表
@@ -56,6 +60,13 @@ public class SysParkController extends AbstractController{
     @RequestMapping("/getParkId")
     public Long getParkId(){
         return getParkId();
+    }
+
+    @RequestMapping("/swapParkId")
+    public void swapParkId(String parkId){
+        SysUserEntity user = getUser();
+        user.setParkId(Long.valueOf(parkId));
+        userService.updateById(user);
     }
 
     /**
