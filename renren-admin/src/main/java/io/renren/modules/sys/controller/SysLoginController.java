@@ -106,7 +106,9 @@ public class SysLoginController extends AbstractController {
         } catch (AuthenticationException e) {
             return R.error("账户验证失败");
         }
-
+        if("1".equals(parkId)){
+            return R.ok().put("code",1);
+        }
         return R.ok();
     }
     /**
