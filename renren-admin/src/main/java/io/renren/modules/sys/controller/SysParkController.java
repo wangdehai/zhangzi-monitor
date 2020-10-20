@@ -58,8 +58,9 @@ public class SysParkController extends AbstractController{
 
 
     @RequestMapping("/getParkId")
-    public Long getParkId(){
-        return getParkId();
+    public String slectParkId(){
+        String parkId = getParkId().toString();
+        return parkId;
     }
 
     @RequestMapping("/swapParkId")
