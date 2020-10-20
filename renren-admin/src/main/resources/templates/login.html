@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="${request.contextPath}/statics/css/stylesheets/normalize-min.css">
     <!--<link rel="stylesheet" href="stylesheets/pace.css">-->
     <link rel="stylesheet" href="${request.contextPath}/statics/css/stylesheets/main.css">
+    <link rel="stylesheet" href="${request.contextPath}/statics/css/element.min.css">
 </head>
 
 <body>
@@ -41,11 +42,23 @@
                     <h4 style="margin-bottom: 0px;color: #F56C6C;"> {{errorMsg}}</h4>
                 </div>
                 <div class="username form_group_btn">
+                    <el-select v-model="value" placeholder="请选择" style="width: 100%;">
+                        <el-option
+                                v-for="item in options"
+                                :key="item.parkId"
+                                :label="item.parkName"
+                                :value="item.parkId">
+                        </el-option>
+                    </el-select>
+                    <!--<input type="text" class="form-control" v-model="username" placeholder="账号">-->
+                    <!--<span class="glyphicon glyphicon-user form-control-feedback"></span>-->
+                </div>
+                <div v-if="value!=''" class="username form_group_btn">
                     <!--<input type="text" placeholder="请输入用户名" />-->
                     <input type="text" class="form-control" v-model="username" placeholder="账号">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
-                <div class="password form_group_btn">
+                <div v-if="value!=''" class="password form_group_btn">
                     <!--<input type="password" placeholder="请输入密码" />-->
                     <input type="password" class="form-control" v-model="password" @keyup.enter="login" placeholder="密码">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -54,7 +67,7 @@
                     <!--<input type="checkbox" /> <span style="color: #eee;">记住密码？</span>-->
                 <!--</div>-->
                 <div class="login form_group_btn">
-                    <button @click="login">登录</button>
+                    <button :disabled="value==''" @click="login">登录</button>
                 </div>
             </div>
 
@@ -69,6 +82,7 @@
 
 <script src="${request.contextPath}/statics/js/jquery-2.1.1.min.js"></script>
 <script src="${request.contextPath}/statics/libs/vue.min.js"></script>
+<script src="${request.contextPath}/statics/js/element.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="${request.contextPath}/statics/js/fullpage.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     $(function(){
@@ -87,19 +101,24 @@
             captcha: '',
             error: false,
             errorMsg: '',
-            src: 'captcha.jpg'
+            src: 'captcha.jpg',
+            options:[],
+            value:''
         },
         beforeCreate: function(){
             if(self != top){
                 top.location.href = self.location.href;
             }
         },
+        created:function () {
+            this.getSelectList();
+        },
         methods: {
             refreshCode: function(){
                 this.src = "captcha.jpg?t=" + $.now();
             },
             login: function (event) {
-                var data = "username="+vm.username+"&password="+vm.password+"&captcha="+vm.captcha;
+                var data = "username="+vm.username+"&password="+vm.password+"&captcha="+vm.captcha+'&parkId='+vm.value;
                 $.ajax({
                     type: "POST",
                     url: "sys/login",
@@ -108,11 +127,27 @@
                     success: function(result){
                         if(result.code == 0){//登录成功
                             parent.location.href ='index.html';
+                        }else if(result.code == 1){//登录成功
+                            parent.location.href ='index.html';
+//                            parent.location.href ='modules/fullPage/index.html';
                         }else{
                             vm.error = true;
                             vm.errorMsg = result.msg;
 
                             vm.refreshCode();
+                        }
+                    }
+                });
+            },
+            getSelectList:function () {
+                $.ajax({
+                    type: "get",
+                    url: "sys/syspark/getList",
+                    data: '',
+                    dataType: "json",
+                    success: function(result){
+                        if(result){//登录成功
+                            vm.options = result;
                         }
                     }
                 });
