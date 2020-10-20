@@ -74,25 +74,11 @@ public class SysLoginController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-    public R login(String username, String password, String captcha, String parkId) throws InterruptedException {
+    public R login(String username, String password, String captcha) throws InterruptedException {
         /*String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return R.error("验证码不正确");
         }*/
-        if(StringUtils.isEmpty(parkId)){
-            parkId = "1";
-        }
-        if(!"1".equals(parkId)){
-            SysUserEntity user = userService.selectOne(new EntityWrapper<SysUserEntity>().eq("username",username).eq("park_id",parkId));
-            if(user == null){
-                return R.error("账号或密码不正确");
-            }
-        }else{
-            SysUserEntity user = userService.selectOne(new EntityWrapper<SysUserEntity>().eq("username",username).eq("is_main",1));
-            if(user == null){
-                return R.error("账号或密码不正确");
-            }
-        }
         try {
             Subject subject = ShiroUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -106,7 +92,8 @@ public class SysLoginController extends AbstractController {
         } catch (AuthenticationException e) {
             return R.error("账户验证失败");
         }
-        if("1".equals(parkId)){
+        SysUserEntity user = userService.selectOne(new EntityWrapper<SysUserEntity>().eq("username",username));
+        if(user.getIsMain() == 1){
             return R.ok().put("code",1);
         }
         return R.ok();
