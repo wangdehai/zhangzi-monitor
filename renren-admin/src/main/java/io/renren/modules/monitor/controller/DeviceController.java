@@ -62,20 +62,20 @@ public class DeviceController extends AbstractController {
     @RequestMapping("/count")
     public R count(){
         Map<String,Object> map = new HashMap<>(6);
-        int projectCount = projectService.selectCount(new EntityWrapper<ProjectEntity>().eq("park_id",getParkId()));
-        int regionCount = regionService.selectCount(new EntityWrapper<RegionEntity>().eq("park_id",getParkId()));
-        int cameraCount = deviceService.selectCount(new EntityWrapper<DeviceEntity>().eq("park_id",getParkId()));
+        int projectCount = projectService.selectCount(null);
+        int regionCount = regionService.selectCount(new EntityWrapper<RegionEntity>().eq(!getIsMain(),"park_id",getParkId()));
+        int cameraCount = deviceService.selectCount(new EntityWrapper<DeviceEntity>().eq(!getIsMain(),"park_id",getParkId()));
         int onlineCameraCount = deviceService.selectCount(
                 new EntityWrapper<DeviceEntity>()
                         .eq("device_status",1)
-                        .eq("park_id",getParkId())
+                        .eq(!getIsMain(),"park_id",getParkId())
         );
         int offOnlineCameraCount = deviceService.selectCount(
                 new EntityWrapper<DeviceEntity>()
                         .eq("device_status",0)
-                        .eq("park_id",getParkId())
+                        .eq(!getIsMain(),"park_id",getParkId())
         );
-        int iotDeviceCount = iotService.selectCount(new EntityWrapper<MonitorIotDeviceEntity>().eq("park_id",getParkId()));
+        int iotDeviceCount = iotService.selectCount(new EntityWrapper<MonitorIotDeviceEntity>().eq(!getIsMain(),"park_id",getParkId()));
         map.put("projectCount",projectCount);//项目数量
         map.put("regionCount",regionCount);//区域数量
         map.put("cameraCount",cameraCount);//摄像头数量
@@ -90,6 +90,7 @@ public class DeviceController extends AbstractController {
      */
     @RequestMapping("/list")
     public R list(@RequestParam Map<String, Object> params){
+        params.put("is_main",getIsMain());
         params.put("park_id",getParkId().toString());
         PageUtils page = deviceService.queryPage(params);
         return R.ok().put("page", page);
@@ -107,7 +108,7 @@ public class DeviceController extends AbstractController {
                         .eq("is_relation",0)
                         .eq(StringUtils.isNotBlank(projectId),"project_id",projectId)
                         .eq(StringUtils.isNotBlank(regionId),"region_id",regionId)
-                        .eq("park_id",getParkId())
+                        .eq(!getIsMain(),"park_id",getParkId())
         );
         return R.ok().put("devList", list);
     }

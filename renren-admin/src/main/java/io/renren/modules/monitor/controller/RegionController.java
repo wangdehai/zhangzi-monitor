@@ -1,5 +1,6 @@
 package io.renren.modules.monitor.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class RegionController extends AbstractController {
     public R list(@RequestParam(required = false) String projectId){
         List<RegionEntity> list = regionService.selectList(new EntityWrapper<RegionEntity>()
                 .eq(StringUtils.isNotBlank(projectId),"project_id", projectId)
-                .eq("park_id",getParkId())
+                .eq(!getIsMain(),"park_id",getParkId())
         );
         return R.ok().put("list", list);
     }

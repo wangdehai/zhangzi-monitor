@@ -42,7 +42,7 @@ public class ProjectEntity implements Serializable {
 	 */
 	private Integer hasChildren;
 
-	private Long parkId;
+//	private Long parkId;
 
 	/**
 	 * 设置：项目id
@@ -117,11 +117,11 @@ public class ProjectEntity implements Serializable {
 		return hasChildren;
 	}
 
-	public Long getParkId() {
+/*	public Long getParkId() {
 		return parkId;
 	}
 
 	public void setParkId(Long parkId) {
 		this.parkId = parkId;
-	}
+	}*/
 }

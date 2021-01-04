@@ -1,5 +1,6 @@
 package io.renren.modules.monitor.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,8 +11,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import io.renren.common.utils.Constant;
 import io.renren.common.utils.InfoJson;
 import io.renren.modules.monitor.entity.DeviceEntity;
+import io.renren.modules.monitor.entity.MonitorIotDeviceEntity;
 import io.renren.modules.monitor.entity.RegionEntity;
 import io.renren.modules.monitor.service.DeviceService;
+import io.renren.modules.monitor.service.MonitorIotDeviceService;
 import io.renren.modules.monitor.service.RegionService;
 import io.renren.modules.sys.controller.AbstractController;
 import io.renren.modules.sys.entity.SysParkEntity;
@@ -47,13 +50,15 @@ public class ProjectController extends AbstractController {
     private DeviceService deviceService;
     @Autowired
     private SysParkService parkService;
+    @Autowired
+    private MonitorIotDeviceService monitorIotDeviceService;
 
     /**
      * 根列表
      */
     @RequestMapping("/list")
     public R list(){
-        List<ProjectEntity> list = projectService.selectList(new EntityWrapper<ProjectEntity>().eq("park_id",getParkId()));
+        List<ProjectEntity> list = projectService.selectList(null);
         return R.ok().put("list", list);
     }
 
@@ -65,7 +70,6 @@ public class ProjectController extends AbstractController {
         List<ProjectEntity> list = projectService.selectList(
                 new EntityWrapper<ProjectEntity>()
                         .eq("project_id","0")
-                        .eq("park_id",getParkId())
         );
         return R.ok().put("projectList", list);
     }
@@ -77,7 +81,6 @@ public class ProjectController extends AbstractController {
         List<ProjectEntity> list = projectService.selectList(
                 new EntityWrapper<ProjectEntity>()
                         .eq("parent_id",projectId)
-                        .eq("park_id",getParkId())
         );
         return R.ok().put("childList", list);
     }
@@ -103,14 +106,14 @@ public class ProjectController extends AbstractController {
                 if(projectList != null && projectList.size() > 0){
                     for(Object o : projectList){
                         ProjectEntity projectEntity = JSON.parseObject(JSON.toJSONString(o),ProjectEntity.class);
-                        projectEntity.setParkId(park.getParkId());
+//                        projectEntity.setParkId(park.getParkId());
                         projectService.synchronize(projectEntity);
                         if(projectEntity.getHasChildren() == 1){
                             List<ProjectEntity> childList = new ArrayList<>();
                             //同步子项目
                             childList = getChildProduct(childList,projectEntity,cookie,park);
                             for(ProjectEntity childProject : childList){
-                                childProject.setParkId(park.getParkId());
+//                                childProject.setParkId(park.getParkId());
                                 projectService.synchronize(childProject);
                             }
                         }
@@ -131,22 +134,49 @@ public class ProjectController extends AbstractController {
                         if(regionList != null && regionList.size() > 0){
                             for(Object o : regionList){
                                 RegionEntity regionEntity = JSON.parseObject(JSON.toJSONString(o),RegionEntity.class);
-                                regionEntity.setParkId(park.getParkId());
+                                if("丹西龙鑫".equals(regionEntity.getRegionName())){
+                                    regionEntity.setParkId(3L);
+                                }else{
+                                    regionEntity.setParkId(2L);
+                                }
                                 regionService.synchronize(regionEntity);
                                 if(regionEntity.getHasChildren() == 1){
                                     List<RegionEntity> childList = new ArrayList<>();
                                     //同步子项目
                                     childList = getChildRegion(childList,regionEntity,cookie,park);
                                     for(RegionEntity childRegion : childList){
-                                        childRegion.setParkId(park.getParkId());
+                                        regionEntity.setParkId(2L);
                                         regionService.synchronize(childRegion);
                                     }
                                 }
                             }
                         }
                     }
-                    //同步设备 1:项目下的设备 2：区域下的设备
+                    //同步设备 parentId=1为park2，parentId=163为park3
                     Map deviceParams = new HashMap();
+                    deviceParams.put("start", 1);
+                    deviceParams.put("limit",100);
+                    Map filterAnd = new HashMap();
+                    filterAnd.put("deviceCatagory","videoPoint");
+                    filterAnd.put("projectId",project.getProjectId());
+                    deviceParams.put("filterAnd",filterAnd);
+                    JSONObject rs3 = InfoJson.doPost(park.getWebsite() + Constant.getDeviceList,deviceParams,cookie,park);
+                    if("0".equals(rs3.getString("error_code"))){
+                        JSONArray devList = rs3.getJSONObject("result").getJSONArray("list");
+                        if(devList != null && devList.size() > 0){
+                            for(Object o : devList){
+                                DeviceEntity deviceEntity = JSON.parseObject(JSON.toJSONString(o),DeviceEntity.class);
+                                if("1".equals(deviceEntity.getParentId())){
+                                    deviceEntity.setParkId(2L);
+                                }else if("163".equals(deviceEntity.getParentId())){
+                                    deviceEntity.setParkId(3L);
+                                }
+                                deviceService.synchronize(deviceEntity);
+                            }
+                        }
+                    }
+                    //同步设备 1:项目下的设备 2：区域下的设备
+                    /*Map deviceParams = new HashMap();
                     deviceParams.put("start", 1);
                     deviceParams.put("limit",100);
                     Map filterAnd = new HashMap();
@@ -201,7 +231,7 @@ public class ProjectController extends AbstractController {
                                 }
                             }
                         }
-                    }
+                    }*/
 
                 }
 

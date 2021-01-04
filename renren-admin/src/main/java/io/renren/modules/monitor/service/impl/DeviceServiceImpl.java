@@ -24,12 +24,14 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceDao, DeviceEntity> impl
     public PageUtils queryPage(Map<String, Object> params) {
         String projectId = (String) params.get("projectId");
         String regionId = (String) params.get("regionId");
+        String parkId = (String) params.get("park_id");
+        Boolean isMain = (Boolean) params.get("is_main");
         Page<DeviceEntity> page = this.selectPage(
                 new Query<DeviceEntity>(params).getPage(),
                 new EntityWrapper<DeviceEntity>()
                         .eq(StringUtils.isNotBlank(projectId),"project_id",projectId)
                         .eq(StringUtils.isNotBlank(regionId),"region_id",regionId)
-                        .eq("park_id",(String) params.get("park_id"))
+                        .eq(!isMain,"park_id",parkId)
         );
 
         return new PageUtils(page);

@@ -44,4 +44,11 @@ public abstract class AbstractController {
 	}
 
 	protected Long getParkId() { return getUser().getParkId(); }
+
+	protected boolean getIsMain() {
+		if(getUser().getIsMain() == 1){
+			return true;
+		}
+		return false;
+	}
 }

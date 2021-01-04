@@ -63,6 +63,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice1.setDevKey("温度");
                 monitorIotDevice1.setValue(tem);
                 monitorIotDevice1.setRegionId("1");
+                monitorIotDevice1.setParkId(2L);
                 iotList.add(monitorIotDevice1);
                 //湿度
                 String hum = new BigDecimal(Integer.valueOf(params.substring(40,48),16)).divide(new BigDecimal(10)) + "%RH";
@@ -79,6 +80,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice2.setDevKey("湿度");
                 monitorIotDevice2.setValue(hum);
                 monitorIotDevice2.setRegionId("1");
+                monitorIotDevice2.setParkId(2L);
                 iotList.add(monitorIotDevice2);
                 //大气压
                 String pre = new BigDecimal(Integer.valueOf(params.substring(48,56),16)).divide(new BigDecimal(100)) + "mbar";
@@ -95,6 +97,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice3.setDevKey("大气压");
                 monitorIotDevice3.setValue(pre);
                 monitorIotDevice3.setRegionId("1");
+                monitorIotDevice3.setParkId(2L);
                 iotList.add(monitorIotDevice3);
                 //风速
                 String ws = new BigDecimal(Integer.valueOf(params.substring(56,64),16)).divide(new BigDecimal(10)) + "m/s";
@@ -111,6 +114,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice4.setDevKey("风速");
                 monitorIotDevice4.setValue(ws);
                 monitorIotDevice4.setRegionId("1");
+                monitorIotDevice4.setParkId(2L);
                 iotList.add(monitorIotDevice4);
                 //风向
                 String wd = new BigDecimal(Integer.valueOf(params.substring(64,72),16)) + "度";
@@ -127,6 +131,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice5.setDevKey("风向");
                 monitorIotDevice5.setValue(wd);
                 monitorIotDevice5.setRegionId("1");
+                monitorIotDevice5.setParkId(2L);
                 iotList.add(monitorIotDevice5);
                 //雨量
                 String rain = new BigDecimal(Integer.valueOf(params.substring(72,80),16)) + "mm";
@@ -143,6 +148,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice6.setDevKey("雨量");
                 monitorIotDevice6.setValue(rain);
                 monitorIotDevice6.setRegionId("1");
+                monitorIotDevice6.setParkId(2L);
                 iotList.add(monitorIotDevice6);
             }else if("171CB73FF7D0".equals(devNum)){
                 //牛棚
@@ -161,6 +167,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice1.setDevKey("温度");
                 monitorIotDevice1.setValue(tem);
                 monitorIotDevice1.setRegionId("6");
+                monitorIotDevice1.setParkId(2L);
                 iotList.add(monitorIotDevice1);
                 //湿度
                 String hum = new BigDecimal(Integer.valueOf(params.substring(40,48),16)).divide(new BigDecimal(10)) + "%RH";
@@ -177,6 +184,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice2.setDevKey("湿度");
                 monitorIotDevice2.setValue(hum);
                 monitorIotDevice2.setRegionId("6");
+                monitorIotDevice2.setParkId(2L);
                 iotList.add(monitorIotDevice2);
                 //光照度
                 String light = new BigDecimal(Integer.valueOf(params.substring(48,56),16)) + "Lux";
@@ -193,6 +201,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice3.setDevKey("光照度");
                 monitorIotDevice3.setValue(light);
                 monitorIotDevice3.setRegionId("6");
+                monitorIotDevice3.setParkId(2L);
                 iotList.add(monitorIotDevice3);
                 //噪声
                 String noise = new BigDecimal(Integer.valueOf(params.substring(56,64),16)).divide(new BigDecimal(10)) + "db";
@@ -209,6 +218,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice4.setDevKey("噪声");
                 monitorIotDevice4.setValue(noise);
                 monitorIotDevice4.setRegionId("6");
+                monitorIotDevice4.setParkId(2L);
                 iotList.add(monitorIotDevice4);
                 //二氧化碳
                 String cd = new BigDecimal(Integer.valueOf(params.substring(64,72),16)) + "ppm";
@@ -225,6 +235,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice5.setDevKey("二氧化碳");
                 monitorIotDevice5.setValue(cd);
                 monitorIotDevice5.setRegionId("6");
+                monitorIotDevice5.setParkId(2L);
                 iotList.add(monitorIotDevice5);
                 //硫化氢
                 String hs = new BigDecimal(Integer.valueOf(params.substring(72,80),16)).divide(new BigDecimal(10)) + "ppm";
@@ -241,6 +252,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice6.setDevKey("硫化氢");
                 monitorIotDevice6.setValue(hs);
                 monitorIotDevice6.setRegionId("6");
+                monitorIotDevice6.setParkId(2L);
                 iotList.add(monitorIotDevice6);
                 //氨气
                 String amm = new BigDecimal(Integer.valueOf(params.substring(80,88),16)).divide(new BigDecimal(100)) + "ppm";
@@ -257,6 +269,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice7.setDevKey("氨气");
                 monitorIotDevice7.setValue(amm);
                 monitorIotDevice7.setRegionId("6");
+                monitorIotDevice7.setParkId(2L);
                 iotList.add(monitorIotDevice7);
             }else if("171CB73F778B".equals(devNum)){
                 //蔬菜园区
@@ -275,6 +288,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice1.setDevKey("温度");
                 monitorIotDevice1.setValue(tem);
                 monitorIotDevice1.setRegionId("7");
+                monitorIotDevice1.setParkId(2L);
                 iotList.add(monitorIotDevice1);
                 //湿度
                 String hum = new BigDecimal(Integer.valueOf(params.substring(40,48),16)).divide(new BigDecimal(10)) + "%RH";
@@ -291,6 +305,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice2.setDevKey("湿度");
                 monitorIotDevice2.setValue(hum);
                 monitorIotDevice2.setRegionId("7");
+                monitorIotDevice2.setParkId(2L);
                 iotList.add(monitorIotDevice2);
                 //光照度
                 String light = new BigDecimal(Integer.valueOf(params.substring(48,56),16)) + "Lux";
@@ -307,6 +322,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice3.setDevKey("光照度");
                 monitorIotDevice3.setValue(light);
                 monitorIotDevice3.setRegionId("7");
+                monitorIotDevice3.setParkId(2L);
                 iotList.add(monitorIotDevice3);
                 //土壤温度
                 String st = new BigDecimal(Integer.valueOf(params.substring(56,64),16).shortValue()).divide(new BigDecimal(10)) + "℃";
@@ -323,6 +339,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice4.setDevKey("土壤温度");
                 monitorIotDevice4.setValue(st);
                 monitorIotDevice4.setRegionId("7");
+                monitorIotDevice4.setParkId(2L);
                 iotList.add(monitorIotDevice4);
                 //土壤湿度
                 String sh = new BigDecimal(Integer.valueOf(params.substring(64,72),16)).divide(new BigDecimal(10)) + "%RH";
@@ -339,6 +356,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice5.setDevKey("土壤湿度");
                 monitorIotDevice5.setValue(sh);
                 monitorIotDevice5.setRegionId("7");
+                monitorIotDevice5.setParkId(2L);
                 iotList.add(monitorIotDevice5);
                 //土壤氮
                 String sn = new BigDecimal(Integer.valueOf(params.substring(72,80),16)) + "mg/kg";
@@ -355,6 +373,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice6.setDevKey("土壤氮");
                 monitorIotDevice6.setValue(sn);
                 monitorIotDevice6.setRegionId("7");
+                monitorIotDevice6.setParkId(2L);
                 iotList.add(monitorIotDevice6);
                 //土壤磷
                 String sl = new BigDecimal(Integer.valueOf(params.substring(80,88),16)) + "mg/kg";
@@ -371,6 +390,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice7.setDevKey("土壤磷");
                 monitorIotDevice7.setValue(sl);
                 monitorIotDevice7.setRegionId("7");
+                monitorIotDevice7.setParkId(2L);
                 iotList.add(monitorIotDevice7);
                 //土壤钾
                 String sk = new BigDecimal(Integer.valueOf(params.substring(88,96),16)) + "mg/kg";
@@ -387,6 +407,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice8.setDevKey("土壤钾");
                 monitorIotDevice8.setValue(sk);
                 monitorIotDevice8.setRegionId("7");
+                monitorIotDevice8.setParkId(2L);
                 iotList.add(monitorIotDevice8);
                 //土壤电导率
                 String con = new BigDecimal(Integer.valueOf(params.substring(96,104),16)).divide(new BigDecimal(10)) + "us/cm";
@@ -403,6 +424,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice9.setDevKey("土壤电导率");
                 monitorIotDevice9.setValue(con);
                 monitorIotDevice9.setRegionId("7");
+                monitorIotDevice9.setParkId(2L);
                 iotList.add(monitorIotDevice9);
                 //土壤电ph
                 String ph = new BigDecimal(Integer.valueOf(params.substring(104,112),16)).divide(new BigDecimal(100)) + "PH";
@@ -419,6 +441,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 monitorIotDevice10.setDevKey("土壤电ph");
                 monitorIotDevice10.setValue(ph);
                 monitorIotDevice10.setRegionId("7");
+                monitorIotDevice10.setParkId(2L);
                 iotList.add(monitorIotDevice10);
             }
             if(iotList != null && iotList.size() > 0){

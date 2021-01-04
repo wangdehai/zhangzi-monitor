@@ -28,9 +28,9 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectDao, ProjectEntity> i
 
     @Override
     public void synchronize(ProjectEntity projectEntity) {
-        int count = this.selectCount(new EntityWrapper<ProjectEntity>().eq("project_id",projectEntity.getProjectId()).eq("park_id",projectEntity.getParkId()));
+        int count = this.selectCount(new EntityWrapper<ProjectEntity>().eq("project_id",projectEntity.getProjectId()));
         if(count > 0){
-            this.update(projectEntity,new EntityWrapper<ProjectEntity>().eq("project_id",projectEntity.getProjectId()).eq("park_id",projectEntity.getParkId()));
+            this.update(projectEntity,new EntityWrapper<ProjectEntity>().eq("project_id",projectEntity.getProjectId()));
         }else{
             this.insert(projectEntity);
         }
