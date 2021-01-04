@@ -41,16 +41,16 @@
                 <div v-if="error">
                     <h4 style="margin-bottom: 0px;color: #F56C6C;"> {{errorMsg}}</h4>
                 </div>
-                <div class="username form_group_btn">
-                    <el-select v-model="value" placeholder="请选择" style="width: 100%;">
-                        <el-option
-                                v-for="item in options"
-                                :key="item.parkId"
-                                :label="item.parkName"
-                                :value="item.parkId">
-                        </el-option>
-                    </el-select>
-                </div>
+                <!--<div class="username form_group_btn">-->
+                    <!--<el-select v-model="value" placeholder="请选择" style="width: 100%;">-->
+                        <!--<el-option-->
+                                <!--v-for="item in options"-->
+                                <!--:key="item.parkId"-->
+                                <!--:label="item.parkName"-->
+                                <!--:value="item.parkId">-->
+                        <!--</el-option>-->
+                    <!--</el-select>-->
+                <!--</div>-->
                 <div class="username form_group_btn">
                     <!--<input type="text" placeholder="请输入用户名" />-->
                     <input type="text" class="form-control" v-model="username" placeholder="账号">
@@ -109,7 +109,7 @@
             }
         },
         created:function () {
-            this.getSelectList();
+//            this.getSelectList();
         },
         methods: {
             refreshCode: function(){
