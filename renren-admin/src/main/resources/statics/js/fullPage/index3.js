@@ -241,7 +241,7 @@ var vm = new Vue({
 
             item.on("zoom_marker_click", function(event, marker) {
                 console.log(JSON.stringify(marker));
-                if(marker.param.regionId == '6'){
+                if(marker.param.regionId == '9'){
                     window.location.href = 'index3_1.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
 				}else if(marker.param.regionId == '7'){
                     window.location.href = 'greenhouse.html?id='+marker.param.mapId+'&map='+marker.param.mapName+'&reId='+marker.param.regionId
@@ -287,21 +287,21 @@ var vm = new Vue({
 				'top':($('#zoom-marker-div').height()-$('#imgBg').height())/2 + 'px'
 			})
         },
-		// 获取设备信息
-		getDevInfo:function () {
+        // 获取设备信息
+        getDevInfo:function () {
             $.ajax({
                 url: '../../monitor/monitoriotdevice/showList',
                 type: 'get',
                 data: {
                     regionId:1
-				},
+                },
                 contentType: "application/json",
                 // dataType: 'json',
                 success:function (r) {
                     if(r.code === 0){
                         console.log(r);
-						r.iotList.forEach(function (item) {
-							vm.info[item.devKey] = item.value
+                        r.iotList.forEach(function (item) {
+                            vm.info[item.devKey] = item.value
                         })
                     }else {
                         layer.alert(r.msg);
@@ -313,6 +313,32 @@ var vm = new Vue({
 
             })
         },
+		// 获取设备信息
+		// getDevInfo:function () {
+         //    $.ajax({
+         //        url: '../../monitor/monitoriotdevice/showList',
+         //        type: 'get',
+         //        data: {
+         //            regionId:1
+		// 		},
+         //        contentType: "application/json",
+         //        // dataType: 'json',
+         //        success:function (r) {
+         //            if(r.code === 0){
+         //                console.log(r);
+		// 				r.iotList.forEach(function (item) {
+		// 					vm.info[item.devKey] = item.value
+         //                })
+         //            }else {
+         //                layer.alert(r.msg);
+         //            }
+         //        },
+         //        error:function () {
+         //            layer.msg("网络故障");
+         //        }
+        //
+         //    })
+        // },
 		getHightTem:function () {
             $.ajax({
                 url: '../../sys/dict/selectTem',

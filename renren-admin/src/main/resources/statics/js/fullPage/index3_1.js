@@ -262,7 +262,7 @@ var vm = new Vue({
                 url: '../../monitor/monitoriotdevice/showList',
                 type: 'get',
                 data: {
-                    regionId:1
+                    regionId:9
                 },
                 contentType: "application/json",
                 // dataType: 'json',
