@@ -50,15 +50,13 @@
                                 :value="item.parkId">
                         </el-option>
                     </el-select>
-                    <!--<input type="text" class="form-control" v-model="username" placeholder="账号">-->
-                    <!--<span class="glyphicon glyphicon-user form-control-feedback"></span>-->
                 </div>
-                <div v-if="value!=''" class="username form_group_btn">
+                <div class="username form_group_btn">
                     <!--<input type="text" placeholder="请输入用户名" />-->
                     <input type="text" class="form-control" v-model="username" placeholder="账号">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
-                <div v-if="value!=''" class="password form_group_btn">
+                <div class="password form_group_btn">
                     <!--<input type="password" placeholder="请输入密码" />-->
                     <input type="password" class="form-control" v-model="password" @keyup.enter="login" placeholder="密码">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -67,7 +65,7 @@
                     <!--<input type="checkbox" /> <span style="color: #eee;">记住密码？</span>-->
                 <!--</div>-->
                 <div class="login form_group_btn">
-                    <button :disabled="value==''" @click="login">登录</button>
+                    <button @click="login">登录</button>
                 </div>
             </div>
 
@@ -118,6 +116,9 @@
                 this.src = "captcha.jpg?t=" + $.now();
             },
             login: function (event) {
+//                if(vm.value == '' && vm.username == 'admin'){
+//                    vm.value = 2
+//                }
                 var data = "username="+vm.username+"&password="+vm.password+"&captcha="+vm.captcha+'&parkId='+vm.value;
                 $.ajax({
                     type: "POST",
@@ -127,9 +128,10 @@
                     success: function(result){
                         if(result.code == 0){//登录成功
                             parent.location.href ='index.html';
+
                         }else if(result.code == 1){//登录成功
-                            parent.location.href ='index.html';
-//                            parent.location.href ='modules/fullPage/index.html';
+//                            parent.location.href ='index.html';
+                            parent.location.href ='modules/fullPage/index.html';
                         }else{
                             vm.error = true;
                             vm.errorMsg = result.msg;

@@ -1,5 +1,5 @@
 
-
+let homeUrl = '';
 
 var vm = new Vue({
     el:'#rrapp',
@@ -374,7 +374,7 @@ var vm = new Vue({
         },
         initImg:function (markers) {
             $('#zoom-marker-img-alt'+vm.imgCNum).zoomMarker({
-                src: "../../statics/img/"+homeImgUrl+'.jpg',
+                src: "../../statics/img/"+homeUrl+'.jpg',
                 rate: 0.1,
                 width: 1300,
                 max: 3000,
@@ -398,16 +398,11 @@ var vm = new Vue({
                 contentType: "application/json",
                 // dataType: 'json',
                 success: function (r) {
-                    if (r.code === 0) {
-                        console.log(r);
-                        vm.parkId = r.id;
-                        if(vm.parkId == 1){
-                            vm.homeImgUrl = '1595301032060'
-                        }else if(vm.parkId == 2){
-                            vm.homeImgUrl = 'bb'
-                        }
-                    } else {
-                        layer.alert(r.msg);
+                    // vm.parkId = r;
+                    if(r == 2){
+                        homeUrl = '1595301032060'
+                    }else if(r == 3){
+                        homeUrl = 'bb'
                     }
                 },
                 error: function () {
@@ -419,10 +414,13 @@ var vm = new Vue({
     created:function () {
         this.getProList();
         this.getMapList();
-        this.getParkId();
+
         // this.getMarksList();
     },
     mounted:function () {
         this.getMarksList();
+    },
+    beforeMount:function () {
+        this.getParkId();
     }
 });
