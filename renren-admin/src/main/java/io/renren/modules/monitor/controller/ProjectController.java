@@ -171,6 +171,7 @@ public class ProjectController extends AbstractController {
                                 }else if("163".equals(deviceEntity.getParentId())){
                                     deviceEntity.setParkId(3L);
                                 }
+                                deviceEntity.setProjectId(project.getProjectId());
                                 deviceService.synchronize(deviceEntity);
                             }
                         }

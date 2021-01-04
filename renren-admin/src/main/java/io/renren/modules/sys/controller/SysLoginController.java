@@ -107,9 +107,9 @@ public class SysLoginController extends AbstractController {
             return R.error("账户验证失败");
         }
         SysUserEntity user = userService.selectOne(new EntityWrapper<SysUserEntity>().eq("username",username));
-        if(user.getIsMain() == 1){
+        /*if(user.getIsMain() == 1){
             return R.ok().put("code",1);
-        }
+        }*/
         return R.ok();
     }
     /**
