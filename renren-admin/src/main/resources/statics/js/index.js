@@ -70,7 +70,8 @@ var vm = new Vue({
         informNum:15,
         erroMsg4:'',
         hightTem:'',
-        lowTem:''
+        lowTem:'',
+        parkId:''
     },
     methods: {
         // 参数设置
@@ -261,6 +262,26 @@ var vm = new Vue({
                 },
                 error:function () {
                     layer.close(index);
+                    layer.msg("网络故障");
+                }
+            });
+        },
+        toFullPage:function () {
+            $.ajax({
+                url: 'sys/syspark/getParkId',
+                type: 'get',
+                data: JSON.stringify(),
+                contentType: "application/json",
+                // dataType: 'json',
+                success: function (r) {
+                    vm.parkId = r;
+                    if(r == 2){
+                        window.open('./modules/fullPage/index2.html')
+                    }else if(r == 3){
+                        window.open('./modules/fullPage/index3.html')
+                    }
+                },
+                error: function () {
                     layer.msg("网络故障");
                 }
             });

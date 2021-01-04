@@ -110,14 +110,10 @@ var vm = new Vue({
                 contentType: "application/json",
                 // dataType: 'json',
                 success: function (r) {
-                    if (r.code === 0) {
-                        window.location.href='./'+name+'.html?return=1';
-                    } else {
-                        layer.alert(r.msg);
-                    }
+                    window.location.href='./'+name+'.html?return=1';
                 },
                 error: function () {
-                    layer.msg("网络故障");
+                    alert("网络故障");
                 }
             });
 
