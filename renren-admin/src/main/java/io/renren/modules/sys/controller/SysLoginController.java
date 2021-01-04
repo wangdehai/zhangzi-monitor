@@ -74,12 +74,12 @@ public class SysLoginController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
-    public R login(String username, String password, String captcha, String parkId) throws InterruptedException {
+    public R login(String username, String password, String captcha) throws InterruptedException {
         /*String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
         if (!captcha.equalsIgnoreCase(kaptcha)) {
             return R.error("验证码不正确");
         }*/
-        if(StringUtils.isEmpty(parkId)){
+        /*if(StringUtils.isEmpty(parkId)){
             parkId = "1";
         }
         if(!"1".equals(parkId)){
@@ -92,7 +92,7 @@ public class SysLoginController extends AbstractController {
             if(user == null){
                 return R.error("请选择正确的园区");
             }
-        }
+        }*/
         try {
             Subject subject = ShiroUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
