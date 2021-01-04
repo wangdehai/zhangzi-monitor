@@ -275,10 +275,12 @@ var vm = new Vue({
                 // dataType: 'json',
                 success: function (r) {
                     vm.parkId = r;
-                    if(r == 2){
-                        window.open('./modules/fullPage/index2.html')
+                    if(r == 1){
+                        window.open('./modules/fullPage/index.html')
+                    }else if(r == 2){
+                        window.open('./modules/fullPage/index2.html?return=0')
                     }else if(r == 3){
-                        window.open('./modules/fullPage/index3.html')
+                        window.open('./modules/fullPage/index3.html?return=0')
                     }
                 },
                 error: function () {

@@ -363,7 +363,7 @@ var vm = new Vue({
 		},900);
         var url = decodeURI(window.location.href);
         var isReturn = url.split("?return=");
-        this.isReturn = isReturn;
+        this.isReturn = isReturn[1];
 		
 	},
 	mounted:function(){
